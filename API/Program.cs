@@ -16,7 +16,35 @@ builder.Services.AddDbContext<DataContext>(opt =>
     .UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+if(builder.Environment.IsDevelopment()) 
+{
+  builder.Services.AddCors(opt => 
+  {
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+      policy
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithOrigins("http://localhost:4200");
+    });
+  });
+}
+
+
 var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+// app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 using var scope = app.Services.CreateScope();
 
@@ -33,19 +61,5 @@ catch (Exception e)
   var logger = services.GetRequiredService<ILogger<Program>>();
   logger.LogError(e, "An error occured during migration!");
 }
-
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-// app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 await app.RunAsync();
