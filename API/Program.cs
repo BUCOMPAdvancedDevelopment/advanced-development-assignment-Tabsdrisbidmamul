@@ -1,3 +1,5 @@
+using Application.Games;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -29,6 +31,8 @@ if(builder.Environment.IsDevelopment())
     });
   });
 }
+
+builder.Services.AddMediatR(typeof(List.Handler).Assembly);
 
 
 var app = builder.Build();
