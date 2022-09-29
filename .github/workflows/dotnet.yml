@@ -1,4 +1,4 @@
-name: .NET
+name: adv-ci
 
 on:
   push:
@@ -22,13 +22,20 @@ jobs:
         run: dotnet build --no-restore
       - name: Test
         run: dotnet test --no-build --verbosity normal
+      - name: upload artefact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dotnetbuild
+          path: ./
 
   angular-build:
     needs: dotnet-build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: dotnetbuild
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
