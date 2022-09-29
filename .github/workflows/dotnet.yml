@@ -7,7 +7,7 @@ on:
     branches: ['main', 'dev']
 
 jobs:
-  dotnet build:
+  dotnet-build:
     runs-on: ubuntu-latest
 
     steps:
