@@ -6,6 +6,7 @@ using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -74,4 +75,16 @@ catch (Exception e)
   logger.LogError(e, "An error occured during migration!");
 }
 
-await app.RunAsync();
+if(app.Environment.IsProduction()) 
+{
+  var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+  var url = $"http://0.0.0.0:{port}";
+  var target = Environment.GetEnvironmentVariable("TARGET") ?? "World";
+
+  await app.RunAsync(url);
+} 
+else
+{
+  await app.RunAsync();
+} 
+
