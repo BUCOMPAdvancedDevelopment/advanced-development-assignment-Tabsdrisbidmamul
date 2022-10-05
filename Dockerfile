@@ -10,7 +10,7 @@ WORKDIR /app/client-app
 
 FROM node:lts
 
-RUN ["npm", "i"]
+RUN ["npm", "install"]
 
 RUN ["npm", "run build"]
 
