@@ -6,6 +6,14 @@ COPY . .
 
 RUN dotnet restore /app/*.sln
 
+WORKDIR /app/client-app
+
+FROM node:lts
+
+RUN npm clean install
+
+RUN npm run build
+
 WORKDIR /app/API
 
 RUN dotnet publish -c Release -o out
