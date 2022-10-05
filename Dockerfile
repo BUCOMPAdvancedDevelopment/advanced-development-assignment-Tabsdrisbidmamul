@@ -10,9 +10,9 @@ WORKDIR /app/client-app
 
 FROM node:lts
 
-RUN ["npm", "install"]
+RUN npm install
 
-RUN ["npm", "run build"]
+RUN npm run build
 
 WORKDIR /app/API
 
@@ -23,5 +23,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 
 COPY --from=build /app/API/out ./
+
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "API.dll"]
