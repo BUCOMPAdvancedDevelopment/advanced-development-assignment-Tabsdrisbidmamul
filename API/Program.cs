@@ -24,12 +24,13 @@ if(builder.Environment.IsDevelopment())
 {
   builder.Services.AddCors(opt => 
   {
-    opt.AddPolicy("CorsPolicy", policy =>
+    opt.AddPolicy("AllowAll", policy =>
     {
       policy
         .AllowAnyMethod()
         .AllowAnyHeader()
-        .AllowAnyOrigin();
+        .AllowAnyOrigin()
+        .AllowCredentials();
     });
   });
 }
@@ -52,7 +53,7 @@ if (app.Environment.IsDevelopment())
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-app.UseCors("CorsPolicy");
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
