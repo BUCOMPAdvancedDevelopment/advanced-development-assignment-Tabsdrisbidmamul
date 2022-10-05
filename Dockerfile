@@ -10,9 +10,9 @@ WORKDIR /app/client-app
 
 FROM node:lts
 
-RUN npm clean install
+RUN ["npm", "ci"]
 
-RUN npm run build
+RUN ["npm", "run build"]
 
 WORKDIR /app/API
 
