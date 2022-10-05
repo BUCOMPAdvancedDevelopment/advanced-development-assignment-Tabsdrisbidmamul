@@ -29,7 +29,7 @@ if(builder.Environment.IsDevelopment())
       policy
         .AllowAnyMethod()
         .AllowAnyHeader()
-        .WithOrigins("http://localhost:4200");
+        .AllowAnyOrigin();
     });
   });
 }
