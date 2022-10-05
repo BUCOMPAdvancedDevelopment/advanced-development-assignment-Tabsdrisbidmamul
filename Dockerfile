@@ -8,6 +8,8 @@ RUN dotnet restore /app/*.sln
 
 WORKDIR /app/client-app
 
+COPY ./client-app .
+
 FROM node:lts
 
 RUN npm install
