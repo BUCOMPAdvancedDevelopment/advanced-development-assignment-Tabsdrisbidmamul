@@ -13,6 +13,8 @@ export class HttpClientService {
   constructor(private _httpClient: HttpClient) {}
 
   getAllGames() {
+    console.log('isDevMode ', isDevMode());
+
     return this._httpClient.get(`${this.domain}/api/games`).pipe(
       catchError((e) => {
         console.log(e);
