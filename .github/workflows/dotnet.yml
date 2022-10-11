@@ -26,29 +26,3 @@ jobs:
         with:
           name: dotnetbuild
           path: ./
-
-  dotnet-build:
-    needs: dotnet-build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: download artefact
-        uses: actions/download-artifact@v3
-        with:
-          name: dotnetbuild
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 6.0.x
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
-      -name: Publish
-        run: dotnet public -C Release -o ../out
-        working-directory: ./API
-
-
-
