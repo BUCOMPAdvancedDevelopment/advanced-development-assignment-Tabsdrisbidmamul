@@ -23,7 +23,8 @@ namespace Persistence
               Description = "lorem ipsum",
               Category = "action",
               Price = 10.00,
-              Stock = 10
+              Stock = 10,
+              CreatedAt = DateTime.Now.AddMonths(-2)
             },
             new Game
             {
@@ -32,7 +33,8 @@ namespace Persistence
               Description = "lorem ipsum",
               Category = "rpg",
               Price = 20.00,
-              Stock = 20
+              Stock = 20,
+              CreatedAt = DateTime.Now.AddMonths(-4)
             },
             new Game
             {
@@ -41,7 +43,8 @@ namespace Persistence
               Description = "lorem ipsum",
               Category = "jrpg",
               Price = 30.00,
-              Stock = 30
+              Stock = 30,
+              CreatedAt = DateTime.Now.AddMonths(-2)
             },
             new Game
             {
@@ -50,7 +53,8 @@ namespace Persistence
               Description = "lorem ipsum",
               Category = "open-world",
               Price = 40.00,
-              Stock = 40
+              Stock = 40,
+              CreatedAt = DateTime.Now.AddMonths(-1)
             },
             new Game
             {
@@ -59,7 +63,8 @@ namespace Persistence
               Description = "lorem ipsum",
               Category = "mmo",
               Price = 5.00,
-              Stock = 100
+              Stock = 100,
+              CreatedAt = DateTime.Now.AddMonths(3)
             }
           };
 

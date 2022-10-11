@@ -19,5 +19,14 @@ namespace API.Controllers
       return await Mediator.Send(new Application.Games.Single.Query { Id = id });
     }
 
+    [HttpPost]
+    public async Task<IActionResult> CreateGame([FromBody]Game game)
+    {
+      return StatusCode(StatusCodes.Status201Created, await Mediator
+        .Send(new Application.Games.Create.Command {Game = game}));
+
+      
+    }
+
   }
 }
