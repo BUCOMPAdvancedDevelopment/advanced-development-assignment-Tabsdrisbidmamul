@@ -10,13 +10,13 @@ namespace API.Controllers
     [HttpGet]
     public async Task<ActionResult<List<Game>>> GetGames()
     {
-      return await Mediator.Send(new List.Query());
+      return await Mediator.Send(new Application.Games.List.Query());
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Game>> GetGame(Guid id)
     {
-      return await Mediator.Send(new Details.Query { Id = id });
+      return await Mediator.Send(new Application.Games.Single.Query { Id = id });
     }
 
   }
