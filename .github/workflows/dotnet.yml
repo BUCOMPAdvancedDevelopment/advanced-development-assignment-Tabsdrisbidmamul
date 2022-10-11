@@ -20,7 +20,9 @@ jobs:
         run: npm ci
         working-directory: ./client-app
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          rm -rf node_modules
         working-directory: ./client-app
       - name: upload artefact
         uses: actions/upload-artifact@v3
