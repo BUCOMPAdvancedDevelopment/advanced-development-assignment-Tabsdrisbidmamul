@@ -7,35 +7,11 @@ on:
     branches: ['main', 'dev']
 
 jobs:
-  dotnet-build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 6.0.x
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
-      - name: upload artefact
-        uses: actions/upload-artifact@v3
-        with:
-          name: dotnetbuild
-          path: ./
-
-  angular-build:
+    angular-build:
     needs: dotnet-build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: dotnetbuild
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -46,3 +22,32 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: ./client-app
+      - name: upload artefact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dotnetbuild
+          path: ./
+
+  dotnet-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: dotnetbuild
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+      -name: Publish
+        run: dotnet public -C Release -o ../out
+        working-directory: ./API
+
+
+
