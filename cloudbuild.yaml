@@ -1,10 +1,10 @@
 steps:
   # Docker build and deploy
-  - name: 'Build and push image'
+  - name: 'gcr.io/cloud-builders/docker'
     args: ['gcloud', 'builds', 'submit', '-t', 'gcr.io/adv-dev-dotnet/dotnet', '.']
 
   # Entrypoint, timeout and environment variables
-  - name: 'Deploy container'
+  - name: google/cloud-sdk
     timeout: 240s
     args:
       [
