@@ -24,11 +24,5 @@ steps:
       ]
 
 # Save logs to GCS
-artifacts:
-  objects:
-    location: gs://dotnet-bucket
-    paths:
-      - ${short_SHA}_test_logs.xml
-
-images:
-  - us-central1-docker.pkg.dev/adv-dev-dotnet/dotnet:${SHORT_SHA}
+options:
+  logging: CLOUD_LOGGING_ONLY
