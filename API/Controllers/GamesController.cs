@@ -24,8 +24,6 @@ namespace API.Controllers
     {
       return StatusCode(StatusCodes.Status201Created, await Mediator
         .Send(new Application.Games.Create.Command {Game = game}));
-
-      
     }
 
   }
