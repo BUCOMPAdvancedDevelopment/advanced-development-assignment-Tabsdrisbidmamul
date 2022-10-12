@@ -15,7 +15,7 @@ steps:
         'gcloud',
         'run',
         'deploy',
-        'my-service',
+        'dotnet',
         '--image=gcr.io/adv-dev-dotnet/dev-dotnet/dotnet',
         '--region',
         'us-central1',
