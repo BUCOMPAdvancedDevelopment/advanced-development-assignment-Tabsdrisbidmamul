@@ -12,8 +12,6 @@ steps:
 
   # Entrypoint, timeout and environment variables
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
-    timeout: 240s
     args: ['gcloud', 'run', 'deploy'
            '--image=us-central1-docker.pkg.dev/adv-dev-dotnet/dotnet:${SHORT_SHA}',
            '--region=us-central1', '--platform=managed', '--allow-unauthenticated']
