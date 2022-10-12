@@ -19,35 +19,35 @@ jobs:
       - name: Restore Node Dependencies
         run: npm ci
         working-directory: ./client-app
-      # - name: Build
-      #   run: |
-      #     npm run build
-      #     rm -rf node_modules
-      #   working-directory: ./client-app
-      # - name: upload artefact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: dotnetbuild
-      #     path: ./
+      - name: Build
+        run: |
+          npm run build
+          rm -rf node_modules
+        working-directory: ./client-app
+      - name: upload artefact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dotnetbuild
+          path: ./
 
-  # dotnet-build:
-  #   needs: angular-build
-  #   runs-on: ubuntu-latest
+  dotnet-build:
+    needs: angular-build
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/download-artifact@v3
-  #       with:
-  #         name: dotnetbuild
-  #     - name: Setup .NET
-  #       uses: actions/setup-dotnet@v2
-  #       with:
-  #         dotnet-version: 6.0.x
-  #     - name: Restore Dependencies
-  #       run: dotnet restore
-  #     - name: Build
-  #       run: dotnet build --no-restore
-  #     - name: Test
-  #       run: dotnet test --no-build --verbosity normal
-  #     - name: Publish
-  #       run: dotnet publish -c Release -o ../out
-  #       working-directory: ./API
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: dotnetbuild
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore Dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+      - name: Publish
+        run: dotnet publish -c Release -o ../out
+        working-directory: ./API
