@@ -17,8 +17,7 @@ steps:
     args: ['gcloud', 'run', 'deploy'
            '--image=us-central1-docker.pkg.dev/adv-dev-dotnet/dotnet:${SHORT_SHA}',
            '--region', 'us-central1', '--platform', 'managed',
-           '--allow-unauthenticated'
-           ]
+           '--allow-unauthenticated']
   
 # Save logs to GCS
 artifacts:
