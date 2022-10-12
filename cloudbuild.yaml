@@ -9,7 +9,7 @@ steps:
 
   # Entrypoint, timeout and environment variables
   - name: google/cloud-sdk
-    timeout: 240
+    timeout: 240s
     args:
       [
         'gcloud',
