@@ -11,7 +11,7 @@ steps:
            'us-central1-docker.pkg.dev/adv-dev-dotnet/dotnet:${SHORT_SHA}']
 
   # Entrypoint, timeout and environment variables
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  - name: google/cloud-sdk
     args: ['gcloud', 'run', 'deploy'
            '--image=us-central1-docker.pkg.dev/adv-dev-dotnet/dotnet:${SHORT_SHA}',
            '--region=us-central1', '--platform=managed', '--allow-unauthenticated']
