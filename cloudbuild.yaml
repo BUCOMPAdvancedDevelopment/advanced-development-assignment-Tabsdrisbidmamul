@@ -1,7 +1,11 @@
 steps:
-  # Docker build and deploy
+  # Docker Build
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['gcloud', 'builds', 'submit', '-t', 'gcr.io/adv-dev-dotnet/dotnet', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/adv-dev-dotnet/dev-dotnet/dotnet', '.']
+
+  # Docker Push
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/adv-dev-dotnet/dev-dotnet/dotnet']
 
   # Entrypoint, timeout and environment variables
   - name: google/cloud-sdk
@@ -11,8 +15,7 @@ steps:
         'gcloud',
         'run',
         'deploy',
-        '--image',
-        'gcr.io/adv-dev-dotnet/dotnet',
+        '--image=us-central1-docker.pkg.dev/adv-dev-dotnet/dev-dotnet/dotnet',
         '--region',
         'us-central1',
         '--platform',
