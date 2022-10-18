@@ -10,6 +10,8 @@ namespace Persistence
     }
 
     public DbSet<Game> Games { get; set; }
+
+    
     
   }
 }
