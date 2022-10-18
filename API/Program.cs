@@ -12,8 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>(opt => 
 {
-  opt
+  if(builder.Environment.IsDevelopment()) {
+      opt
     .UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+  } else {
+    var connectionString = Environment.GetEnvironmentVariable("DATABASE_NAME");
+
+    Console.WriteLine($"connectionString {connectionString}");
+
+    opt
+      .UseSqlite($"Data source={connectionString}");
+  }
 });
 
 
