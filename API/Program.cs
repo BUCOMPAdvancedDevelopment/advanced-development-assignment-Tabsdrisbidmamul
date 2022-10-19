@@ -7,28 +7,8 @@ using Persistence;
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
-
-builder.Services.AddControllers();
-builder.Services.AddPostgress(builder.Configuration);
-
-
-builder.Services.AddCors(opt => 
-{
-  opt.AddPolicy("AllowAll", policy =>
-  {
-    policy
-      .AllowAnyMethod()
-      .AllowAnyHeader()
-      .AllowAnyOrigin();
-  });
-});
-
-
-builder.Services.AddMediatR(typeof(List.Handler).Assembly);
-builder.Services.AddAutoMapper(typeof(Application.Core.MappingProfiles).Assembly);
-
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 
