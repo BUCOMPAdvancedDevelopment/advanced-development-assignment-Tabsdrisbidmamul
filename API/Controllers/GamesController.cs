@@ -26,6 +26,17 @@ namespace API.Controllers
         .Send(new Application.Games.Create.Command {Game = game}));
     }
 
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> EditGame([FromBody]Game game)
+    {
+      return StatusCode(StatusCodes.Status204NoContent, await Mediator.Send(new Application.Games.Edit.Command { Game = game }));
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteGame(Guid id)
+    {
+      return StatusCode(StatusCodes.Status200OK, await Mediator.Send(new Application.Games.Delete.Command { Id = id }));
+    }
     
   }
 }

@@ -27,6 +27,7 @@ builder.Services.AddCors(opt =>
 
 
 builder.Services.AddMediatR(typeof(List.Handler).Assembly);
+builder.Services.AddAutoMapper(typeof(Application.Core.MappingProfiles).Assembly);
 
 
 var app = builder.Build();
