@@ -1,0 +1,29 @@
+steps:
+  # Docker Build
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/adv-dev-dotnet/dev-dotnet/dotnet', '.']
+
+  # Docker Push
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/adv-dev-dotnet/dev-dotnet/dotnet']
+
+  # Entrypoint, timeout and environment variables
+  - name: google/cloud-sdk
+    timeout: 240s
+    args:
+      [
+        'gcloud',
+        'run',
+        'deploy',
+        'dotnet',
+        '--image=gcr.io/adv-dev-dotnet/dev-dotnet/dotnet',
+        '--region',
+        'us-central1',
+        '--platform',
+        'managed',
+        '--allow-unauthenticated',
+      ]
+
+# Save logs to GCS
+options:
+  logging: CLOUD_LOGGING_ONLY

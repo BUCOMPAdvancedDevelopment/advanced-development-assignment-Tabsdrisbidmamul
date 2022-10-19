@@ -1,22 +1,28 @@
+using API.Extensions;
+using Application.Games;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<DataContext>(opt => 
-{
-  opt
-    .UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
+
+// app.UseHttpsRedirection();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.UseCors("AllowAll");
+
+app.UseAuthorization();
+
+app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 
@@ -25,6 +31,7 @@ var services = scope.ServiceProvider;
 try 
 {
   var context = services.GetRequiredService<DataContext>();
+  
   await context.Database.MigrateAsync();
   await Seed.SeedData(context);
 }
@@ -34,18 +41,16 @@ catch (Exception e)
   logger.LogError(e, "An error occured during migration!");
 }
 
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if(app.Environment.IsProduction()) 
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+  var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+  var url = $"http://0.0.0.0:{port}";
+  var target = Environment.GetEnvironmentVariable("TARGET") ?? "World";
 
-// app.UseHttpsRedirection();
+  await app.RunAsync(url);
+} 
+else
+{
+  await app.RunAsync();
+} 
 
-app.UseAuthorization();
-
-app.MapControllers();
-
-await app.RunAsync();

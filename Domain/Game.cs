@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Types;
 
 namespace Domain
 {
@@ -14,6 +15,7 @@ namespace Domain
         public string Category { get; set; }
         public double Price { get; set; }
         public int Stock { get; set; }
+        public DateTime CreatedAt {get;set;}
 
     }
 }

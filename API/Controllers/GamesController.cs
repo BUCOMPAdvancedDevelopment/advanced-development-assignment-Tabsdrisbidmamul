@@ -1,33 +1,42 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Games;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
 
 namespace API.Controllers
 {
-  public class GamesController : BaseApiController
+  public sealed class GamesController : BaseApiController
   {
-    private readonly DataContext _context;
-    public GamesController(DataContext context)
-    {
-      _context = context;
-    }
 
     [HttpGet]
-    public async Task<ActionResult<List<Game>>> GetGames()
+    public async Task<ActionResult<List<Game>>> GetGames(CancellationToken cancellationToken)
     {
-      return await _context.Games.ToListAsync();
+      return await Mediator.Send(new Application.Games.List.Query(), cancellationToken);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Game>> GetGame(Guid id)
+    public async Task<ActionResult<Game>> GetGame(CancellationToken cancellationToken, Guid id)
     {
-      return await _context.Games.FindAsync(id);
+      return await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> CreateGame(CancellationToken cancellationToken, [FromBody]Game game)
+    {
+      return StatusCode(StatusCodes.Status201Created, await Mediator
+        .Send(new Application.Games.Create.Command {Game = game}, cancellationToken));
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> EditGame(CancellationToken cancellationToken, [FromBody]Game game)
+    {
+      return StatusCode(StatusCodes.Status200OK, await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteGame(CancellationToken cancellationToken, Guid id)
+    {
+      return StatusCode(StatusCodes.Status204NoContent, await Mediator.Send(new Application.Games.Delete.Command { Id = id }, cancellationToken));
+    }
+    
   }
 }
