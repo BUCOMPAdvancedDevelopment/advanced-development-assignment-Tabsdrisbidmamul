@@ -189,6 +189,10 @@ namespace Application.Tests
       }
     }
 
+    /// <summary>
+    /// Test Mediator to see if items can be editted via the seeded games in the database
+    /// </summary>
+    /// <param name="seed">Seeded string for repeatbale GUIDS</param>
     [Theory]
     [InlineData("A")]
     [InlineData("B")]
@@ -236,6 +240,9 @@ namespace Application.Tests
       }
     }
 
+    /// <summary>
+    /// Test Mediator to see if items are being deleted
+    /// </summary>
     [Fact]
     public async void DeleteGamesCommand_DeleteAGameFromDatabase()
     {
