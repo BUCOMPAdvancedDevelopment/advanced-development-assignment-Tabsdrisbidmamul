@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain;
+using Domain.Types;
+using Extensions;
 
 namespace Persistence
 {
@@ -21,7 +23,7 @@ namespace Persistence
               Title = "Game 1",
               Image = "default.png",
               Description = "lorem ipsum",
-              Category = "action",
+              Category = CategoryTypes.MMO.GetStringValue(),
               Price = 10.00,
               Stock = 10,
               CreatedAt = DateTime.Now.AddMonths(-2)
@@ -31,7 +33,7 @@ namespace Persistence
               Title = "Game 2",
               Image = "default.png",
               Description = "lorem ipsum",
-              Category = "rpg",
+              Category = CategoryTypes.Rpg.GetStringValue(),
               Price = 20.00,
               Stock = 20,
               CreatedAt = DateTime.Now.AddMonths(-4)
@@ -41,7 +43,7 @@ namespace Persistence
               Title = "Game 3",
               Image = "default.png",
               Description = "lorem ipsum",
-              Category = "jrpg",
+              Category = CategoryTypes.Jrpg.GetStringValue(),
               Price = 30.00,
               Stock = 30,
               CreatedAt = DateTime.Now.AddMonths(-2)
@@ -51,7 +53,7 @@ namespace Persistence
               Title = "Game 4",
               Image = "default.png",
               Description = "lorem ipsum",
-              Category = "open-world",
+              Category = CategoryTypes.OpenWorld.GetStringValue(),
               Price = 40.00,
               Stock = 40,
               CreatedAt = DateTime.Now.AddMonths(-1)
@@ -61,7 +63,7 @@ namespace Persistence
               Title = "Game 5",
               Image = "default.png",
               Description = "lorem ipsum",
-              Category = "mmo",
+              Category = CategoryTypes.MMO.GetStringValue(),
               Price = 5.00,
               Stock = 100,
               CreatedAt = DateTime.Now.AddMonths(3)
