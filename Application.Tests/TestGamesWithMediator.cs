@@ -10,6 +10,7 @@ using Domain;
 using Domain.Types;
 using Microsoft.EntityFrameworkCore;
 using Extensions;
+using AutoMapper;
 
 namespace Application.Tests
 {
@@ -186,6 +187,85 @@ namespace Application.Tests
 
         Assert.Equal(seed.AsGuid(), context.Games.First(x => x.Id == seed.AsGuid()).Id);
       }
+    }
+
+    [Theory]
+    [InlineData("A")]
+    [InlineData("B")]
+    [InlineData("C")]
+    public async void EditGamesCommand_UpdateASingleGameInDatabase(string seed)
+    {
+      using(var context = new DataContext(_options)) {
+        if(_gamesList == null) return;
+
+        context.AddRange(_gamesList);
+        context.SaveChanges();
+      }
+      
+      // create a fresh instance of the Db context
+      using(var context = new DataContext(_options)) 
+      {
+        var mediator = new Mock<IMediator>();
+        var mapper = new Mock<IMapper>();
+
+        Edit.Command command = new Edit.Command
+        {
+          Game = new Game
+          {
+            Id = seed.AsGuid(),
+            Title = "Game 3 Updated",
+            Image = "default.png",
+            Description = "lorem ipsum",
+            Category = CategoryTypes.Jrpg.GetStringValue(),
+            Price = 30.00,
+            Stock = 30,
+            CreatedAt = DateTime.Now.AddMonths(-2)
+          }
+        };
+
+        Edit.Handler handler = new Edit.Handler(context, mapper.Object);
+
+        // Act
+        await handler.Handle(command, new System.Threading.CancellationToken());
+
+        var updatedGame = await context.Games.FindAsync(seed.AsGuid());
+
+        if(updatedGame == null) return;
+
+        Assert.Equal("Game 3 Updated", updatedGame.Title);
+      }
+    }
+
+    [Fact]
+    public async void DeleteGamesCommand_DeleteAGameFromDatabase()
+    {
+      using(var context = new DataContext(_options)) {
+        if(_gamesList == null) return;
+
+        context.AddRange(_gamesList);
+        context.SaveChanges();
+      }
+
+      // create a fresh instance of the Db context
+      using(var context = new DataContext(_options)) 
+      {
+        var mediator = new Mock<IMediator>();
+
+
+        Delete.Command command = new Delete.Command
+        {
+          Id = "A".AsGuid()
+        };
+
+        Delete.Handler handler = new Delete.Handler(context);
+
+        // Act
+        await handler.Handle(command, new System.Threading.CancellationToken());
+
+
+        Assert.Equal(2, context.Games.Count());
+      }
+
     }
   }
 }
