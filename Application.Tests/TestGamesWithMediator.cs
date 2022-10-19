@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using MediatR;
 using Xunit;
 using Moq;
@@ -149,8 +148,15 @@ namespace Application.Tests
 
     }
 
-    [Fact]
-    public async void CreateGamesCommand_AddASingleGameToDatabase()
+    /// <summary>
+    /// Will run multiple times for different seed values adding new games to the db and will check if the added game is the same in the db
+    /// </summary>
+    /// <param name="seed">String value to seed the GUIDs to have testable Ids to compare against on</param>
+    [Theory]
+    [InlineData("A")]
+    [InlineData("B")]
+    [InlineData("C")]
+    public async void CreateGamesCommand_AddASingleGameToDatabase(string seed)
     {
       // create a fresh instance of the Db context
       using(var context = new DataContext(_options)) 
@@ -161,7 +167,7 @@ namespace Application.Tests
         {
           Game = new Game 
           {
-            Id = "A".AsGuid(),
+            Id = seed.AsGuid(),
             Title = "Game 1",
             Image = "default.png",
             Description = "lorem ipsum",
@@ -178,7 +184,7 @@ namespace Application.Tests
         Unit gameWasCreated = 
           await handler.Handle(command, new System.Threading.CancellationToken());
 
-        Assert.Equal("A".AsGuid(), context.Games.First(x => x.Id == "A".AsGuid()).Id);
+        Assert.Equal(seed.AsGuid(), context.Games.First(x => x.Id == seed.AsGuid()).Id);
       }
     }
   }
