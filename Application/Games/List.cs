@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Games
@@ -18,14 +19,24 @@ namespace Application.Games
     public sealed class Handler : IRequestHandler<Query, List<Game>>
     {
       private readonly DataContext _context;
-      public Handler(DataContext context)
+      private readonly ILogger<List> _logger;
+      public Handler(DataContext context, ILogger<List> logger)
       {
+        _logger = logger;
         _context = context;
       }
 
       public async Task<List<Game>> Handle(Query request, CancellationToken cancellationToken)
       {
-        return await _context.Games.ToListAsync();
+        try 
+        {
+          return await _context.Games.ToListAsync();
+        }
+        catch (Exception ex) when (ex is TaskCanceledException)
+        {
+          _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
+          return new List<Game>();
+        }
       }
     }
   }

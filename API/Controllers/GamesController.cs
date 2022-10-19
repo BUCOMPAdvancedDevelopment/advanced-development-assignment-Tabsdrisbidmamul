@@ -8,34 +8,34 @@ namespace API.Controllers
   {
 
     [HttpGet]
-    public async Task<ActionResult<List<Game>>> GetGames()
+    public async Task<ActionResult<List<Game>>> GetGames(CancellationToken cancellationToken)
     {
-      return await Mediator.Send(new Application.Games.List.Query());
+      return await Mediator.Send(new Application.Games.List.Query(), cancellationToken);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Game>> GetGame(Guid id)
+    public async Task<ActionResult<Game>> GetGame(CancellationToken cancellationToken, Guid id)
     {
-      return await Mediator.Send(new Application.Games.Single.Query { Id = id });
+      return await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateGame([FromBody]Game game)
+    public async Task<IActionResult> CreateGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
       return StatusCode(StatusCodes.Status201Created, await Mediator
-        .Send(new Application.Games.Create.Command {Game = game}));
+        .Send(new Application.Games.Create.Command {Game = game}, cancellationToken));
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> EditGame([FromBody]Game game)
+    public async Task<IActionResult> EditGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
-      return StatusCode(StatusCodes.Status204NoContent, await Mediator.Send(new Application.Games.Edit.Command { Game = game }));
+      return StatusCode(StatusCodes.Status200OK, await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteGame(Guid id)
+    public async Task<IActionResult> DeleteGame(CancellationToken cancellationToken, Guid id)
     {
-      return StatusCode(StatusCodes.Status200OK, await Mediator.Send(new Application.Games.Delete.Command { Id = id }));
+      return StatusCode(StatusCodes.Status204NoContent, await Mediator.Send(new Application.Games.Delete.Command { Id = id }, cancellationToken));
     }
     
   }

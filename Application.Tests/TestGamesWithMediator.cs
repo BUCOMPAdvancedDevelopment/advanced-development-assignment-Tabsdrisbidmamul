@@ -11,6 +11,7 @@ using Domain.Types;
 using Microsoft.EntityFrameworkCore;
 using Extensions;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Tests
 {
@@ -101,11 +102,12 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
+        var logger = new Mock<ILogger<Game>>();
 
         Application.Games.Single.Query query = 
           new Application.Games.Single.Query{ Id = "D".AsGuid() };
 
-        Application.Games.Single.Handler handler = new Application.Games.Single.Handler(context);
+        Application.Games.Single.Handler handler = new Application.Games.Single.Handler(context, logger.Object);
 
         // Act
         Game game = await handler.Handle(query, new System.Threading.CancellationToken());
@@ -133,9 +135,10 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
+        var logger = new Mock<ILogger<List>>();
 
         List.Query query = new List.Query();
-        List.Handler handler = new List.Handler(context);
+        List.Handler handler = new List.Handler(context, logger.Object);
 
         // Act
         List<Game> games = await handler.Handle(query, new System.Threading.CancellationToken());
@@ -163,6 +166,7 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
+        var logger = new Mock<ILogger<Unit>>();
 
         Create.Command command = new Create.Command
         {
@@ -179,7 +183,7 @@ namespace Application.Tests
           }
         };
 
-        Create.Handler handler = new Create.Handler(context);
+        Create.Handler handler = new Create.Handler(context, logger.Object);
 
         // Act
         Unit gameWasCreated = 
@@ -211,6 +215,7 @@ namespace Application.Tests
       {
         var mediator = new Mock<IMediator>();
         var mapper = new Mock<IMapper>();
+        var logger = new Mock<ILogger<Unit>>();
 
         Edit.Command command = new Edit.Command
         {
@@ -227,7 +232,7 @@ namespace Application.Tests
           }
         };
 
-        Edit.Handler handler = new Edit.Handler(context, mapper.Object);
+        Edit.Handler handler = new Edit.Handler(context, mapper.Object, logger.Object);
 
         // Act
         await handler.Handle(command, new System.Threading.CancellationToken());
@@ -257,14 +262,14 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
-
+        var logger = new Mock<ILogger<Unit>>();
 
         Delete.Command command = new Delete.Command
         {
           Id = "A".AsGuid()
         };
 
-        Delete.Handler handler = new Delete.Handler(context);
+        Delete.Handler handler = new Delete.Handler(context, logger.Object);
 
         // Act
         await handler.Handle(command, new System.Threading.CancellationToken());
