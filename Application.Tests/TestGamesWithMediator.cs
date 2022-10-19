@@ -10,33 +10,37 @@ using Persistence;
 using Domain;
 using Domain.Types;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
 using Extensions;
 
 namespace Application.Tests
 {
-  public class TestGamesWithMediator
+
+  public class TestGamesWithMediator: IDisposable
   {
-    [Fact]
-    public async void ListGamesQuery_GetAllGamesFromDatabase()
+    DbContextOptions<DataContext>? _options;
+    List<Game>? _gamesList = null;
+    public TestGamesWithMediator()
     {
-      // Arrage
-      var options = new DbContextOptionsBuilder<DataContext>().UseInMemoryDatabase(databaseName: "shogun")
+      _options = new DbContextOptionsBuilder<DataContext>().UseInMemoryDatabase(databaseName: "shogun")
       .Options;
 
-      List<Game> gamesList = new List<Game>
+      List<Game> _gamesList = new List<Game>
       {
         new Game
         {
-          Id = new Guid(),
+          Id = "A".AsGuid(),
           Title = "Game 1",
           Image = "default.png",
-          Description = "Lorem ipsum",
-          Category = CategoryTypes.MMO.GetStringValue()
+          Description = "lorem ipsum",
+          Category = CategoryTypes.MMO.GetStringValue(),
+          Price = 10.00,
+          Stock = 10,
+          CreatedAt = DateTime.Now.AddMonths(-2)
         },
 
         new Game
         {
+          Id = "B".AsGuid(),
           Title = "Game 2",
           Image = "default.png",
           Description = "lorem ipsum",
@@ -48,6 +52,7 @@ namespace Application.Tests
 
         new Game
         {
+          Id = "C".AsGuid(),
           Title = "Game 3",
           Image = "default.png",
           Description = "lorem ipsum",
@@ -57,16 +62,75 @@ namespace Application.Tests
           CreatedAt = DateTime.Now.AddMonths(-2)
         }
       };
+    }
 
-      // insert seed data into db
-      using(var context = new DataContext(options)) {
-        context.AddRange(gamesList);
 
+    public void Dispose()
+    {
+      _options = null;
+      _gamesList = null;
+    }
+
+    /// <summary>
+    /// Test Mediator to see if a single game is being retrievd
+    /// </summary>
+    [Fact]
+    public async void SingleGamesQuery_GetASingleGameFromDatabase()
+    {
+      // Arrage
+      using(var context = new DataContext(_options)) {
+        if(_gamesList == null) return;
+
+        context.AddRange(_gamesList);
+        context.Games.Add(new Game
+        {
+          Id = "D".AsGuid(),
+          Title = "Game 4",
+          Image = "default.png",
+          Description = "lorem ipsum",
+          Category = CategoryTypes.OpenWorld.GetStringValue(),
+          Price = 40.00,
+          Stock = 40,
+          CreatedAt = DateTime.Now.AddMonths(-1)
+
+        });
+        context.SaveChanges();
+      }
+
+      // create a fresh instance of the Db context
+      using(var context = new DataContext(_options)) 
+      {
+        var mediator = new Mock<IMediator>();
+
+        Application.Games.Single.Query query = 
+          new Application.Games.Single.Query{ Id = "D".AsGuid() };
+
+        Application.Games.Single.Handler handler = new Application.Games.Single.Handler(context);
+
+        // Act
+        Game game = await handler.Handle(query, new System.Threading.CancellationToken());
+
+        Assert.Equal(_gamesList.Last().Id, game.Id);
+      }      
+    }
+
+
+    /// <summary>
+    /// Test Mediator to see if all Games are retrieved from an in memory database
+    /// </summary>
+    [Fact]
+    public async void ListGamesQuery_GetAllGamesFromDatabase()
+    {
+      // Arrage
+      using(var context = new DataContext(_options)) {
+        if(_gamesList == null) return;
+
+        context.AddRange(_gamesList);
         context.SaveChanges();
       }
       
-
-      using(var context = new DataContext(options)) 
+      // create a fresh instance of the Db context
+      using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
 
@@ -83,6 +147,39 @@ namespace Application.Tests
         );
       }
 
+    }
+
+    [Fact]
+    public async void CreateGamesCommand_AddASingleGameToDatabase()
+    {
+      // create a fresh instance of the Db context
+      using(var context = new DataContext(_options)) 
+      {
+        var mediator = new Mock<IMediator>();
+
+        Create.Command command = new Create.Command
+        {
+          Game = new Game 
+          {
+            Id = "A".AsGuid(),
+            Title = "Game 1",
+            Image = "default.png",
+            Description = "lorem ipsum",
+            Category = CategoryTypes.MMO.GetStringValue(),
+            Price = 10.00,
+            Stock = 10,
+            CreatedAt = DateTime.Now.AddMonths(-2)
+          }
+        };
+
+        Create.Handler handler = new Create.Handler(context);
+
+        // Act
+        Unit gameWasCreated = 
+          await handler.Handle(command, new System.Threading.CancellationToken());
+
+        Assert.Equal("A".AsGuid(), context.Games.First(x => x.Id == "A".AsGuid()).Id);
+      }
     }
   }
 }
