@@ -32,7 +32,7 @@ namespace Application.Games
         {
         _context.Games.Add(request.Game);
 
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
         }

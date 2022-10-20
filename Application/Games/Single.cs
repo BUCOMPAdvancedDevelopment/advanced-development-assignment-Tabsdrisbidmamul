@@ -30,7 +30,7 @@ namespace Application.Games
       {
         try 
         {
-          return await _context.Games.FindAsync(request.Id);
+          return await _context.Games.FindAsync(new object[]{request.Id},cancellationToken);
         }
         catch(Exception ex) when (ex is TaskCanceledException)
         {

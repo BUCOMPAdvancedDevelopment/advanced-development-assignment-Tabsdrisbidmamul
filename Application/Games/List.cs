@@ -30,7 +30,7 @@ namespace Application.Games
       {
         try 
         {
-          return await _context.Games.ToListAsync();
+          return await _context.Games.ToListAsync(cancellationToken);
         }
         catch (Exception ex) when (ex is TaskCanceledException)
         {

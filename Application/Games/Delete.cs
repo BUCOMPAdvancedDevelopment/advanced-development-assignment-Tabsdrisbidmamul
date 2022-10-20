@@ -32,7 +32,7 @@ namespace Application.Games
             var gameToRemove = await _context.Games.FindAsync(request.Id);
             _context.Remove(gameToRemove);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
           }

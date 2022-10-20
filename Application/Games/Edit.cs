@@ -37,7 +37,7 @@ namespace Application.Games
 
             _mapper.Map(request.Game, game);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
           }
