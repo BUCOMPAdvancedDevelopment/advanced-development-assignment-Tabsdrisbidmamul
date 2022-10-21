@@ -19,7 +19,7 @@
 The backend connects to a postgres db, run this command <br>
 
 ```docker
-docker run --name shogun-postgre -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=sa -e POSTGRES_DB=shogun -p 5432:5432 -d postgres
+docker run --name shogun-postgres -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=sa -e POSTGRES_DB=shogun -p 5432:5432 -d postgres
 ```
 
 This should start up a postgres instance, which your backend can connect to and store data in
