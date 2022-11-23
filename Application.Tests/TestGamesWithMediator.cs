@@ -136,15 +136,15 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
-        var logger = new Mock<ILogger<List>>();
+        var logger = new Mock<ILogger<Result<List<Game>>>>();
 
         List.Query query = new List.Query();
         List.Handler handler = new List.Handler(context, logger.Object);
 
         // Act
-        List<Game> games = await handler.Handle(query, new System.Threading.CancellationToken());
+        var games = await handler.Handle(query, new System.Threading.CancellationToken());
 
-        Assert.Collection(games, 
+        Assert.Collection(games?.Value, 
           item1 => Assert.Equal("Game 1", item1.Title),
           item2 => Assert.Equal("Game 2", item2.Title),
           item3 => Assert.Equal("Game 3", item3.Title)

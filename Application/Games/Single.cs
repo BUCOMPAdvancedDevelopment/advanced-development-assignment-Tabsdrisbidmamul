@@ -37,7 +37,8 @@ namespace Application.Games
         }
         catch(Exception ex) when (ex is TaskCanceledException)
         {
-          _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
+          _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back\nStack Trace {ex.InnerException}");
+
           return Result<Game>.Failure("Something went wrong");
         }
       }

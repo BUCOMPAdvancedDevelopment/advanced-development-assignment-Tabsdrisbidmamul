@@ -8,15 +8,15 @@ namespace API.Controllers
   {
 
     [HttpGet]
-    public async Task<ActionResult<List<Game>>> GetGames(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
     {
-      return await Mediator.Send(new Application.Games.List.Query(), cancellationToken);
+      return HandleResult(await Mediator.Send(new Application.Games.List.Query(), cancellationToken));
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetGame(CancellationToken cancellationToken, Guid id)
     {
-       return HandleResult<Game>(await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken));
+       return HandleResult(await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken));
     }
 
     [HttpPost]
