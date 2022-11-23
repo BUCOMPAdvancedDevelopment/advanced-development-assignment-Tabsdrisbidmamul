@@ -1,3 +1,4 @@
+using Application.Core;
 using Application.Games.Validator;
 using Domain;
 using FluentValidation;
@@ -9,7 +10,7 @@ namespace Application.Games
 {
     public sealed class Create
     {
-      public class Command: IRequest
+      public class Command: IRequest<Result<Unit>>
       {
         public Game Game {get; set;}
       }
@@ -22,32 +23,35 @@ namespace Application.Games
         }
       }
 
-      public sealed class Handler : IRequestHandler<Command>
+      public sealed class Handler : IRequestHandler<Command, Result<Unit>>
       {
-        private readonly ILogger<Unit> _logger;
+        private readonly ILogger<Result<Unit>> _logger;
         private readonly DataContext _context;
-        public Handler(DataContext context, ILogger<Unit> logger)
+        public Handler(DataContext context, ILogger<Result<Unit>> logger)
         {
           _logger = logger;
           _context = context;
         }
 
-        public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
         {
           try
           {
-          _context.Games.Add(request.Game);
+            _context.Games.Add(request.Game);
 
-          await _context.SaveChangesAsync(cancellationToken);
+            var result = await _context.SaveChangesAsync(cancellationToken)  > 0;
 
-          
+            if(!result) return Result<Unit>.Failure("Failed to create game");
+
+            return Result<Unit>.Success(Unit.Value);
+
           }
           catch(Exception ex) when (ex is TaskCanceledException)
           {
-            _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
+            _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back\nStack Trace {ex.InnerException}");
+            return Result<Unit>.Failure("Something went wrong");
           }
-          return Unit.Value;
-
+          
         }
       }
   }

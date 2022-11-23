@@ -22,20 +22,20 @@ namespace API.Controllers
     [HttpPost]
     public async Task<IActionResult> CreateGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
-      return StatusCode(StatusCodes.Status201Created, await Mediator
-        .Send(new Application.Games.Create.Command {Game = game}, cancellationToken));
+      return HandleResult(await Mediator
+        .Send(new Application.Games.Create.Command { Game = game }, cancellationToken));
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> EditGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
-      return StatusCode(StatusCodes.Status200OK, await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));
+      return HandleResult(await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteGame(CancellationToken cancellationToken, Guid id)
     {
-      return StatusCode(StatusCodes.Status204NoContent, await Mediator.Send(new Application.Games.Delete.Command { Id = id }, cancellationToken));
+      return HandleResult(await Mediator.Send(new Application.Games.Delete.Command { Id = id }, cancellationToken));
     }
     
   }

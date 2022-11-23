@@ -167,7 +167,7 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
-        var logger = new Mock<ILogger<Unit>>();
+        var logger = new Mock<ILogger<Result<Unit>>>();
 
         Create.Command command = new Create.Command
         {
@@ -187,8 +187,7 @@ namespace Application.Tests
         Create.Handler handler = new Create.Handler(context, logger.Object);
 
         // Act
-        Unit gameWasCreated = 
-          await handler.Handle(command, new System.Threading.CancellationToken());
+        await handler.Handle(command, new System.Threading.CancellationToken());
 
         Assert.Equal(seed.AsGuid(), context.Games.First(x => x.Id == seed.AsGuid()).Id);
       }
@@ -216,7 +215,7 @@ namespace Application.Tests
       {
         var mediator = new Mock<IMediator>();
         var mapper = new Mock<IMapper>();
-        var logger = new Mock<ILogger<Unit>>();
+        var logger = new Mock<ILogger<Result<Unit>>>();
 
         Edit.Command command = new Edit.Command
         {
@@ -263,7 +262,7 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
-        var logger = new Mock<ILogger<Unit>>();
+        var logger = new Mock<ILogger<Result<Unit>>>();
 
         Delete.Command command = new Delete.Command
         {
@@ -274,7 +273,6 @@ namespace Application.Tests
 
         // Act
         await handler.Handle(command, new System.Threading.CancellationToken());
-
 
         Assert.Equal(2, context.Games.Count());
       }
