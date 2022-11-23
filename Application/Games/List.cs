@@ -10,11 +10,11 @@ using Persistence;
 
 namespace Application.Games
 {
-    public sealed class List
+  public sealed class List
+  {
+    public sealed class Query: IRequest<List<Game>>
     {
-        public sealed class Query: IRequest<List<Game>>
-        {
-        }
+    }
 
     public sealed class Handler : IRequestHandler<Query, List<Game>>
     {
@@ -35,7 +35,7 @@ namespace Application.Games
         catch (Exception ex) when (ex is TaskCanceledException)
         {
           _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
-          return new List<Game>();
+          return null;
         }
       }
     }

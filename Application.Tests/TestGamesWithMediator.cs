@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Extensions;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Application.Core;
 
 namespace Application.Tests
 {
@@ -102,7 +103,7 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
-        var logger = new Mock<ILogger<Game>>();
+        var logger = new Mock<ILogger<Result<Game>>>();
 
         Application.Games.Single.Query query = 
           new Application.Games.Single.Query{ Id = "D".AsGuid() };
@@ -110,9 +111,9 @@ namespace Application.Tests
         Application.Games.Single.Handler handler = new Application.Games.Single.Handler(context, logger.Object);
 
         // Act
-        Game game = await handler.Handle(query, new System.Threading.CancellationToken());
+        var game = await handler.Handle(query, new System.Threading.CancellationToken());
 
-        Assert.Equal(_gamesList.Last().Id, game.Id);
+        Assert.Equal(_gamesList.Last().Id, game?.Value.Id);
       }      
     }
 

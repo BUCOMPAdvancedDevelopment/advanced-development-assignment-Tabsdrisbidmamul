@@ -14,9 +14,9 @@ namespace API.Controllers
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Game>> GetGame(CancellationToken cancellationToken, Guid id)
+    public async Task<IActionResult> GetGame(CancellationToken cancellationToken, Guid id)
     {
-      return await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken);
+       return HandleResult<Game>(await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken));
     }
 
     [HttpPost]
@@ -26,7 +26,7 @@ namespace API.Controllers
         .Send(new Application.Games.Create.Command {Game = game}, cancellationToken));
     }
 
-    [HttpPatch("{id}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> EditGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
       return StatusCode(StatusCodes.Status200OK, await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));

@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Games.Validator;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Persistence;
@@ -11,38 +9,46 @@ namespace Application.Games
 {
     public sealed class Create
     {
-        public class Command: IRequest
-        {
-          public Game Game {get; set;}
-        }
-
-    public sealed class Handler : IRequestHandler<Command>
-    {
-      private readonly ILogger<Unit> _logger;
-      private readonly DataContext _context;
-      public Handler(DataContext context, ILogger<Unit> logger)
+      public class Command: IRequest
       {
-        _logger = logger;
-        _context = context;
+        public Game Game {get; set;}
       }
 
-      public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+      public class CommandValidator : AbstractValidator<Command>
       {
-        try
+        public CommandValidator()
         {
-        _context.Games.Add(request.Game);
-
-        await _context.SaveChangesAsync(cancellationToken);
-
-        return Unit.Value;
+          RuleFor(x => x.Game).SetValidator(new GameValidator());
         }
-        catch(Exception ex) when (ex is TaskCanceledException)
+      }
+
+      public sealed class Handler : IRequestHandler<Command>
+      {
+        private readonly ILogger<Unit> _logger;
+        private readonly DataContext _context;
+        public Handler(DataContext context, ILogger<Unit> logger)
         {
-          _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
+          _logger = logger;
+          _context = context;
+        }
+
+        public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+        {
+          try
+          {
+          _context.Games.Add(request.Game);
+
+          await _context.SaveChangesAsync(cancellationToken);
+
+          
+          }
+          catch(Exception ex) when (ex is TaskCanceledException)
+          {
+            _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
+          }
           return Unit.Value;
-        }
 
+        }
       }
-    }
   }
 }

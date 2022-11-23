@@ -1,4 +1,6 @@
 using Application.Games;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 
 namespace API.Extensions
@@ -7,7 +9,11 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-          services.AddControllers();
+          services.AddControllers().AddFluentValidation(config => 
+          {
+            config.RegisterValidatorsFromAssemblyContaining<Create>();
+          });
+
           services.AddPostgress(config);
 
 

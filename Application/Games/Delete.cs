@@ -34,13 +34,13 @@ namespace Application.Games
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            return Unit.Value;
+            
           }
           catch (Exception ex) when (ex is TaskCanceledException)
           {
             _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
-            return Unit.Value;
           }
+          return Unit.Value;
 
         }
       }
