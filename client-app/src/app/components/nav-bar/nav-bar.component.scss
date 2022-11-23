@@ -1,0 +1,85 @@
+@import "../../../styles/variables.scss";
+
+.nav {
+  &-outer-container {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.5px;
+      background-color: $secondary-color;
+    }
+  }
+
+  &__container {
+    display: flex;
+    padding: 2rem 0;
+  }
+
+  &__logo-container {
+  }
+
+  &__logo {
+  }
+
+  &__main-links {
+    &-left {
+      margin-right: auto;
+    }
+
+    &-right {
+      margin-left: auto;
+
+      ul {
+        gap: 2rem;
+      }
+    }
+  }
+
+  &__links {
+    height: 100%;
+  }
+
+  &__li {
+    &:not(:last-child) {
+      margin-right: 4rem;
+    }
+  }
+
+  &__a {
+    font-family: $main-font-family;
+    font-size: 2rem;
+    color: $secondary-color;
+    text-decoration: none;
+    cursor: pointer;
+    transform: scale(1);
+
+    transition: all 250ms ease-in;
+
+    &:link,
+    &:visited {
+      color: $secondary-color;
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:active {
+      color: $accent-color;
+      transform: scale(1.1);
+    }
+  }
+  &__icon {
+    font-size: 2.5rem;
+    transform: scale(1);
+
+    transition: transform 250ms ease-out;
+
+    &:hover,
+    &:active {
+      transform: scale(1.1);
+    }
+  }
+}

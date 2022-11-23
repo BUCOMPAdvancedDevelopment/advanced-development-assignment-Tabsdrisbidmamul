@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap");
+@import "./styles/variables.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: $primary-color;
+}
+
+.logo {
+  &-container {
+    border: 2px solid $secondary-color;
+    padding: 1rem 2rem;
+  }
+
+  color: $secondary-color;
+  font-size: 5rem;
+  font-family: $logo-font-family;
+  font-style: italic;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.75rem;
+  margin-bottom: 0 !important;
+  margin-top: 0.5rem;
+}

@@ -1,21 +1,39 @@
-<nav class="container-fluid d-flex justify-content-around">
-  <div class="nav__logo-container">
-    <picture>
-      <img class="nav__logo" alt="logo" />
-    </picture>
-  </div>
+<nav class="container-fluid nav-outer-container">
+  <div class="container nav__container">
+    <div class="nav__main-links nav__main-links-left">
+      <ul class="nav__links d-flex align-items-center">
+        <li class="nav__li">
+          <a routerLink="/catalogue" class="nav__a">Catalogue</a>
+        </li>
 
-  <div class="nav__main-links">
-    <ul class="nav__links d-flex">
-      <li class="nav__li">
-        <a routerLink="/catalogue" class="nav__a">Catalogue</a>
-      </li>
+        <li class="nav__li">
+          <a routerLink="/about" class="nav__a">About us</a>
+        </li>
+        <li class="nav__li"><a routerLink="" class="nav__a"></a></li>
+        <li class="nav__li"><a routerLink="" class="nav__a"></a></li>
+      </ul>
+    </div>
 
-      <li class="nav__li">
-        <a routerLink="/about" class="nav__a">About us</a>
-      </li>
-      <li class="nav__li"><a routerLink="" class="nav__a"></a></li>
-      <li class="nav__li"><a routerLink="" class="nav__a"></a></li>
-    </ul>
+    <div class="nav__logo-container d-flex align-items-center">
+      <div class="logo-container">
+        <h1 class="logo">Shogun</h1>
+      </div>
+    </div>
+
+    <div class="nav__main-links nav__main-links-right">
+      <ul class="nav__links d-flex align-items-center">
+        <li class="nav__li">
+          <a routerLink="/account" class="nav__a"
+            ><i class="fa-solid fa-user nav__icon"></i
+          ></a>
+        </li>
+
+        <li class="nav__li">
+          <a routerLink="/about" class="nav__a"
+            ><i class="fa-solid fa-cart-shopping nav__icon"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
