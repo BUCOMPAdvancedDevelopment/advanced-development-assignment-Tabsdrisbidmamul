@@ -23,6 +23,7 @@ body {
   &-container {
     border: 2px solid $secondary-color;
     padding: 1rem 2rem;
+    cursor: pointer;
   }
 
   color: $secondary-color;
