@@ -1,6 +1,7 @@
 @import "../../../styles/themes.scss";
+@import "../../../styles/variables.scss";
 
-$border-radius: 1rem;
+$border-radius: $content-borer-radius;
 
 .glide__slide {
   border-radius: $border-radius;
