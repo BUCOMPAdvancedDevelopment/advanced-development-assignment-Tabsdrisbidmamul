@@ -4,6 +4,10 @@
       <li class="glide__slide" *ngFor="let slide of images">
         <div class="slide-img-container">
           <img class="slide-img" src="{{ slide }}" (load)="initGlide()" />
+
+          <div class="slide-img-content">
+            <p class="slide-img-content__desc">Some Text</p>
+          </div>
         </div>
       </li>
     </ul>
@@ -17,10 +21,10 @@
 
   <div class="glide__arrows" data-glide-el="controls">
     <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-      &lt;
+      <i class="fa-solid fa-arrow-left"></i>
     </button>
     <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-      &gt;
+      <i class="fa-solid fa-arrow-right"></i>
     </button>
   </div>
 </div>

@@ -31,9 +31,11 @@ export class HeroCarouselComponent implements OnInit {
       new Glide('.glide', {
         type: 'slider',
         perView: 3,
+        // focusAt: 'center',
         bound: true,
         autoplay: 8000,
         hoverpause: true,
+        gap: 30,
         peek: {
           before: 50,
           after: 50,
@@ -41,9 +43,12 @@ export class HeroCarouselComponent implements OnInit {
         breakpoints: {
           768: {
             perView: 2,
+            gap: 20,
           },
           576: {
             perView: 1,
+            gap: 10,
+            peek: 0,
           },
         },
       }).mount();
