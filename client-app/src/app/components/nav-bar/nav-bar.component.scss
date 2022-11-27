@@ -31,6 +31,10 @@ $navbar-padding: 1.5rem 0;
     margin-right: auto;
     display: flex;
     align-items: center;
+
+    @media (max-width: 36em) {
+      padding-left: 2rem;
+    }
   }
 
   &__main-links {
@@ -123,11 +127,16 @@ $navbar-padding: 1.5rem 0;
   }
 
   &__mobile-icon {
+    @media (max-width: 36em) {
+      padding-right: 2rem;
+    }
+
     @media (max-width: 48em) {
       position: relative;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      width: 5rem;
 
       margin-top: auto;
       margin-bottom: auto;
