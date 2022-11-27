@@ -1,11 +1,26 @@
-<ngb-carousel *ngIf="images">
-  <ng-template *ngFor="let image of images; index as i" ngbSlide>
-    <div class="picsum-img-wrapper">
-      <img class="image-slide" [src]="image" alt="Random {{ i }} Slide" />
-    </div>
-    <div class="carousel-caption">
-      <h3>{{ i }} slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </div>
-  </ng-template>
-</ngb-carousel>
+<div *ngIf="images" class="glide">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      <li class="glide__slide" *ngFor="let slide of images">
+        <div class="slide-img-container">
+          <img class="slide-img" src="{{ slide }}" (load)="initGlide()" />
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="glide__bullets" data-glide-el="controls[nav]">
+    <button class="glide__bullet" data-glide-dir="=0"></button>
+    <button class="glide__bullet" data-glide-dir="=1"></button>
+    <button class="glide__bullet" data-glide-dir="=2"></button>
+  </div>
+
+  <div class="glide__arrows" data-glide-el="controls">
+    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+      &lt;
+    </button>
+    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+      &gt;
+    </button>
+  </div>
+</div>
