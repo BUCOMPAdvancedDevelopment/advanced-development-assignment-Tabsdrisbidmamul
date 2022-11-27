@@ -69,12 +69,47 @@ $navbar-padding: 1.5rem 0;
   }
 
   &__li {
+    a .mobile-text {
+      color: $inactive;
+    }
+
+    a i {
+      display: none;
+    }
+
+    &-cart {
+      a .mobile-text {
+        display: none;
+      }
+
+      a i {
+        display: inline-block;
+      }
+    }
+
     @media (max-width: 48em) {
       height: unset;
-      margin-bottom: 2rem;
+      // margin-bottom: 2rem;
 
       &-cart {
         margin-bottom: auto;
+      }
+
+      a .mobile-text {
+        display: inline-block;
+        font-size: 2rem;
+        margin-right: 2rem;
+        font-weight: 300;
+      }
+
+      a i {
+        display: inline-block;
+        font-size: 2rem;
+      }
+
+      .button {
+        font-size: 2rem !important;
+        font-weight: 300;
       }
     }
 
@@ -89,8 +124,15 @@ $navbar-padding: 1.5rem 0;
       cursor: pointer;
       background-color: $primary-contrast;
 
-      & a {
+      & a,
+      & a .mobile-text {
         color: $secondary-color;
+      }
+    }
+
+    &-no-hover {
+      &:hover {
+        background-color: transparent;
       }
     }
   }
