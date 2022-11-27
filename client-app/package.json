@@ -19,9 +19,11 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/platform-server": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@cloudinary/url-gen": "^1.8.6",
     "@ng-bootstrap/ng-bootstrap": "^13.1.1",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.1",
+    "cloudinary-core": "^2.13.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

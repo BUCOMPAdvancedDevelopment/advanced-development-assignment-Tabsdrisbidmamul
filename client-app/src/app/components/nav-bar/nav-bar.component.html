@@ -1,39 +1,43 @@
 <nav class="container-fluid nav-outer-container">
   <div class="container nav__container">
-    <div class="nav__main-links nav__main-links-left">
-      <ul class="nav__links d-flex align-items-center">
-        <li class="nav__li">
-          <a routerLink="/catalogue" class="nav__a">Catalogue</a>
-        </li>
-
-        <li class="nav__li">
-          <a routerLink="/about" class="nav__a">About us</a>
-        </li>
-        <li class="nav__li"><a routerLink="" class="nav__a"></a></li>
-        <li class="nav__li"><a routerLink="" class="nav__a"></a></li>
-      </ul>
-    </div>
-
-    <div class="nav__logo-container d-flex align-items-center">
+    <div class="nav__logo-container">
       <div class="logo-container">
-        <h1 class="logo">Shogun</h1>
+        <div class="logo">Logo</div>
       </div>
     </div>
 
-    <div class="nav__main-links nav__main-links-right">
-      <ul class="nav__links d-flex align-items-center">
-        <li class="nav__li">
-          <a routerLink="/account" class="nav__a"
-            ><i class="fa-solid fa-user nav__icon"></i
-          ></a>
+    <div class="nav__main-links" [class.nav__menu-icon-toggle]="menuToggle">
+      <ul class="nav__links">
+        <li class="nav__li w-md-100">
+          <a routerLink="/catalogue" class="nav__a w-md-100">Catalogue</a>
         </li>
 
-        <li class="nav__li">
-          <a routerLink="/about" class="nav__a"
+        <li class="nav__li nav__li-cart w-md-100">
+          <a routerLink="/about" class="nav__a w-md-100"
             ><i class="fa-solid fa-cart-shopping nav__icon"></i
           ></a>
         </li>
+
+        <li class="nav__li w-md-100">
+          <a routerLink="/about" class="button button-primary w-md-100"
+            >sign up</a
+          >
+        </li>
+
+        <li class="nav__li w-md-100">
+          <a routerLink="/about" class="button button-ghost w-md-100">login</a>
+        </li>
       </ul>
+    </div>
+
+    <div
+      class="nav__mobile-icon"
+      [ngClass]="menuToggle ? 'nav__mobile-icon-active' : null"
+      (click)="toggleDrawer()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </div>
 </nav>
