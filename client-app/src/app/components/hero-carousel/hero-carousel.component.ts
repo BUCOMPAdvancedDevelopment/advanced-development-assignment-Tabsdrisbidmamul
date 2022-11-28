@@ -1,10 +1,21 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 
 import Glide from '@glidejs/glide';
 import { IGame } from 'src/app/interfaces/games.interface';
 import { GameService } from 'src/app/services/http/games/game.service';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { Subject, takeUntil } from 'rxjs';
+import { DeviceType } from 'src/app/types/deviceType';
+import { debounce } from 'src/app/helpers/extensions';
 
 @Component({
   selector: 'app-hero-carousel',
@@ -12,20 +23,55 @@ import { GameService } from 'src/app/services/http/games/game.service';
   styleUrls: ['./hero-carousel.component.scss'],
 })
 export class HeroCarouselComponent implements OnInit {
+  private destory$ = new Subject<void>();
+  games: IGame[] = [];
   images: string[] = [];
   glide!: Glide.Properties;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private _cloudinary: CloudinaryService,
-    private _gameService: GameService
-  ) {}
+    private _gameService: GameService,
+    private _breakpointObserver: BreakpointObserver
+  ) {
+    // this.onResize = debounce(this.onResize, 150, false);
+  }
 
   ngOnInit(): void {
     this._gameService.gamesList$.subscribe((games) => {
-      this.images = this._cloudinary.transformIdsToUrls(games);
+      let deviceType: DeviceType = 'desktop';
+
+      if (window.innerWidth < 768) deviceType = 'mobile';
+
+      this.games = games;
+
+      this.images = this._cloudinary.transformIdsToUrls(games, deviceType);
     });
   }
+
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event: Event) {
+  //   this._breakpointObserver
+  //     .observe(['(max-width: 768px)'])
+  //     .pipe(takeUntil(this.destory$))
+  //     .subscribe((result: BreakpointState) => {
+  //       console.log('result ', result);
+  //       if (result.matches) {
+  //         this.glide.destroy();
+  //         this.images = this._cloudinary.transformIdsToUrls(
+  //           this.games,
+  //           'mobile'
+  //         );
+  //       } else {
+  //         this.images = this._cloudinary.transformIdsToUrls(
+  //           this.games,
+  //           'desktop'
+  //         );
+  //       }
+
+  //       this.initGlide();
+  //     });
+  // }
 
   initGlide() {
     if (this.images) {
