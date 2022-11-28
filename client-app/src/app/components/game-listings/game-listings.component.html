@@ -3,7 +3,11 @@
 
   <div class="row d-flex">
     <div *ngFor="let card of games" class="col-12 col-md-6 col-lg-4 col-xxl-3">
-      <div class="card">Game</div>
+      <div class="card">
+        <div class="card__container-img">
+          <img class="card__img" [src]="card.url" />
+        </div>
+      </div>
     </div>
   </div>
 </section>

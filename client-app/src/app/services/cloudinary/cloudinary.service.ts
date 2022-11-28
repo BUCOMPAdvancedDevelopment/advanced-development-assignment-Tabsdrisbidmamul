@@ -36,8 +36,8 @@ export class CloudinaryService {
     return image
       .resize(
         device === 'desktop'
-          ? fill().width(1500)
-          : fill().width(992).height(500)
+          ? fill().width(1500).gravity(autoGravity())
+          : fill().width(750).height(500).gravity(autoGravity())
       )
       .quality(70)
       .format('webp')
