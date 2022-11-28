@@ -9,6 +9,22 @@
 
 .comp-mb {
   margin-bottom: $comp-mb;
+
+  @media (max-width: 87.5em) {
+    margin-bottom: $comp-xxl-mb;
+  }
+
+  @media (max-width: 75em) {
+    margin-bottom: $comp-xl-mb;
+  }
+
+  @media (max-width: 62em) {
+    margin-bottom: $comp-lg-mb;
+  }
+
+  @media (max-width: 48em) {
+    margin-bottom: $comp-md-mb;
+  }
 }
 
 .separator {

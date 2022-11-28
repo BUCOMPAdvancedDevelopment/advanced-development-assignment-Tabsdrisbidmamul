@@ -26,14 +26,18 @@ export class HeroCarouselComponent implements OnInit {
     );
   }
 
+  haveImagesBeenInitialised() {
+    return this.images.length === 6;
+  }
+
   initGlide() {
     if (this.images.length === 6) {
       new Glide('.glide', {
-        type: 'slider',
+        type: 'carousel',
         perView: 3,
-        // focusAt: 'center',
-        bound: true,
-        autoplay: 8000,
+        focusAt: 'center',
+        // bound: true,
+        // autoplay: 8000,
         hoverpause: true,
         gap: 30,
         peek: {
@@ -42,8 +46,9 @@ export class HeroCarouselComponent implements OnInit {
         },
         breakpoints: {
           768: {
-            perView: 2,
+            perView: 1,
             gap: 20,
+            peek: 0,
           },
           576: {
             perView: 1,

@@ -9,13 +9,13 @@ $border-radius: $content-borer-radius;
 }
 
 .glide__bullets {
-  @media (min-width: 36em) and (max-width: 48em) {
-    bottom: -3em;
+  @media (min-width: 36em) and (max-width: 62em) {
+    bottom: 2em;
   }
 }
 
 .glide__arrow {
-  @media (max-width: 36em) {
+  @media (max-width: 48em) {
     display: none;
   }
 
@@ -87,10 +87,6 @@ $border-radius: $content-borer-radius;
   }
 
   @media (max-width: 48em) {
-    height: 20rem;
-  }
-
-  @media (max-width: 36em) {
     height: 100%;
   }
 }
