@@ -1,8 +1,10 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 
 import Glide from '@glidejs/glide';
+import { IGame } from 'src/app/interfaces/games.interface';
+import { GameService } from 'src/app/services/http/games/game.service';
 
 @Component({
   selector: 'app-hero-carousel',
@@ -11,28 +13,23 @@ import Glide from '@glidejs/glide';
 })
 export class HeroCarouselComponent implements OnInit {
   images: string[] = [];
+  glide!: Glide.Properties;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private _cloudinary: CloudinaryService
+    private _cloudinary: CloudinaryService,
+    private _gameService: GameService
   ) {}
 
   ngOnInit(): void {
-    const url = this._cloudinary.getImageUrl();
-    console.log('url ', url);
-
-    this.images = [944, 1011, 984, 230, 767, 80].map(
-      (n) => `https://picsum.photos/id/${n}/900/500`
-    );
-  }
-
-  haveImagesBeenInitialised() {
-    return this.images.length === 6;
+    this._gameService.gamesList$.subscribe((games) => {
+      this.images = this._cloudinary.transformIdsToUrls(games);
+    });
   }
 
   initGlide() {
-    if (this.images.length === 6) {
-      new Glide('.glide', {
+    if (this.images) {
+      this.glide = new Glide('.glide', {
         type: 'carousel',
         perView: 3,
         focusAt: 'center',
@@ -45,7 +42,7 @@ export class HeroCarouselComponent implements OnInit {
           after: 50,
         },
         breakpoints: {
-          768: {
+          992: {
             perView: 1,
             gap: 20,
             peek: 0,

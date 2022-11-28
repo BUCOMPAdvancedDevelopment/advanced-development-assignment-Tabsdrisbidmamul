@@ -22,7 +22,7 @@ $navbar-padding: 1.5rem 0;
   &__container {
     display: flex;
 
-    @media (max-width: 48em) {
+    @media (max-width: 62em) {
       position: relative;
       padding: $navbar-padding;
     }
@@ -41,7 +41,7 @@ $navbar-padding: 1.5rem 0;
   &__main-links {
     margin-left: auto;
 
-    @media (max-width: 48em) {
+    @media (max-width: 62em) {
       position: fixed;
       height: 100%;
       width: 100%;
@@ -61,11 +61,11 @@ $navbar-padding: 1.5rem 0;
     display: flex;
     align-items: center;
 
-    @media (max-width: 48em) {
+    @media (max-width: 62em) {
       // display: block;
       flex-direction: column;
       justify-content: center;
-      padding-top: 5rem;
+      padding-top: 8rem;
     }
   }
 
@@ -88,7 +88,7 @@ $navbar-padding: 1.5rem 0;
       }
     }
 
-    @media (max-width: 48em) {
+    @media (max-width: 62em) {
       height: unset;
       // margin-bottom: 2rem;
 
@@ -170,16 +170,18 @@ $navbar-padding: 1.5rem 0;
   }
 
   &__mobile-icon {
+    width: 5rem;
+    height: 5rem;
     @media (max-width: 36em) {
       padding-right: 2rem;
     }
 
-    @media (max-width: 48em) {
+    @media (max-width: 62em) {
       position: relative;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      width: 5rem;
+      // width: 5rem;
 
       margin-top: auto;
       margin-bottom: auto;
@@ -197,7 +199,7 @@ $navbar-padding: 1.5rem 0;
         transition: all 250ms ease-out;
 
         &:nth-child(1) {
-          top: -1rem;
+          top: 30%;
           left: 0;
         }
 
@@ -205,12 +207,12 @@ $navbar-padding: 1.5rem 0;
           transition: width 100ms ease-out;
 
           width: 2rem;
-          top: 0.05rem;
+          top: 50%;
           left: 0;
         }
 
         &:nth-child(3) {
-          top: 1rem;
+          top: 70%;
           left: 0;
         }
       }
@@ -221,7 +223,7 @@ $navbar-padding: 1.5rem 0;
           transition: all 250ms ease-out;
 
           &:nth-child(1) {
-            top: 0;
+            top: 50%;
             left: 0;
             transform: rotate(45deg);
           }
@@ -231,7 +233,7 @@ $navbar-padding: 1.5rem 0;
           }
 
           &:nth-child(3) {
-            top: 0;
+            top: 50%;
             right: 0;
             transform: rotate(-45deg);
           }

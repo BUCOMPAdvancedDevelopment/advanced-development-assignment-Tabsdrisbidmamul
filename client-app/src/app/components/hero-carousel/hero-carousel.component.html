@@ -15,7 +15,6 @@
 
   <div class="glide__bullets" data-glide-el="controls[nav]">
     <button
-      (load)="haveImagesBeenInitialised()"
       *ngFor="let slide of images; index as i"
       class="glide__bullet"
       attr.data-glide-dir="={{ i }}"

@@ -7,6 +7,12 @@
   }
 }
 
+.w-lg-100 {
+  @media (max-width: 62em) {
+    width: 100% !important;
+  }
+}
+
 .comp-mb {
   margin-bottom: $comp-mb;
 
@@ -22,7 +28,7 @@
     margin-bottom: $comp-lg-mb;
   }
 
-  @media (max-width: 48em) {
+  @media (max-width: 36em) {
     margin-bottom: $comp-md-mb;
   }
 }

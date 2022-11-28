@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Cloudinary } from '@cloudinary/url-gen';
+import { fill } from '@cloudinary/transformation-builder-sdk/actions/resize';
+import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { IGame } from 'src/app/interfaces/games.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,19 +16,28 @@ export class CloudinaryService {
 
   constructor() {}
 
-  getImageUrl() {
-    const image = this.cld.image('zuk2vod0pylx9u3helyz');
-    return image.toURL();
-  }
+  transformIdsToUrls(publicIds: IGame[]) {
+    return publicIds.map<string>((game) => {
+      const split = game.url.split('/');
 
-  getImageUrls(baseName: string) {
-    const imageArray: string[] = [];
+      let startIndex = 0;
+      let endIndex = 1;
 
-    for (let i = 0; i < 2; i++) {
-      const image = this.cld.image(`${baseName}${i + 2}`);
-      imageArray.push(image.toURL());
-    }
+      const regex = new RegExp(/v\d+/);
 
-    return imageArray;
+      split.find((el, i) => {
+        const match = regex.test(el);
+
+        if (match) {
+          startIndex = i + 1;
+          endIndex = i + 2;
+        }
+      });
+
+      return this.cld
+        .image(`${split[startIndex]}/${split[endIndex]}/${game.publicId}`)
+        .resize(fill().width('775').height(500).gravity(autoGravity()))
+        .toURL();
+    });
   }
 }

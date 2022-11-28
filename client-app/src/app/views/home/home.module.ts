@@ -4,9 +4,10 @@ import { HeroCarouselComponent } from '../../components/hero-carousel/hero-carou
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { CardListingsComponent } from '../../components/card-listings/card-listings.component';
+import { SharedModule } from 'src/app/common/shared-module/shared.module';
 
 @NgModule({
   declarations: [HomeComponent, HeroCarouselComponent, CardListingsComponent],
-  imports: [CommonModule, HomeRoutingModule],
+  imports: [CommonModule, HomeRoutingModule, SharedModule],
 })
 export class HomeModule {}
