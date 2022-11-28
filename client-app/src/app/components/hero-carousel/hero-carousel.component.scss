@@ -15,7 +15,7 @@ $border-radius: $content-borer-radius;
 }
 
 .glide__arrow {
-  @media (max-width: 48em) {
+  @media (max-width: 62em) {
     display: none;
   }
 
@@ -60,14 +60,28 @@ $border-radius: $content-borer-radius;
     transparent 0%,
     rgba(0, 0, 0, 0.6) 100%
   );
+  // background-size: cover;
 
   border-radius: $border-radius;
+
+  transition: all 250ms ease;
+  overflow: hidden;
+  // transform: scale(0.99);
+  backface-visibility: hidden;
+
+  &:hover {
+    .slide-img {
+      transform: scale(1.02);
+    }
+  }
 }
 
 .slide-img {
   width: 100%;
   height: 50rem;
   object-fit: cover;
+  background-position: center;
+  background-size: cover;
 
   position: relative;
   display: block;
@@ -89,6 +103,10 @@ $border-radius: $content-borer-radius;
   @media (max-width: 48em) {
     height: 100%;
   }
+  overflow: hidden;
+  transform: scale(0.99);
+  transition: transform 250ms ease;
+  backface-visibility: hidden;
 }
 
 .slide-img-content {

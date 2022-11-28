@@ -13,7 +13,8 @@ namespace Application.Games.Validator
     public GameValidator()
     {
       RuleFor(x => x.Title).NotEmpty();
-      RuleFor(x => x.Image).NotEmpty();
+      RuleFor(x => x.Url).NotEmpty();
+      RuleFor(x => x.PublicId).NotEmpty();
       RuleFor(x => x.Description).NotEmpty();
       RuleFor(x => x.Category).NotEmpty();
       RuleFor(x => x.Price).NotEmpty().GreaterThan(0);

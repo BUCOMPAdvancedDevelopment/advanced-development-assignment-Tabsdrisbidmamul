@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Interfaces;
-using Application.Models;
 using Microsoft.AspNetCore.Http;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
+using Domain.Models;
 
 namespace Services.CloudinaryAccessor
 {
@@ -29,19 +29,15 @@ namespace Services.CloudinaryAccessor
       _cloudinary = new Cloudinary(account);
     }
 
-    public async Task<CloudinaryDTO> AddPhoto(IFormFile file)
+    private async Task<Image> AddPhoto(IFormFile file, ImageUploadParams imageParams)
     {
       if(file.Length == 0) return null;
 
       await using var stream = file.OpenReadStream();
 
-      var uploadParams = new ImageUploadParams
-      {
-        File = new FileDescription(file.FileName, stream),
-        Transformation = new Transformation().FetchFormat("auto").Quality("90")
-      };
+      imageParams.File = new FileDescription(file.FileName, stream);
 
-      var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+      var uploadResult = await _cloudinary.UploadAsync(imageParams);
 
       if(uploadResult.Error != null) 
       {
@@ -49,12 +45,23 @@ namespace Services.CloudinaryAccessor
         throw new Exception(uploadResult.Error.Message);
       }
 
-      return new CloudinaryDTO
+      return new Image
       {
         PublicId = uploadResult.PublicId,
         Url = uploadResult.SecureUrl.ToString()
       };
 
+    }
+
+    public async Task<Image> AddPhoto(IFormFile file, string path = "logo")
+    {
+      var uploadParams = new ImageUploadParams
+      {
+        Transformation = new Transformation().FetchFormat("auto").Quality("90"),
+        Folder = path
+      };
+
+      return await AddPhoto(file, uploadParams);
     }
 
     public async Task<string> DeletePhoto(string publicId)

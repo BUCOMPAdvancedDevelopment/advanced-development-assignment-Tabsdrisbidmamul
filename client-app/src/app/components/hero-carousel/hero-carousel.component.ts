@@ -37,7 +37,7 @@ export class HeroCarouselComponent implements OnInit {
         perView: 3,
         focusAt: 'center',
         // bound: true,
-        // autoplay: 8000,
+        autoplay: 8000,
         hoverpause: true,
         gap: 30,
         peek: {
