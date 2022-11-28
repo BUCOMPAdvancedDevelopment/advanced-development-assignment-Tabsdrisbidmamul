@@ -83,8 +83,56 @@ body {
   }
 }
 
+.glide__slide {
+  border-radius: $content-borer-radius;
+  overflow: hidden;
+}
+
 .glide__bullet {
   width: 4rem;
-  height: 3px;
+  height: 5px;
   border-radius: 0;
+
+  &:hover {
+    border-radius: 0;
+    border: none;
+    background-color: $dark-blue-gray;
+  }
+}
+
+.glide__arrow {
+  @media (max-width: 62em) {
+    display: none;
+  }
+
+  border: none;
+  font-size: 2rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50rem;
+  border: 1px solid $dark-blue-gray;
+
+  background-color: transparent;
+  transition: all 250ms ease;
+
+  &--left {
+    left: 1rem;
+  }
+
+  &--right {
+    right: 1rem;
+  }
+
+  &:hover,
+  &:active {
+    background-color: $old-mauve;
+    border: 1px solid $old-mauve;
+  }
+
+  i {
+    color: $secondary-color;
+  }
 }

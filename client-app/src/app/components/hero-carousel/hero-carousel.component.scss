@@ -3,51 +3,9 @@
 
 $border-radius: $content-borer-radius;
 
-.glide__slide {
-  border-radius: $border-radius;
-  overflow: hidden;
-}
-
 .glide__bullets {
   @media (min-width: 36em) and (max-width: 62em) {
     bottom: 2em;
-  }
-}
-
-.glide__arrow {
-  @media (max-width: 62em) {
-    display: none;
-  }
-
-  border: none;
-  font-size: 2rem;
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50rem;
-  border: 1px solid $dark-blue-gray;
-
-  background-color: transparent;
-  transition: all 250ms ease;
-
-  &--left {
-    left: 1rem;
-  }
-
-  &--right {
-    right: 1rem;
-  }
-
-  &:hover,
-  &:active {
-    background-color: $old-mauve;
-    border: 1px solid $old-mauve;
-  }
-
-  i {
-    color: $secondary-color;
   }
 }
 
@@ -117,13 +75,3 @@ $border-radius: $content-borer-radius;
     font-size: 2rem;
   }
 }
-
-// .glide__slide {
-//   transform: scale(0.8);
-//   transition: transform 250ms ease-in;
-// }
-
-// .glide__slide--active {
-//   transform: scale(1.2);
-//   border-radius: $border-radius;
-// }
