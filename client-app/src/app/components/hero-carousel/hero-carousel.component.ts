@@ -74,10 +74,10 @@ export class HeroCarouselComponent implements OnInit {
   // }
 
   initGlide() {
-    if (this.images) {
-      this.glide = new Glide('.glide', {
-        type: 'carousel',
-        perView: 3,
+    if (this.images.length === this.games.length) {
+      this.glide = new Glide('.hero-carousel', {
+        type: 'slider',
+        perView: 1,
         focusAt: 'center',
         // bound: true,
         autoplay: 8000,
