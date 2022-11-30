@@ -1,6 +1,7 @@
 import {
   HttpEvent,
   HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
@@ -32,34 +33,28 @@ export class InterceptorAgentService implements HttpInterceptor {
       endpoint = Endpoints[reqEndpoint] as string;
     }
 
-    switch (endpoint) {
-      case Endpoints.API: {
-        apiReq = req.clone({
-          url: `${BASE_API_ENDPOINT}${req.url}`,
-          headers: req.headers.delete('useEndpoint', 'API'),
-        });
-        break;
-      }
-    }
+    return this._authService.user$.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders();
 
-    // @ts-ignore
-    return next.handle(apiReq);
+        if (user !== null) {
+          headers.append('Content-Type', 'application/json');
+          headers.append('Authorization', `Bearer ${user.token}`);
+        }
 
-    // return this._authService.user$.pipe(
-    //   take(1),
-    //   exhaustMap((user) => {
-    //     switch (endpoint) {
-    //       case Endpoints.API: {
-    //         apiReq = req.clone({
-    //           url: `${BASE_API_ENDPOINT}${req.url}`,
-    //           headers: req.headers.delete('useEndpoint', 'API'),
-    //         });
-    //         break;
-    //       }
-    //     }
+        switch (endpoint) {
+          case Endpoints.API: {
+            apiReq = req.clone({
+              url: `${BASE_API_ENDPOINT}${req.url}`,
+              headers: headers,
+            });
+            break;
+          }
+        }
 
-    //     return next.handle(apiReq);
-    //   })
-    // );
+        return next.handle(apiReq);
+      })
+    );
   }
 }

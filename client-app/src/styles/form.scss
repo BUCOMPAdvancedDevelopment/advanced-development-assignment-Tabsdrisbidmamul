@@ -1,0 +1,113 @@
+.form {
+  padding: 5rem;
+  // background-color: $separator-bg;
+  // border-radius: $content-borer-radius;
+  margin: auto;
+
+  @media (min-width: 62em) {
+    width: 70%;
+  }
+
+  &__header {
+    margin-bottom: 5rem;
+  }
+
+  &__group {
+    position: relative;
+
+    margin-bottom: 4rem;
+  }
+
+  &__label {
+    position: absolute;
+    font-size: 1.8rem;
+    z-index: 2;
+    color: $primary-color;
+    left: 3rem;
+    top: 1.5rem;
+
+    transition: all 250ms ease-in-out;
+
+    &-active {
+      top: -1.3rem;
+      color: $secondary-color;
+      z-index: 4;
+      background-color: $primary-color;
+    }
+  }
+
+  &__input {
+    position: relative;
+
+    z-index: 4;
+    padding: 2rem 3rem;
+    border: none;
+    // border-radius: $content-borer-radius;
+    width: 100%;
+    display: block;
+    background-color: transparent;
+    border: 1px solid $dark-blue-gray;
+    outline: none;
+    color: $secondary-color;
+    font-size: 1.6rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus + label {
+      top: -1.3rem;
+      color: $secondary-color;
+      z-index: 4;
+      background-color: $primary-color;
+    }
+
+    &:focus &::placeholder {
+      font-family: $main-font-family;
+      color: $secondary-color;
+      font-size: 1.6rem;
+    }
+
+    &:focus::placeholder {
+      opacity: 0;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      background-color: transparent !important;
+      color: $secondary-color !important;
+    }
+  }
+
+  &__submit-button {
+    font-size: 1.6rem;
+  }
+
+  &__submit-button:disabled {
+    cursor: not-allowed !important;
+    // pointer-events: none;
+    background-color: $english-violet;
+
+    &:hover {
+      background-color: $english-violet !important;
+    }
+  }
+
+  &__forgot-password {
+    cursor: pointer;
+
+    color: $inactive;
+
+    &:link,
+    &:visited {
+      color: $inactive;
+    }
+
+    &:hover,
+    &:active {
+      color: $secondary-color;
+    }
+  }
+}

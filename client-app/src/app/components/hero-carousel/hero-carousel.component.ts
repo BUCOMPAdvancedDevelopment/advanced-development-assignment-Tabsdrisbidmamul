@@ -49,30 +49,6 @@ export class HeroCarouselComponent implements OnInit {
     });
   }
 
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event: Event) {
-  //   this._breakpointObserver
-  //     .observe(['(max-width: 768px)'])
-  //     .pipe(takeUntil(this.destory$))
-  //     .subscribe((result: BreakpointState) => {
-  //       console.log('result ', result);
-  //       if (result.matches) {
-  //         this.glide.destroy();
-  //         this.images = this._cloudinary.transformIdsToUrls(
-  //           this.games,
-  //           'mobile'
-  //         );
-  //       } else {
-  //         this.images = this._cloudinary.transformIdsToUrls(
-  //           this.games,
-  //           'desktop'
-  //         );
-  //       }
-
-  //       this.initGlide();
-  //     });
-  // }
-
   initGlide() {
     if (this.images.length === this.games.length) {
       this.glide = new Glide('.hero-carousel', {

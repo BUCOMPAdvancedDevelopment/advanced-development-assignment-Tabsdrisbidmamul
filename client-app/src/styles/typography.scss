@@ -9,7 +9,8 @@ h5,
 h6,
 p,
 a,
-span {
+span,
+label {
   font-family: $main-font-family;
   color: $secondary-color;
 }
@@ -41,10 +42,23 @@ h5 {
 
 p,
 span,
-a {
+a,
+label {
   font-size: 1.6rem;
 }
 
 a {
   text-decoration: none;
+  cursor: pointer;
+  transition: all 250ms ease;
+
+  &:link,
+  &:visited {
+    color: $secondary-color;
+  }
+
+  &:hover,
+  &:active {
+    color: $dark-blue-gray;
+  }
 }

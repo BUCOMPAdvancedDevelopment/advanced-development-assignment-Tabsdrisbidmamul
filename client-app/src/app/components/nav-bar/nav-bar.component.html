@@ -2,7 +2,9 @@
   <div class="container nav__container">
     <div class="nav__logo-container">
       <div class="logo-container">
-        <div class="logo">Logo</div>
+        <a routerLink="/">
+          <div class="logo">Logo</div>
+        </a>
       </div>
     </div>
 
@@ -22,15 +24,23 @@
           </a>
         </li>
 
-        <li class="nav__li nav__li-no-hover w-lg-100">
-          <a routerLink="/about" class="button button-primary w-lg-100"
-            >sign up</a
-          >
-        </li>
+        <ng-container *ngIf="!loggedIn">
+          <li class="nav__li nav__li-no-hover w-lg-100">
+            <a routerLink="/sign-up" class="button button-primary w-lg-100"
+              >sign up</a
+            >
+          </li>
 
-        <li class="nav__li nav__li-no-hover w-lg-100">
-          <a routerLink="/about" class="button button-ghost w-lg-100">login</a>
-        </li>
+          <li class="nav__li nav__li-no-hover w-lg-100">
+            <a routerLink="/login" class="button button-ghost w-lg-100"
+              >login</a
+            >
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="loggedIn">
+          <img src="../../../assets/default.jpg" width="50" height="50" />
+        </ng-container>
       </ul>
     </div>
 
