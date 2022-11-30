@@ -23,19 +23,22 @@ namespace Persistence
               {
                 DisplayName = "Baal",
                 UserName = "baal",
-                Email = "baal@email.com"
+                Email = "baal@email.com",
+                Role = Roles.Admin.GetStringValue()
               },
               new User
               {
                 DisplayName = "Morax",
                 UserName = "morax",
-                Email = "morax@email.com"
+                Email = "morax@email.com",
+                Role = Roles.User.GetStringValue()
               },
               new User
               {
                 DisplayName = "Beur",
                 UserName = "beur",
-                Email = "beur@email.com"
+                Email = "beur@email.com",
+                Role = Roles.User.GetStringValue()
               },
             };
 

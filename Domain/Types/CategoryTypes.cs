@@ -2,31 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Extensions;
 
 namespace Domain.Types
 {
-      public class StringValueAttribute: Attribute
-      {
-        # region properties
-        
-        /// <summary?>
-        /// Holds the string value in the an enum
-        /// </summary?
-        public string StringValue {get; protected set;}
-
-      #endregion
-
-      #region constructor
-      
-      /// <summary>
-      /// Initialse StringValue attribute
-      /// </summary>
-      /// <param name="value">A string value</param>
-      public StringValueAttribute(string value) => StringValue = value;
-
-      #endregion
-    }
-
     public enum CategoryTypes: int
     {
         [StringValue("mmo")]
