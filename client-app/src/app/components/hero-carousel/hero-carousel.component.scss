@@ -52,6 +52,10 @@ $border-radius: $content-borer-radius;
   //   height: 40rem;
   // }
 
+  @media (min-width: 123.75em) {
+    height: 100rem;
+  }
+
   @media (max-width: 62em) {
     height: 40rem;
   }
