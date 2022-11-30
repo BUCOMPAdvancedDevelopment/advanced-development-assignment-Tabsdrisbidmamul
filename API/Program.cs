@@ -20,11 +20,13 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
+
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -3,6 +3,8 @@ using Application.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Services.CloudinaryAccessor;
 
 namespace API.Extensions
@@ -11,7 +13,16 @@ namespace API.Extensions
   {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
     {
-      services.AddControllers().AddFluentValidation(config => 
+      // Make every business endpoint requires authorisation
+      services.AddControllers(opt => 
+      {
+        var policy = new AuthorizationPolicyBuilder()
+          .RequireAuthenticatedUser()
+          .Build();
+
+        opt.Filters.Add(new AuthorizeFilter(policy));
+      })
+      .AddFluentValidation(config => 
       {
         config.RegisterValidatorsFromAssemblyContaining<Create>();
       });

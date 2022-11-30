@@ -1,5 +1,6 @@
 using Application.Games;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -7,12 +8,15 @@ namespace API.Controllers
   public sealed class GamesController : BaseApiController
   {
 
+    
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
     {
       return HandleResult(await Mediator.Send(new Application.Games.List.Query(), cancellationToken));
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetGame(CancellationToken cancellationToken, Guid id)
     {
