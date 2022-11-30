@@ -38,6 +38,7 @@ namespace API.Extensions
 
       services.AddScoped<ICloudinaryPhoto, CloudinaryPhotoService>();
 
+      // GCP for the name value use CloudinarySettings:CloudName etc.
       services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
       return services;
