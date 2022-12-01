@@ -110,4 +110,15 @@
       color: $secondary-color;
     }
   }
+
+  &__note {
+    display: block;
+    font-style: italic;
+    margin-top: 2rem;
+    color: $inactive;
+
+    &--error {
+      color: $error;
+    }
+  }
 }

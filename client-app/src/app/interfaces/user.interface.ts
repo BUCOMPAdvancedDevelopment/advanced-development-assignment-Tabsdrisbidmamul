@@ -20,3 +20,29 @@ export class LoginDTO implements ILoginDTO {
     this.password = password;
   }
 }
+
+export interface ISignupDTO {
+  displayName: string;
+  email: string;
+  password: string;
+  username: string;
+}
+
+export class SignupDTO implements ISignupDTO {
+  displayName: string;
+  email: string;
+  password: string;
+  username: string;
+
+  constructor(
+    displayName: string,
+    email: string,
+    password: string,
+    username: string
+  ) {
+    this.displayName = displayName;
+    this.email = email;
+    this.password = password;
+    this.username = username;
+  }
+}

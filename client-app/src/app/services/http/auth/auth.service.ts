@@ -9,7 +9,12 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { ILoginDTO, IUserDTO } from 'src/app/interfaces/user.interface';
+import {
+  ILoginDTO,
+  ISignupDTO,
+  IUserDTO,
+  SignupDTO,
+} from 'src/app/interfaces/user.interface';
 import { AgentService } from '../agent/agent.service';
 
 @Injectable({
@@ -17,7 +22,8 @@ import { AgentService } from '../agent/agent.service';
 })
 export class AuthService extends AgentService {
   private readonly AUTH_URL = 'account/login';
-  private tokenTimerInterval = 0;
+  private readonly SIGNUP_URL = 'account/signup';
+  private tokenTimerInterval: any;
 
   user$ = new BehaviorSubject<IUserDTO | null>(null);
 
@@ -26,7 +32,7 @@ export class AuthService extends AgentService {
   }
 
   autoLogin() {
-    const user = this.getUserFromLocalStroage();
+    const user = this.getUserFromLocalStorage();
     if (user !== null) {
       const _user = user as IUserDTO;
       this.storeUser(_user);
@@ -35,6 +41,25 @@ export class AuthService extends AgentService {
 
   login(loginDto: ILoginDTO) {
     return this.post<ILoginDTO, IUserDTO>(this.AUTH_URL, loginDto).pipe(
+      catchError(this.handleAuthError),
+      tap(this.handleAuth)
+    );
+  }
+
+  logout() {
+    this.user$.next(null);
+    this.clearUserFromLocalStorage();
+    this._router.navigate(['']);
+
+    if (this.tokenTimerInterval) {
+      clearInterval(this.tokenTimerInterval);
+    }
+
+    this.tokenTimerInterval = null;
+  }
+
+  signup(signupDto: ISignupDTO) {
+    return this.post<ISignupDTO, IUserDTO>(this.SIGNUP_URL, signupDto).pipe(
       catchError(this.handleAuthError),
       tap(this.handleAuth)
     );
@@ -51,7 +76,7 @@ export class AuthService extends AgentService {
   private storeUser(user: IUserDTO) {
     this.user$.next(user);
 
-    if (this.getUserFromLocalStroage() === null) {
+    if (this.getUserFromLocalStorage() === null) {
       this.storeUserIntoLocalStorage(user);
     }
   }
@@ -60,13 +85,19 @@ export class AuthService extends AgentService {
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
-  private getUserFromLocalStroage(): IUserDTO | null {
+  private getUserFromLocalStorage(): IUserDTO | null {
     return JSON.parse(localStorage.getItem('userData')!);
   }
 
-  private handleAuthError(err: HttpErrorResponse): Observable<string> {
-    let errorMesg = err.message;
+  private clearUserFromLocalStorage() {
+    if (this.getUserFromLocalStorage() !== null) {
+      localStorage.removeItem('userData');
+    }
+  }
 
-    return throwError(() => new Error(errorMesg));
+  private handleAuthError(err: HttpErrorResponse): Observable<string> {
+    let errorMsg = err.message;
+
+    return throwError(() => errorMsg);
   }
 }

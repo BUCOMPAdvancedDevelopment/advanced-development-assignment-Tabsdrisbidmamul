@@ -48,7 +48,6 @@ export class LoginFormComponent implements OnInit {
 
     this.loader = true;
     this._authService.login(loginDTO).subscribe((user) => {
-      console.log('user ', user);
       this.loader = false;
       this._router.navigate(['dashboard']);
     });

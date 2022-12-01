@@ -20,6 +20,8 @@ $navbar-padding: 1.5rem 0;
   }
 
   &__container {
+    padding-right: 2rem;
+    padding-left: 2rem;
     display: flex;
 
     @media (max-width: 62em) {
@@ -172,6 +174,7 @@ $navbar-padding: 1.5rem 0;
   &__mobile-icon {
     width: 5rem;
     height: 5rem;
+    display: none;
     @media (max-width: 36em) {
       padding-right: 2rem;
     }
@@ -244,5 +247,111 @@ $navbar-padding: 1.5rem 0;
 
   &__menu-icon-toggle {
     right: 0 !important;
+  }
+
+  &__profile-image {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50rem;
+    border: 2px solid $secondary-color;
+
+    @media (max-width: 62em) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__profile-container {
+    position: relative;
+
+    @media (max-width: 62em) {
+      display: flex;
+      flex-flow: column;
+      width: 100%;
+    }
+  }
+
+  &__profile-sub-menu {
+    position: absolute;
+    top: 8rem;
+    left: -9rem;
+    z-index: 10;
+    display: none;
+
+    @media (max-width: 62em) {
+      position: relative;
+      top: unset;
+      left: unset;
+      width: 100%;
+
+      // dynamic-ify this later
+      display: block;
+    }
+
+    &-ul {
+      list-style-type: none;
+      background-color: $separator-bg;
+      padding-left: 0;
+      border-bottom-right-radius: $content-borer-radius;
+      border-bottom-left-radius: $content-borer-radius;
+
+      @media (max-width: 62em) {
+        width: 100%;
+
+        border-bottom-right-radius: unset;
+        border-bottom-left-radius: unset;
+      }
+    }
+
+    &-li {
+      &:hover {
+        background-color: $dark-blue-gray;
+      }
+
+      &:last-child:hover {
+        border-bottom-right-radius: $content-borer-radius;
+        border-bottom-left-radius: $content-borer-radius;
+
+        @media (max-width: 62em) {
+          border-bottom-right-radius: unset;
+          border-bottom-left-radius: unset;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $inactive-alpha;
+      }
+    }
+
+    &-a {
+      color: $secondary-color;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem 5rem;
+      width: 100%;
+
+      @media (max-width: 62em) {
+        justify-content: center;
+
+        span {
+          width: unset !important;
+        }
+      }
+
+      i {
+        display: block !important;
+      }
+
+      span {
+        width: 100%;
+        display: inline-block;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__profile-sub-menu-active {
+    display: block;
   }
 }

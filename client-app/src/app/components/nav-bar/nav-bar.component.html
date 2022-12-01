@@ -1,5 +1,5 @@
 <nav class="container-fluid nav-outer-container">
-  <div class="container nav__container">
+  <div class="container-fluid nav__container">
     <div class="nav__logo-container">
       <div class="logo-container">
         <a routerLink="/">
@@ -32,14 +32,42 @@
           </li>
 
           <li class="nav__li nav__li-no-hover w-lg-100">
-            <a routerLink="/login" class="button button-ghost w-lg-100"
-              >login</a
-            >
+            <a (click)="login()" class="button button-ghost w-lg-100">login</a>
           </li>
         </ng-container>
 
         <ng-container *ngIf="loggedIn">
-          <img src="../../../assets/default.jpg" width="50" height="50" />
+          <li
+            (click)="toggleUserSubmenu()"
+            class="nav__li nav__profile-container"
+          >
+            <img
+              class="nav__profile-image"
+              src="../../../assets/default.jpg"
+              width="50"
+              height="50"
+            />
+            <div
+              class="nav__profile-sub-menu"
+              [ngClass]="
+                userSubmenuToggle ? 'nav__profile-sub-menu-active' : null
+              "
+            >
+              <ul class="nav__profile-sub-menu-ul">
+                <li class="nav__profile-sub-menu-li">
+                  <a class="nav__profile-sub-menu-a" routerLink="/dashboard"
+                    ><i class="fa-solid fa-gear"></i> <span>Account</span>
+                  </a>
+                </li>
+                <li class="nav__profile-sub-menu-li">
+                  <a (click)="logout()" class="nav__profile-sub-menu-a">
+                    <i class="fa-solid fa-door-closed"></i>
+                    <span>Sign out</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
         </ng-container>
       </ul>
     </div>
