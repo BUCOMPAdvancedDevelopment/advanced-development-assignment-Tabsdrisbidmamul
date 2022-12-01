@@ -2,7 +2,7 @@
   <div class="container-fluid nav__container">
     <div class="nav__logo-container">
       <div class="logo-container">
-        <a routerLink="/">
+        <a (click)="navigateToHome()">
           <div class="logo">Logo</div>
         </a>
       </div>
@@ -55,7 +55,9 @@
             >
               <ul class="nav__profile-sub-menu-ul">
                 <li class="nav__profile-sub-menu-li">
-                  <a class="nav__profile-sub-menu-a" routerLink="/dashboard"
+                  <a
+                    class="nav__profile-sub-menu-a"
+                    (click)="navigateToDashboard()"
                     ><i class="fa-solid fa-gear"></i> <span>Account</span>
                   </a>
                 </li>

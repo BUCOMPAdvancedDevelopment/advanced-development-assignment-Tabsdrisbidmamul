@@ -35,14 +35,28 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.userSubmenuToggle = false;
-    this.menuToggle = false;
+    this.clearMenus();
     this._authService.logout();
   }
 
   login() {
-    this.menuToggle = false;
+    this.clearMenus();
     this._router.navigate(['login']);
+  }
+
+  navigateToDashboard() {
+    this.clearMenus();
+    this._router.navigate(['dashboard']);
+  }
+
+  navigateToHome() {
+    this.clearMenus();
+    this._router.navigate(['']);
+  }
+
+  private clearMenus() {
+    this.menuToggle = false;
+    this.userSubmenuToggle = false;
   }
 
   @HostListener('document:click', ['$event'])
