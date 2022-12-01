@@ -23,6 +23,7 @@ namespace API.Controllers
        return HandleResult(await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken));
     }
 
+    [Authorize(Policy = "IsAdmin")]
     [HttpPost]
     public async Task<IActionResult> CreateGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
@@ -30,12 +31,14 @@ namespace API.Controllers
         .Send(new Application.Games.Create.Command { Game = game }, cancellationToken));
     }
 
+    [Authorize(Policy = "IsAdmin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> EditGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
       return HandleResult(await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));
     }
 
+    [Authorize(Policy = "IsAdmin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteGame(CancellationToken cancellationToken, Guid id)
     {

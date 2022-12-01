@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using Services.Authentication;
+using Services.Authorisation;
 using Services.Interfaces;
 
 namespace API.Extensions
@@ -42,6 +44,15 @@ namespace API.Extensions
                 ValidateAudience = false
               };
             });
+
+          services.AddAuthorization(opt => 
+          {
+            opt.AddPolicy("IsAdmin", policy =>
+            {
+              policy.Requirements.Add(new IsAdminRequirement());
+            });
+          });
+          services.AddTransient<IAuthorizationHandler, IsAdminRequirementHandler>();
 
           services.AddScoped<ITokenService, TokenService>();
 
