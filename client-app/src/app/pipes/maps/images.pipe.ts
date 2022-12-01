@@ -7,6 +7,6 @@ import { IGame } from 'src/app/interfaces/games.interface';
 export class ImagesPipe implements PipeTransform {
   transform(value: IGame[]): string[] {
     console.log('value ', value);
-    return value.map<string>((game) => game.publicId);
+    return value.map<string>((game) => game.coverArt.publicId);
   }
 }

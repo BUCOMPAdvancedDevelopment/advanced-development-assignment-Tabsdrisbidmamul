@@ -1,8 +1,10 @@
 export interface GameDTO {
   id: string;
   title: string;
-  url: string;
-  publicId: string;
+  coverArt: {
+    url: string;
+    publicId: string;
+  };
   description: string;
   category: string;
   price: number;
@@ -13,8 +15,10 @@ export interface GameDTO {
 export interface IGame {
   id: string;
   title: string;
-  url: string;
-  publicId: string;
+  coverArt: {
+    url: string;
+    publicId: string;
+  };
   description: string;
   category: string;
   price: number;

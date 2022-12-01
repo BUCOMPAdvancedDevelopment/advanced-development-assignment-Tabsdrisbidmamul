@@ -31,7 +31,9 @@ namespace Application.Games
       {
         try 
         {
-          var result = await _context.Games.ToListAsync(cancellationToken);
+          var result = await _context.Games
+            .Include(g => g.CoverArt)
+            .ToListAsync(cancellationToken);
 
           return Result<List<Game>>.Success(result);
         }

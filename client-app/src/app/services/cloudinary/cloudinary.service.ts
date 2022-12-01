@@ -27,7 +27,7 @@ export class CloudinaryService {
     const imagePath = this.extractImagePath(game);
 
     return this.transformImage(
-      this.cld.image(`${imagePath}/${game.publicId}`),
+      this.cld.image(`${imagePath}/${game.coverArt.publicId}`),
       deviceType
     );
   }
@@ -45,7 +45,7 @@ export class CloudinaryService {
   }
 
   private extractImagePath(game: IGame) {
-    const split = game.url.split('/');
+    const split = game.coverArt.url.split('/');
 
     let startIndex = 0;
     let endIndex = 1;

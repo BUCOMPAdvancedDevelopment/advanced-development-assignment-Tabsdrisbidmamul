@@ -33,7 +33,7 @@ namespace Application.Tests
         {
           Id = "A".AsGuid(),
           Title = "Game 1",
-          PublicId = "", Url = "",
+          CoverArt = new CoverArt {PublicId = "", Url = "" },
           Description = "lorem ipsum",
           Category = CategoryTypes.MMO.GetStringValue(),
           Price = 10.00,
@@ -45,7 +45,7 @@ namespace Application.Tests
         {
           Id = "B".AsGuid(),
           Title = "Game 2",
-          PublicId = "", Url = "",
+          CoverArt = new CoverArt {PublicId = "", Url = "" },
           Description = "lorem ipsum",
           Category = CategoryTypes.Rpg.GetStringValue(),
           Price = 20.00,
@@ -57,7 +57,7 @@ namespace Application.Tests
         {
           Id = "C".AsGuid(),
           Title = "Game 3",
-          PublicId = "", Url = "",
+          CoverArt = new CoverArt {PublicId = "", Url = "" },
           Description = "lorem ipsum",
           Category = CategoryTypes.Jrpg.GetStringValue(),
           Price = 30.00,
@@ -89,7 +89,7 @@ namespace Application.Tests
         {
           Id = "D".AsGuid(),
           Title = "Game 4",
-          PublicId = "", Url = "",
+          CoverArt = new CoverArt {PublicId = "", Url = "" },
           Description = "lorem ipsum",
           Category = CategoryTypes.OpenWorld.GetStringValue(),
           Price = 40.00,
@@ -176,7 +176,7 @@ namespace Application.Tests
           {
             Id = seed.AsGuid(),
             Title = "Game 1",
-            PublicId = "", Url = "",
+            CoverArt = new CoverArt {PublicId = "", Url = "" },
             Description = "lorem ipsum",
             Category = CategoryTypes.MMO.GetStringValue(),
             Price = 10.00,
@@ -224,7 +224,7 @@ namespace Application.Tests
           {
             Id = seed.AsGuid(),
             Title = "Game 3 Updated",
-            PublicId = "", Url = "",
+            CoverArt = new CoverArt {PublicId = "", Url = "" },
             Description = "lorem ipsum",
             Category = CategoryTypes.Jrpg.GetStringValue(),
             Price = 30.00,

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Core;
 using Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Persistence;
 
@@ -31,7 +32,9 @@ namespace Application.Games
       {
         try 
         {
-          var game = await _context.Games.FindAsync(new object[]{request.Id},cancellationToken);
+          var game = await _context.Games
+            .Include(g => g.CoverArt)
+            .FirstOrDefaultAsync<Game>(x => x.Id == request.Id);
 
           return Result<Game>.Success(game);
         }
