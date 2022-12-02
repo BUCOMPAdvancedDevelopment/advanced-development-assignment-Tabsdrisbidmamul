@@ -5,6 +5,10 @@
   &-wrapper {
     border: 1px solid $dark-blue-gray;
     border-radius: $content-borer-radius;
+
+    @media (max-width: 36em) {
+      // border-radius: unset;
+    }
   }
 
   &-menu {
@@ -17,11 +21,14 @@
 
     &-wrapper {
       padding-left: 0;
+      padding-right: 0;
     }
 
     @media (max-width: 62em) {
       border-right: 0;
       border-bottom: 1px solid $dark-blue-gray;
+
+      display: flex;
     }
 
     &__li {
@@ -36,8 +43,17 @@
       justify-content: center;
       gap: 1rem;
 
+      @media (max-width: 62em) {
+        border-left: 1px solid $dark-blue-gray;
+        // border-bottom: 0;
+      }
+
       &:not(:last-child) {
         border-bottom: 1px solid $dark-blue-gray;
+
+        @media (max-width: 62em) {
+          border-bottom: 0;
+        }
       }
 
       &:hover {
@@ -46,10 +62,20 @@
 
       &:first-child:hover {
         border-top-left-radius: $content-borer-radius;
+
+        @media (max-width: 62em) {
+          border-top-left-radius: unset;
+          border-top-left-radius: $content-borer-radius;
+        }
       }
 
       &:last-child:hover {
         border-bottom-left-radius: $content-borer-radius;
+
+        @media (max-width: 62em) {
+          border-bottom-left-radius: unset;
+          border-top-right-radius: $content-borer-radius;
+        }
       }
     }
 
