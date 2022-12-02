@@ -43,7 +43,11 @@
           >
             <img
               class="nav__profile-image"
-              src="../../../assets/default.jpg"
+              [src]="
+                user?.image === null
+                  ? '../../../assets/default.jpg'
+                  : user?.image?.url
+              "
               width="50"
               height="50"
             />

@@ -2,7 +2,11 @@ export interface IUserDTO {
   displayName: string;
   token: string;
   username: string;
-  image: string | null;
+  image: {
+    id: string;
+    publicId: string;
+    url: string;
+  };
   role: string;
 }
 
