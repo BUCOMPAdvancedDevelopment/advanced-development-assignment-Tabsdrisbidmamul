@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/http/auth/auth.service';
 })
 export class LoginFormComponent implements OnInit {
   errorMessage = '';
+  error = false;
   loader = false;
 
   loginForm = new FormGroup({
@@ -46,10 +47,23 @@ export class LoginFormComponent implements OnInit {
 
     console.log('loginDto ', loginDTO);
 
+    this.error = false;
+    this.errorMessage = '';
     this.loader = true;
-    this._authService.login(loginDTO).subscribe((user) => {
-      this.loader = false;
-      this._router.navigate(['dashboard']);
+    this.loginForm.controls.email.setErrors(null);
+
+    this._authService.login(loginDTO).subscribe({
+      next: (user) => {
+        this.loader = false;
+        this._router.navigate(['']);
+      },
+      error: (errorMsg) => {
+        this.error = true;
+        this.errorMessage = errorMsg;
+        this.loader = false;
+        this.loginForm.controls.email.setErrors({ incorrect: true });
+      },
+      complete: () => (this.loader = false),
     });
   }
 

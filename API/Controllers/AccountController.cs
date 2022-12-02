@@ -46,11 +46,11 @@ namespace API.Controllers
     {
       var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
-      if(user == null) return Unauthorized();
+      if(user == null) return Unauthorized("Your email or password is incorrect");
 
       var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-      if(!result.Succeeded) return Unauthorized();
+      if(!result.Succeeded) return Unauthorized("Your email or password is incorrect");
 
       return GenerateUserDTO(user);
     }

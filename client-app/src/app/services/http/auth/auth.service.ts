@@ -96,7 +96,7 @@ export class AuthService extends AgentService {
   }
 
   private handleAuthError(err: HttpErrorResponse): Observable<string> {
-    let errorMsg = err.message;
+    let errorMsg = err.error;
 
     return throwError(() => errorMsg);
   }
