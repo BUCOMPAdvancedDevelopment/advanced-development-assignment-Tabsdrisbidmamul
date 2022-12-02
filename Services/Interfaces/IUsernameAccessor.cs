@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Services.Interfaces
 {
-    public interface IUsernameAccessor
+    public interface IUserNameAccessor
     {
-        string GetUsername();
+        string GetUserName();
     }
 }

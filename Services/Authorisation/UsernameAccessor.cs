@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace Services.Authorisation
 {
-  public class UsernameAccessor : IUsernameAccessor
+  public class UsernameAccessor : IUserNameAccessor
   {
     private readonly IHttpContextAccessor _httpContextAccessor;
     public UsernameAccessor(IHttpContextAccessor httpContextAccessor)
@@ -16,7 +16,7 @@ namespace Services.Authorisation
       _httpContextAccessor = httpContextAccessor;
     }
 
-    public string GetUsername()
+    public string GetUserName()
     {
       return _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
     }

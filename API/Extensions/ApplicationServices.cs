@@ -1,6 +1,4 @@
 using Application.Games;
-using Application.Interfaces;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -50,7 +48,7 @@ namespace API.Extensions
 
 
       services.AddScoped<ICloudinaryPhoto, CloudinaryPhotoService>();
-      services.AddScoped<IUsernameAccessor, UsernameAccessor>();
+      services.AddScoped<IUserNameAccessor, UsernameAccessor>();
 
       // GCP for the name value use CloudinarySettings:CloudName etc.
       services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));

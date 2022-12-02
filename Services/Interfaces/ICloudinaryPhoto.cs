@@ -7,7 +7,7 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Domain.Models;
 
-namespace Application.Interfaces
+namespace Services.Interfaces
 {
     public interface ICloudinaryPhoto
     {
