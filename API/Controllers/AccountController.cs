@@ -5,8 +5,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Models;
 using Domain;
+using Domain.Extensions;
 using Domain.Types;
 using Extensions;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +40,7 @@ namespace API.Controllers
 
       if(user == null) return BadRequest("Token is invalid");
 
-      return GenerateUserDTO(user);
+      return await GenerateUserDTO(user);
     }
 
     [HttpPost("login")]
@@ -52,7 +54,7 @@ namespace API.Controllers
 
       if(!result.Succeeded) return Unauthorized("Your email or password is incorrect");
 
-      return GenerateUserDTO(user);
+      return await GenerateUserDTO(user);
     }
 
     [HttpPost("signup")]
@@ -80,19 +82,23 @@ namespace API.Controllers
 
       if(!result.Succeeded) return BadRequest("Problem registering user");
 
-      return GenerateUserDTO(user);
+      return await GenerateUserDTO(user);
 
     }
 
-    private UserDTO GenerateUserDTO(User user)
+    private async Task<UserDTO> GenerateUserDTO(User user)
     {
+      var _user =
+        await _userManager.Users.Include(u => u.Image)
+          .FirstOrDefaultAsync(x => x.Email == user.Email);
+
       return new UserDTO
       {
-        DisplayName = user.DisplayName,
-        Image = null,
-        Token = _tokenService.CreateToken(user),
-        Username = user.UserName,
-        Role = user.Role
+        DisplayName = _user.DisplayName,
+        Image = _user.Image,
+        Token = _tokenService.CreateToken(_user),
+        Username = _user.UserName,
+        Role = _user.Role
       };
     }
   }

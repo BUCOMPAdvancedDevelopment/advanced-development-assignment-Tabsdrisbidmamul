@@ -1,4 +1,5 @@
 using Domain;
+using Domain.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ namespace Persistence
 
     public DbSet<Game> Games { get; set; }
 
-    
-    
+    public DbSet<ProfileImage> ProfileImages { get; set; }
+
   }
 }
