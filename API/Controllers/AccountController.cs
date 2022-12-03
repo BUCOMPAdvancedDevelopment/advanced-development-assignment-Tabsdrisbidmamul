@@ -86,6 +86,29 @@ namespace API.Controllers
 
     }
 
+    [HttpPost("change-password")]
+    public async Task<ActionResult<UserDTO>> ChangePassword(ChangePasswordDTO changePasswordDTO)
+    {
+      if(string.IsNullOrWhiteSpace(changePasswordDTO.OldPassword) && string.IsNullOrEmpty(changePasswordDTO.NewPassword))
+      {
+        return BadRequest();
+      }
+
+      var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+
+      if(user == null) return Unauthorized();
+
+      var canSignIn = await _signInManager.CheckPasswordSignInAsync(user, changePasswordDTO.OldPassword, false);
+
+      if(!canSignIn.Succeeded) return Unauthorized("Password is incorrect");
+
+      var result = await _userManager.ChangePasswordAsync(user, changePasswordDTO.OldPassword, changePasswordDTO.NewPassword);
+
+      if(!result.Succeeded) return BadRequest("Could not change password");
+
+      return await GenerateUserDTO(user);
+    }
+
     private async Task<UserDTO> GenerateUserDTO(User user)
     {
       var _user =
