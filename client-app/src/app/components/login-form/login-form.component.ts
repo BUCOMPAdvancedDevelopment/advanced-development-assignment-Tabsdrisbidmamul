@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginDTO, LoginDTO } from 'src/app/interfaces/user.interface';
+import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class LoginFormComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,8 @@ export class LoginFormComponent implements OnInit {
       return;
     }
 
+    this._commonService.loader$.next(true);
+
     const loginDTO = new LoginDTO(email, password);
 
     this.error = false;
@@ -60,8 +64,9 @@ export class LoginFormComponent implements OnInit {
         this.errorMessage = errorMsg;
         this.loader = false;
         this.loginForm.controls.email.setErrors({ incorrect: true });
+        this._commonService.loader$.next(false);
       },
-      complete: () => (this.loader = false),
+      complete: () => this._commonService.loader$.next(false),
     });
   }
 

@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignupDTO } from 'src/app/interfaces/user.interface';
+import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 
 @Component({
@@ -35,7 +36,8 @@ export class SignupFormComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -56,12 +58,18 @@ export class SignupFormComponent implements OnInit {
         username !== undefined &&
         username !== null
       ) {
+        this._commonService.loader$.next(true);
+
         const signupDTO = new SignupDTO(displayName, email, password, username);
         this.loader = true;
-        this._authService.signup(signupDTO).subscribe((user) => {
-          console.log(user);
-          this.loader = false;
-          this._router.navigate(['']);
+        this._authService.signup(signupDTO).subscribe({
+          next: (user) => {
+            console.log(user);
+            this.loader = false;
+            this._router.navigate(['']);
+          },
+          error: () => this._commonService.loader$.next(false),
+          complete: () => this._commonService.loader$.next(false),
         });
       }
     } else {
