@@ -2,12 +2,14 @@ export interface IUserDTO {
   displayName: string;
   token: string;
   username: string;
-  image: {
-    id: string;
-    publicId: string;
-    url: string;
-  };
+  image: IImage | null;
   role: string;
+}
+
+export interface IImage {
+  id: string;
+  publicId: string;
+  url: string;
 }
 
 export interface ILoginDTO {

@@ -22,5 +22,21 @@
 
   &__button {
     width: 100%;
+
+    &--disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: $error;
+      }
+    }
+  }
+
+  &__cropping {
+    &-container {
+      display: flex;
+      flex-flow: column;
+      gap: 4rem;
+    }
   }
 }

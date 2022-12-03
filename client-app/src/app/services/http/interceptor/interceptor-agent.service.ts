@@ -39,9 +39,11 @@ export class InterceptorAgentService implements HttpInterceptor {
         let headers = new HttpHeaders();
 
         if (user !== null) {
-          headers = headers
-            .append('Content-Type', 'application/json')
-            .append('Authorization', `Bearer ${user.token}`);
+          headers = headers.append('Authorization', `Bearer ${user.token}`);
+        }
+
+        if (!req.headers.has('useForm')) {
+          headers = headers.append('Content-Type', 'application/json');
         }
 
         switch (endpoint) {

@@ -11,7 +11,7 @@ $inner-padding: 4rem;
     // border-right: 1px solid $dark-blue-gray;
     padding-right: $inner-padding;
 
-    @media (max-width: 75em) {
+    @media (max-width: 87.5em) {
       margin-bottom: 6rem;
       padding-right: 0;
       padding-left: 0;
@@ -21,7 +21,7 @@ $inner-padding: 4rem;
   &__right {
     padding-left: $inner-padding;
 
-    @media (max-width: 75em) {
+    @media (max-width: 87.5em) {
       padding-left: 0;
     }
   }

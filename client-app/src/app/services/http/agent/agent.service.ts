@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Endpoints } from 'src/app/types/endpoints';
 
 @Injectable({
@@ -31,20 +32,45 @@ export class AgentService {
   protected post<TypeA, TypeB>(
     endpoint: string,
     postData: TypeA,
+    submitAsForm?: boolean,
     useEndpoint = Endpoints.API
   ) {
-    return this._http.post<TypeB>(endpoint, postData, {
-      headers: {
-        useEndpoint,
-      },
-    });
+    let httpCall: Observable<TypeB>;
+
+    if (submitAsForm !== undefined) {
+      httpCall = this._http.post<TypeB>(endpoint, postData, {
+        headers: {
+          useEndpoint,
+          useForm: 'true',
+        },
+      });
+    } else {
+      httpCall = this._http.post<TypeB>(endpoint, postData, {
+        headers: {
+          useEndpoint,
+        },
+      });
+    }
+    return httpCall;
   }
 
-  protected delete(endpoint: string, id: string, useEndpoint = Endpoints.API) {
-    return this._http.delete(`${endpoint}/${id}`, {
-      headers: {
-        useEndpoint,
-      },
-    });
+  protected delete(endpoint: string, id?: string, useEndpoint = Endpoints.API) {
+    let httpCall: Observable<Object>;
+
+    if (id !== undefined) {
+      httpCall = this._http.delete(`${endpoint}/${id}`, {
+        headers: {
+          useEndpoint,
+        },
+      });
+    } else {
+      httpCall = this._http.delete(`${endpoint}`, {
+        headers: {
+          useEndpoint,
+        },
+      });
+    }
+
+    return httpCall;
   }
 }
