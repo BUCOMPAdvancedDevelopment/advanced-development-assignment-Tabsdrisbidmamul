@@ -1,0 +1,8 @@
+<div *ngIf="user !== null" class="profile-image__container">
+  <img [src]="user.image.url" class="profile-image" />
+
+  <div class="profile-image__button-container">
+    <button class="button button-delete profile-image__button">Delete</button>
+    <button class="button button-change profile-image__button">Upload</button>
+  </div>
+</div>

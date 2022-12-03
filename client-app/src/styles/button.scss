@@ -9,7 +9,9 @@
   text-align: center;
 
   &-primary,
-  &-auth {
+  &-auth,
+  &-delete,
+  &-change {
     background-color: $dark-blue-gray;
     color: $secondary-color;
     text-transform: uppercase;
@@ -20,6 +22,10 @@
     &:active {
       background-color: $old-mauve;
     }
+  }
+
+  &-delete {
+    background-color: $error;
   }
 
   &-auth {
