@@ -81,7 +81,7 @@ export class AuthService extends AgentService {
     }
   }
 
-  private storeUserIntoLocalStorage(user: IUserDTO) {
+  storeUserIntoLocalStorage(user: IUserDTO) {
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
@@ -89,7 +89,7 @@ export class AuthService extends AgentService {
     return JSON.parse(localStorage.getItem('userData')!);
   }
 
-  private clearUserFromLocalStorage() {
+  clearUserFromLocalStorage() {
     if (this.getUserFromLocalStorage() !== null) {
       localStorage.removeItem('userData');
     }

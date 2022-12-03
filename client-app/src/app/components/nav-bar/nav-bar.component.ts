@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { IUserDTO } from 'src/app/interfaces/user.interface';
+import { IImage, IUserDTO } from 'src/app/interfaces/user.interface';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   userSubmenuToggle = false;
   user: IUserDTO | null = null;
   loggedIn = false;
+  userImage!: IImage | null | undefined;
 
   constructor(private _authService: AuthService, private _router: Router) {}
 
@@ -22,6 +23,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this._authService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
       this.loggedIn = user !== null;
+      this.userImage = user?.image;
     });
   }
 

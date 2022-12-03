@@ -4,12 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SharedModule } from './common/shared-module/shared.module';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { InterceptorAgentService } from './services/http/interceptor/interceptor-agent.service';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
+    SharedModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

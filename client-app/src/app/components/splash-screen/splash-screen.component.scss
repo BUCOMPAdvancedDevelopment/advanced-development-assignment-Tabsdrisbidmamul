@@ -1,0 +1,9 @@
+@import "../../../styles/themes.scss";
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+}

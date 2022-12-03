@@ -16,6 +16,7 @@ import {
 } from 'ngx-image-cropper';
 import { of, Subject, takeUntil } from 'rxjs';
 import { IUserDTO } from 'src/app/interfaces/user.interface';
+import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 import { ProfileEditService } from 'src/app/services/http/profile/profile-edit.service';
 
@@ -43,7 +44,8 @@ export class ProfileImageEditComponent
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private _authService: AuthService,
-    private _profileEditService: ProfileEditService
+    private _profileEditService: ProfileEditService,
+    private _commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -66,15 +68,24 @@ export class ProfileImageEditComponent
   }
 
   handleOnDelete() {
+    this._commonService.loader$.next(true);
+
     this._profileEditService
       .deleteImage()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        if (this.user !== null) {
-          this.user.image = null;
+      .subscribe({
+        next: () => {
+          if (this.user !== null) {
+            this.user.image = null;
 
-          this._authService.user$.next(this.user);
-        }
+            this._authService.clearUserFromLocalStorage();
+            this._authService.storeUserIntoLocalStorage(this.user);
+
+            this._authService.user$.next(this.user);
+          }
+        },
+        error: () => this._commonService.loader$.next(false),
+        complete: () => this._commonService.loader$.next(false),
       });
   }
 
@@ -95,15 +106,27 @@ export class ProfileImageEditComponent
 
     this.profileImageForm.controls.Path.setValue('logo/profile-images');
 
+    this._commonService.loader$.next(true);
+
     this._profileEditService
       .addImage(formData)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((image) => {
-        if (this.user !== null) {
-          this.user.image = image;
+      .subscribe({
+        next: (image) => {
+          if (this.user !== null) {
+            this.user.image = image;
 
-          this._authService.user$.next(this.user);
-        }
+            this._authService.clearUserFromLocalStorage();
+            this._authService.storeUserIntoLocalStorage(this.user);
+
+            this._authService.user$.next(this.user);
+          }
+        },
+        error: () => this._commonService.loader$.next(false),
+        complete: () => {
+          this._commonService.loader$.next(false);
+          this.handleOnCancel();
+        },
       });
   }
 
@@ -119,7 +142,6 @@ export class ProfileImageEditComponent
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
-    console.log(event, base64ToFile(event.base64!));
   }
 
   imageLoaded(image?: LoadedImage) {

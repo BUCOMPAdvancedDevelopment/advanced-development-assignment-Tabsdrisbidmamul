@@ -7,6 +7,7 @@ import { ProfileEditComponent } from '../../components/profile-edit/profile-edit
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileImageEditComponent } from '../../components/profile-image-edit/profile-image-edit.component';
 import { ProfileEditFormComponent } from '../../components/profile-edit-form/profile-edit-form.component';
+import { SharedModule } from 'src/app/common/shared-module/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ProfileEditFormComponent } from '../../components/profile-edit-form/pro
     DashboardRoutingModule,
     ReactiveFormsModule,
     ImageCropperModule,
+    SharedModule,
   ],
 })
 export class DashboardModule {}
