@@ -36,19 +36,21 @@ export class InterceptorAgentService implements HttpInterceptor {
     return this._authService.user$.pipe(
       take(1),
       exhaustMap((user) => {
-        const headers = new HttpHeaders();
+        let headers = new HttpHeaders();
 
         if (user !== null) {
-          headers.append('Content-Type', 'application/json');
-          headers.append('Authorization', `Bearer ${user.token}`);
+          headers = headers
+            .append('Content-Type', 'application/json')
+            .append('Authorization', `Bearer ${user.token}`);
         }
 
         switch (endpoint) {
           case Endpoints.API: {
             apiReq = req.clone({
               url: `${BASE_API_ENDPOINT}${req.url}`,
-              headers: headers,
+              headers,
             });
+
             break;
           }
         }
