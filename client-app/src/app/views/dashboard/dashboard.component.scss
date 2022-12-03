@@ -38,6 +38,8 @@
       transition: all 250ms ease;
       cursor: pointer;
 
+      max-height: 8rem;
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -46,11 +48,14 @@
       @media (max-width: 62em) {
         border-left: 1px solid $dark-blue-gray;
         // border-bottom: 0;
+
+        &:last-child {
+          border-bottom: 0;
+        }
       }
 
+      border-bottom: 1px solid $dark-blue-gray;
       &:not(:last-child) {
-        border-bottom: 1px solid $dark-blue-gray;
-
         @media (max-width: 62em) {
           border-bottom: 0;
         }
@@ -70,7 +75,7 @@
       }
 
       &:last-child:hover {
-        border-bottom-left-radius: $content-borer-radius;
+        // border-bottom-left-radius: $content-borer-radius;
 
         @media (max-width: 62em) {
           border-bottom-left-radius: unset;
@@ -86,6 +91,13 @@
 
     &__icon {
       font-size: 1.8rem;
+    }
+  }
+
+  &-content {
+    &-wrapper {
+      height: 70rem;
+      overflow-y: scroll;
     }
   }
 }
