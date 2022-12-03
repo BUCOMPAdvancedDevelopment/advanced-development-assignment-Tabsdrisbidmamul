@@ -14,8 +14,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> ProfileEdit(ProfileEdit profileEdit)
         {
-          var x = 2;
-
+          
           return HandleResult(await Mediator.Send(new Application.UserProfile.Edit.Command {DisplayName = profileEdit.DisplayName} ));
         }
     }
