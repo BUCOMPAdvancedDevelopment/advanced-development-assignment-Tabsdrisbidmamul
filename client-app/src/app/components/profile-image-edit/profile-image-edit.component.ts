@@ -69,6 +69,7 @@ export class ProfileImageEditComponent
 
   handleOnDelete() {
     this._commonService.loader$.next(true);
+    this._commonService.showSpinner$.next(true);
 
     this._profileEditService
       .deleteImage()
@@ -78,14 +79,29 @@ export class ProfileImageEditComponent
           if (this.user !== null) {
             this.user.image = null;
 
+            this._commonService.showSpinner$.next(false);
+
+            this._commonService.icon$.next(
+              'fa-check splash-screen-icon--success'
+            );
+            this._commonService.message$.next('Image was deleted!');
+
             this._authService.clearUserFromLocalStorage();
             this._authService.storeUserIntoLocalStorage(this.user);
 
             this._authService.user$.next(this.user);
           }
         },
-        error: () => this._commonService.loader$.next(false),
-        complete: () => this._commonService.loader$.next(false),
+        error: () => {
+          this._commonService.icon$.next('fa-xmark splash-screen-icon--error');
+          this._commonService.message$.next('Error, image was not deleted!');
+        },
+        complete: () => {
+          setTimeout(() => {
+            this._commonService.loader$.next(false);
+            this._commonService.showSpinner$.next(true);
+          }, 2500);
+        },
       });
   }
 
@@ -107,6 +123,7 @@ export class ProfileImageEditComponent
     this.profileImageForm.controls.Path.setValue('logo/profile-images');
 
     this._commonService.loader$.next(true);
+    this._commonService.showSpinner$.next(true);
 
     this._profileEditService
       .addImage(formData)
@@ -116,15 +133,28 @@ export class ProfileImageEditComponent
           if (this.user !== null) {
             this.user.image = image;
 
+            this._commonService.showSpinner$.next(false);
+
+            this._commonService.icon$.next(
+              'fa-check splash-screen-icon--success'
+            );
+            this._commonService.message$.next('Image was updated!');
+
             this._authService.clearUserFromLocalStorage();
             this._authService.storeUserIntoLocalStorage(this.user);
 
             this._authService.user$.next(this.user);
           }
         },
-        error: () => this._commonService.loader$.next(false),
+        error: () => {
+          this._commonService.icon$.next('fa-xmark splash-screen-icon--error');
+          this._commonService.message$.next('Image was not updated!');
+        },
         complete: () => {
-          this._commonService.loader$.next(false);
+          setTimeout(() => {
+            this._commonService.loader$.next(false);
+            this._commonService.showSpinner$.next(true);
+          }, 2500);
           this.handleOnCancel();
         },
       });

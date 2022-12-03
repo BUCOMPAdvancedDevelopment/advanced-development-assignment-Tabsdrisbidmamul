@@ -13,7 +13,7 @@ import {
   ILoginDTO,
   ISignupDTO,
   IUserDTO,
-  SignupDTO,
+  IPasswordChange,
 } from 'src/app/interfaces/user.interface';
 import { AgentService } from '../agent/agent.service';
 
@@ -23,6 +23,7 @@ import { AgentService } from '../agent/agent.service';
 export class AuthService extends AgentService {
   private readonly AUTH_URL = 'account/login';
   private readonly SIGNUP_URL = 'account/signup';
+  private readonly PASSWORD_CHANGE_URL = 'account/change-password';
   private tokenTimerInterval: any;
 
   user$ = new BehaviorSubject<IUserDTO | null>(null);
@@ -63,6 +64,13 @@ export class AuthService extends AgentService {
       catchError(this.handleAuthError),
       tap(this.handleAuth)
     );
+  }
+
+  changePassword(passwordChange: IPasswordChange) {
+    return this.post<IPasswordChange, IUserDTO>(
+      this.PASSWORD_CHANGE_URL,
+      passwordChange
+    ).pipe(catchError(this.handleAuthError), tap(this.handleAuth));
   }
 
   private handleAuth = (res: string | IUserDTO) => {

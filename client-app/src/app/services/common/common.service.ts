@@ -6,6 +6,9 @@ import { Subject } from 'rxjs';
 })
 export class CommonService {
   loader$ = new Subject<boolean>();
+  message$ = new Subject<string>();
+  icon$ = new Subject<string>();
+  showSpinner$ = new Subject<boolean>();
 
   constructor() {}
 }

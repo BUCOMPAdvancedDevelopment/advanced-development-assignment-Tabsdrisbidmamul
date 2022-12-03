@@ -17,3 +17,20 @@
   margin-top: 7rem;
   margin-left: 0.05rem;
 }
+
+.splash-screen-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  font-size: 8rem;
+
+  &--success {
+    color: $success;
+  }
+
+  &--error {
+    color: $error;
+  }
+}

@@ -1,4 +1,5 @@
-<div class="backdrop"></div>
+<div (click)="handleBackdrop()" class="backdrop"></div>
 
-<app-spinner></app-spinner>
-<p class="splash-screen-text">Loading...</p>
+<app-spinner *ngIf="showSpinner"></app-spinner>
+<i class="fa-solid {{ splashScreenIcon }} splash-screen-icon"></i>
+<p class="splash-screen-text">{{ message }}</p>

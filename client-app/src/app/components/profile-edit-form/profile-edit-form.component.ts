@@ -9,6 +9,7 @@ import {
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { IUserDTO } from 'src/app/interfaces/user.interface';
+import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 import { ProfileEditService } from 'src/app/services/http/profile/profile-edit.service';
 
@@ -34,7 +35,8 @@ export class ProfileEditFormComponent
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private _authService: AuthService,
-    private _profileEditService: ProfileEditService
+    private _profileEditService: ProfileEditService,
+    private _commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -73,15 +75,32 @@ export class ProfileEditFormComponent
       displayName !== null &&
       displayName.length > 0
     ) {
-      this._profileEditService
-        .editDisplayName(displayName)
-        .subscribe((response) => {
+      this._commonService.loader$.next(true);
+      this._commonService.showSpinner$.next(true);
+
+      this._profileEditService.editDisplayName(displayName).subscribe({
+        next: (response) => {
           this.user!.displayName = response.displayName;
 
           this._authService.user$.next(this.user!);
+          this._commonService.showSpinner$.next(false);
 
-          console.log(this.user);
-        });
+          this._commonService.icon$.next(
+            'fa-check splash-screen-icon--success'
+          );
+          this._commonService.message$.next('Profile updated');
+        },
+        error: () => {
+          this._commonService.icon$.next('fa-xmark splash-screen-icon--error');
+          this._commonService.message$.next('Could not update profile!');
+        },
+        complete: () => {
+          setTimeout(() => {
+            this._commonService.loader$.next(false);
+            this._commonService.showSpinner$.next(true);
+          }, 2500);
+        },
+      });
     } else {
       this.error = true;
       this.errorMsg = 'A display name is required';

@@ -12,6 +12,21 @@ export interface IImage {
   url: string;
 }
 
+export interface IPasswordChange {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export class PasswordChange implements IPasswordChange {
+  oldPassword: string;
+  newPassword: string;
+
+  constructor(oldPassword: string, newPassword: string) {
+    this.oldPassword = oldPassword;
+    this.newPassword = newPassword;
+  }
+}
+
 export interface ILoginDTO {
   email: string;
   password: string;
