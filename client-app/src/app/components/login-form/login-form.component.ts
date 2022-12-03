@@ -45,8 +45,6 @@ export class LoginFormComponent implements OnInit {
 
     const loginDTO = new LoginDTO(email, password);
 
-    console.log('loginDto ', loginDTO);
-
     this.error = false;
     this.errorMessage = '';
     this.loader = true;
