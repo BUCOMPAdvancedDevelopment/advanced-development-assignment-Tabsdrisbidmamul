@@ -16,5 +16,11 @@ namespace API.Controllers
       {
         return HandleResult(await Mediator.Send(command, cancellationToken));
       }
+
+      [HttpDelete]
+      public async Task<IActionResult> Delete(CancellationToken cancellationToken)
+      {
+        return HandleResult(await Mediator.Send(new Delete.Command()));
+      }
     }
 }
