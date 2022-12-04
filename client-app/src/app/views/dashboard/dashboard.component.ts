@@ -4,7 +4,7 @@ import {
   ViewContainerRef,
   AfterViewInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  constructor(private _router: Router) {}
+  constructor(private _router: Router, private _route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    // this._router.navigate(['dashboard', 'edit']);
+    this._router.navigate(['edit'], { relativeTo: this._route });
   }
 
   handleProfileClick() {}

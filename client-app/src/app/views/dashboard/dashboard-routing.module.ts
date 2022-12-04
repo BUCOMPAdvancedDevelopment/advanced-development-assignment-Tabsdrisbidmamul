@@ -4,9 +4,16 @@ import { ProfileEditComponent } from 'src/app/components/profile-edit/profile-ed
 import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'edit', pathMatch: 'full' },
-  { path: '', component: DashboardComponent, pathMatch: 'full' },
-  // { path: 'edit', component: ProfileEditComponent },
+  {
+    path: '',
+    component: DashboardComponent,
+    children: [
+      {
+        path: 'edit',
+        component: ProfileEditComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
