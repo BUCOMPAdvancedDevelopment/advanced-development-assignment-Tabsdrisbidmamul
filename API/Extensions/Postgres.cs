@@ -35,6 +35,16 @@ namespace API.Extensions
                 // Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
                 // keep secrets safe.
                 // Environment.GetEnvironmentVariable("INSTANCE_UNIX_SOCKET") ?? 
+
+                // notes for deployment - remove when in PROD
+                // DB_PASS = 12345
+                // DB_NAME = shogun
+                // DB_USER = postgres
+                // DB_INSTANCE = adv-dev-dotnet:us-central1:shogun-postgres
+
+                // name the db as shogun-postgres
+                // password as 12345
+
                 Host = Environment.GetEnvironmentVariable("DB_INSTANCE"), // e.g. '/cloudsql/project:region:instance'
                 Username = Environment.GetEnvironmentVariable("DB_USER"), // e.g. 'my-db-user
                 Password = Environment.GetEnvironmentVariable("DB_PASS"), // e.g. 'my-db-password'

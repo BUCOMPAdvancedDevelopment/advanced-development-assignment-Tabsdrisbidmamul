@@ -31,7 +31,17 @@ namespace API.Extensions
           .AddEntityFrameworkStores<DataContext>()
           .AddSignInManager<SignInManager<User>>();
 
-          var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetValue<string>("JwtKey")));
+          var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+          string jwtKey;
+
+          if(env == "Development") {
+            jwtKey = config.GetValue<string>("JwtKey");
+          } else {
+            jwtKey = Environment.GetEnvironmentVariable("JwtKey");
+          }
+
+          var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 
           services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(opt =>

@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Services.Interfaces;
@@ -15,6 +16,7 @@ namespace Services.Authentication
   public class TokenService : ITokenService
   {
     private readonly IConfiguration _config;
+    
     public TokenService(IConfiguration config)
     {
       _config = config;
@@ -30,7 +32,17 @@ namespace Services.Authentication
         new Claim(ClaimTypes.Role, user.Role)
       };
 
-      var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetValue<string>("JwtKey")));
+      var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+      string jwtKey;
+
+      if(env == "Development") {
+        jwtKey = _config.GetValue<string>("JwtKey");
+      } else {
+        jwtKey = Environment.GetEnvironmentVariable("JwtKey");
+      }
+
+      var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 
       var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
