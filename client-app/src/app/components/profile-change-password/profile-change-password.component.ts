@@ -74,6 +74,13 @@ export class ProfileChangePasswordComponent implements OnInit {
                 'fa-xmark splash-screen-icon--error'
               );
               this._commonService.message$.next('Password was not changed!');
+
+              this._commonService.showSpinner$.next(false);
+
+              setTimeout(() => {
+                this._commonService.loader$.next(false);
+                this._commonService.showSpinner$.next(true);
+              }, 2500);
             },
             complete: () => {
               setTimeout(() => {

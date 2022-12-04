@@ -93,6 +93,12 @@ export class ProfileEditFormComponent
         error: () => {
           this._commonService.icon$.next('fa-xmark splash-screen-icon--error');
           this._commonService.message$.next('Could not update profile!');
+          this._commonService.showSpinner$.next(false);
+
+          setTimeout(() => {
+            this._commonService.loader$.next(false);
+            this._commonService.showSpinner$.next(true);
+          }, 2500);
         },
         complete: () => {
           setTimeout(() => {

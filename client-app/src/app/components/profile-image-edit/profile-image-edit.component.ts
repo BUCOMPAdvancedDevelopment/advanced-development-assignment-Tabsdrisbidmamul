@@ -95,6 +95,13 @@ export class ProfileImageEditComponent
         error: () => {
           this._commonService.icon$.next('fa-xmark splash-screen-icon--error');
           this._commonService.message$.next('Error, image was not deleted!');
+
+          this._commonService.showSpinner$.next(false);
+
+          setTimeout(() => {
+            this._commonService.loader$.next(false);
+            this._commonService.showSpinner$.next(true);
+          }, 2500);
         },
         complete: () => {
           setTimeout(() => {
@@ -149,6 +156,13 @@ export class ProfileImageEditComponent
         error: () => {
           this._commonService.icon$.next('fa-xmark splash-screen-icon--error');
           this._commonService.message$.next('Image was not updated!');
+
+          this._commonService.showSpinner$.next(false);
+
+          setTimeout(() => {
+            this._commonService.loader$.next(false);
+            this._commonService.showSpinner$.next(true);
+          }, 2500);
         },
         complete: () => {
           setTimeout(() => {
