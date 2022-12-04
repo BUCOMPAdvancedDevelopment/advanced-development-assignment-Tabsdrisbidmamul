@@ -44,6 +44,9 @@ namespace API.Extensions
 
                 // name the db as shogun-postgres
                 // password as 12345
+                // DB user and name can be found DQL and in the database navigation
+
+                // Make sure to add the cloud sql instance in the cloud run container - else you will get that it can't connect even if all env vars are passed
 
                 Host = Environment.GetEnvironmentVariable("DB_INSTANCE"), // e.g. '/cloudsql/project:region:instance'
                 Username = Environment.GetEnvironmentVariable("DB_USER"), // e.g. 'my-db-user
