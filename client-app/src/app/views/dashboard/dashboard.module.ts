@@ -18,12 +18,6 @@ import { ProfileChangePasswordComponent } from '../../components/profile-change-
     ProfileEditFormComponent,
     ProfileChangePasswordComponent,
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    ReactiveFormsModule,
-    ImageCropperModule,
-    SharedModule,
-  ],
+  imports: [SharedModule, DashboardRoutingModule, ImageCropperModule],
 })
 export class DashboardModule {}

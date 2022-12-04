@@ -8,6 +8,6 @@ import { GameListingsComponent } from '../../components/game-listings/game-listi
 
 @NgModule({
   declarations: [HomeComponent, HeroCarouselComponent, GameListingsComponent],
-  imports: [CommonModule, HomeRoutingModule, SharedModule],
+  imports: [HomeRoutingModule, SharedModule],
 })
 export class HomeModule {}

@@ -9,11 +9,6 @@ import { SharedModule } from 'src/app/common/shared-module/shared.module';
 
 @NgModule({
   declarations: [SignUpComponent, SignupFormComponent],
-  imports: [
-    CommonModule,
-    SignUpRoutingModule,
-    ReactiveFormsModule,
-    SharedModule,
-  ],
+  imports: [SignUpRoutingModule, SharedModule],
 })
 export class SignUpModule {}
