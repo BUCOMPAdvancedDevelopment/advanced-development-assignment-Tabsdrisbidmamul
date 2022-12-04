@@ -5,6 +5,7 @@
   &-wrapper {
     border: 1px solid $dark-blue-gray;
     border-radius: $content-borer-radius;
+    margin-bottom: 5rem !important;
 
     @media (max-width: 36em) {
       // border-radius: unset;

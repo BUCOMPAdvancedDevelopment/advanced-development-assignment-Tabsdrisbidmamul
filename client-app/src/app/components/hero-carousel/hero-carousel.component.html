@@ -1,12 +1,14 @@
 <div *ngIf="images" class="glide hero-carousel">
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
-      <li class="glide__slide" *ngFor="let slide of images">
+      <li class="glide__slide" *ngFor="let slide of images; index as i">
         <div class="slide-img-container">
           <img class="slide-img" src="{{ slide }}" (load)="initGlide()" />
 
           <div class="slide-img-content">
-            <p class="slide-img-content__desc">Some Text</p>
+            <p class="slide-img-content__desc">
+              {{ games[i].title }}
+            </p>
           </div>
         </div>
       </li>

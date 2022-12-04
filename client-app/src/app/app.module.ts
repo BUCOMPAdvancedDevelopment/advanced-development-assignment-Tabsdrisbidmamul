@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './common/shared-module/shared.module';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { InterceptorAgentService } from './services/http/interceptor/interceptor-agent.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent],
+  declarations: [AppComponent, NavBarComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
