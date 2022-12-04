@@ -33,6 +33,13 @@ const routes: Routes = [
         (m) => m.DashboardModule
       ),
   },
+  {
+    path: 'catalogue',
+    loadChildren: () =>
+      import('./views/catalogue/catalogue.module').then(
+        (m) => m.CatalogueModule
+      ),
+  },
 ];
 
 @NgModule({

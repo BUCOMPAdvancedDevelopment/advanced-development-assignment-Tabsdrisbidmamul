@@ -5,10 +5,11 @@
         <div class="slide-img-container">
           <img class="slide-img" src="{{ slide }}" (load)="initGlide()" />
 
-          <div class="slide-img-content">
+          <div class="slide-img-content d-flex flex-column align-items-end">
             <p class="slide-img-content__desc">
               {{ games[i].title }}
             </p>
+            <button class="button button-primary">View</button>
           </div>
         </div>
       </li>
