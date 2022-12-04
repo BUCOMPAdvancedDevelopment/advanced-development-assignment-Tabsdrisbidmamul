@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Models;
 using Domain.Types;
+using NpgsqlTypes;
 
 namespace Domain
 {
@@ -17,6 +18,7 @@ namespace Domain
         public int Stock { get; set; }
         public DateTime CreatedAt {get;set;}
         public CoverArt CoverArt { get; set; }
+        public NpgsqlTsVector SearchVector { get; set; }
 
     }
 }

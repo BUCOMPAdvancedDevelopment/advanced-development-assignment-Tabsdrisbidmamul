@@ -24,7 +24,12 @@ namespace Persistence
                 DisplayName = "Baal",
                 UserName = "baal",
                 Email = "baal@email.com",
-                Role = Roles.Admin.GetStringValue()
+                Role = Roles.Admin.GetStringValue(),
+                Image = new ProfileImage 
+                {
+                  PublicId = "la7hiqw8s8asomhrbvul",
+                  Url = "https://res.cloudinary.com/drmofy8fr/image/upload/v1670101467/logo/profile-images/la7hiqw8s8asomhrbvul.jpg"
+                }
               },
               new User
               {
