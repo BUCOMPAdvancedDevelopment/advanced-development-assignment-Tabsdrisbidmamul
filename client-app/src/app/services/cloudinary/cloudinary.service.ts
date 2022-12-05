@@ -23,11 +23,19 @@ export class CloudinaryService {
     );
   }
 
-  transformIdToUrl(game: IGame, deviceType: DeviceType) {
-    const imagePath = this.extractImagePath(game);
+  transformIdToUrl(game: IGame, deviceType: DeviceType, isBoxArt = false) {
+    const imagePath = this.extractImagePath(game, isBoxArt);
+
+    let publicId = '';
+
+    if (isBoxArt) {
+      publicId = game.coverArt[1].publicId;
+    } else {
+      publicId = game.coverArt[0].publicId;
+    }
 
     return this.transformImage(
-      this.cld.image(`${imagePath}/${game.coverArt.publicId}`),
+      this.cld.image(`${imagePath}/${publicId}`),
       deviceType
     );
   }
@@ -44,8 +52,14 @@ export class CloudinaryService {
       .toURL();
   }
 
-  private extractImagePath(game: IGame) {
-    const split = game.coverArt.url.split('/');
+  private extractImagePath(game: IGame, isBoxArt = false) {
+    let split: string[] = [];
+
+    if (isBoxArt) {
+      split = game.coverArt[1].url.split('/');
+    } else {
+      split = game.coverArt[0].url.split('/');
+    }
 
     let startIndex = 0;
     let endIndex = 1;

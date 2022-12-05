@@ -1,10 +1,11 @@
 export interface GameDTO {
   id: string;
   title: string;
-  coverArt: {
+  coverArt: Array<{
     url: string;
     publicId: string;
-  };
+    isBoxArt: boolean;
+  }>;
   description: string;
   category: string;
   price: number;
@@ -15,10 +16,11 @@ export interface GameDTO {
 export interface IGame {
   id: string;
   title: string;
-  coverArt: {
+  coverArt: Array<{
     url: string;
     publicId: string;
-  };
+    isBoxArt: boolean;
+  }>;
   description: string;
   category: string;
   price: number;

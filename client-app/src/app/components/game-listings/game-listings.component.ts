@@ -12,6 +12,7 @@ import { GameService } from 'src/app/services/http/games/game.service';
 export class GameListingsComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   games: IGame[] = [];
+  images: string[] = [];
 
   constructor(
     private _gameService: GameService,
@@ -22,12 +23,30 @@ export class GameListingsComponent implements OnInit, OnDestroy {
     this._gameService.gamesList$
       .pipe(takeUntil(this.destroy$))
       .subscribe((games) => {
-        this.games = games.map((game) => {
-          return {
-            ...game,
-            url: this._cloudinaryService.transformIdToUrl(game, 'desktop'),
-          };
+        // this.games = games.map((game) => {
+        //   return {
+        //     ...game,
+        //     url: this._cloudinaryService.transformIdToUrl(
+        //       game,
+        //       'desktop',
+        //       true
+        //     ),
+        //   };
+        // });
+
+        this.games = games;
+
+        const temp: string[] = [];
+
+        games.forEach((game) => {
+          game.coverArt.forEach((image) => {
+            if (image.isBoxArt) {
+              temp.push(image.url);
+            }
+          });
         });
+
+        this.images = temp;
       });
   }
 

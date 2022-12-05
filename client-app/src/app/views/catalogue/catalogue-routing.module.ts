@@ -9,7 +9,12 @@ const routes: Routes = [
     component: CatalogueComponent,
   },
   {
+    path: 'game',
+    redirectTo: '',
+  },
+  {
     path: 'game/:id',
+    pathMatch: 'full',
     component: GameListingComponent,
   },
 ];

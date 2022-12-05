@@ -45,7 +45,17 @@ export class HeroCarouselComponent implements OnInit {
 
       this.games = games;
 
-      this.images = this._cloudinary.transformIdsToUrls(games, deviceType);
+      const temp: string[] = [];
+
+      games.forEach((game) => {
+        game.coverArt.forEach((image) => {
+          if (!image.isBoxArt) {
+            temp.push(image.url);
+          }
+        });
+      });
+
+      this.images = temp;
     });
   }
 

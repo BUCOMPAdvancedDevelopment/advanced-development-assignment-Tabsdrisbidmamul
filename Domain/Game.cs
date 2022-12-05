@@ -17,7 +17,7 @@ namespace Domain
         public double Price { get; set; }
         public int Stock { get; set; }
         public DateTime CreatedAt {get;set;}
-        public CoverArt CoverArt { get; set; }
+        public ICollection<CoverArt> CoverArt { get; set; }
         public NpgsqlTsVector SearchVector { get; set; }
 
     }
