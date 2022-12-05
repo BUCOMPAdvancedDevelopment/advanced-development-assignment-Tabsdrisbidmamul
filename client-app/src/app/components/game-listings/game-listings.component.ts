@@ -23,17 +23,6 @@ export class GameListingsComponent implements OnInit, OnDestroy {
     this._gameService.gamesList$
       .pipe(takeUntil(this.destroy$))
       .subscribe((games) => {
-        // this.games = games.map((game) => {
-        //   return {
-        //     ...game,
-        //     url: this._cloudinaryService.transformIdToUrl(
-        //       game,
-        //       'desktop',
-        //       true
-        //     ),
-        //   };
-        // });
-
         this.games = games;
 
         const temp: string[] = [];

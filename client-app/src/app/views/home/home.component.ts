@@ -14,7 +14,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private _gameService: GameService) {}
 
   ngOnInit(): void {
-    this._gameService.getAllGames();
+    this._gameService
+      .getAllGames()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (games) => {
+          const _games = games.map<IGame>((game) => {
+            return {
+              ...game,
+              createdAt: new Date(game.createdAt),
+            };
+          });
+
+          this._gameService.gamesList$.next(_games);
+        },
+      });
   }
 
   ngOnDestroy() {

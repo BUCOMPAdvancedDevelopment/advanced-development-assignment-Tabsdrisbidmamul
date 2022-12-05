@@ -8,7 +8,7 @@ import { AgentService } from '../agent/agent.service';
   providedIn: 'root',
 })
 export class GameService extends AgentService {
-  gamesList$ = new Subject<IGame[]>();
+  gamesList$ = new ReplaySubject<IGame[]>(1);
 
   constructor(protected override _http: HttpClient) {
     super(_http);
@@ -19,15 +19,6 @@ export class GameService extends AgentService {
   }
 
   getAllGames() {
-    this.get<GameDTO[]>('games').subscribe((games) => {
-      const _games = games.map<IGame>((game) => {
-        return {
-          ...game,
-          createdAt: new Date(game.createdAt),
-        };
-      });
-
-      this.gamesList$.next(_games);
-    });
+    return this.get<GameDTO[]>('games');
   }
 }

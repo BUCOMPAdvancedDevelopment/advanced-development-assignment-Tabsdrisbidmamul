@@ -1,0 +1,65 @@
+@import "../styles/typography.scss";
+@import "../styles/themes.scss";
+@import "../styles/variables.scss";
+
+.card-listing {
+  padding: $content-p;
+}
+
+.card {
+  min-height: 50rem;
+  // height: 100%;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  display: inline-block !important;
+
+  height: 50rem;
+  width: auto;
+
+  display: inline-block;
+  background-color: transparent;
+  border-radius: $content-borer-radius;
+
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+
+  overflow: hidden;
+  cursor: pointer;
+
+  &:hover img {
+    transform: scale(1.02);
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: -1;
+
+    border-radius: $content-borer-radius;
+    transform: scale(0.99);
+
+    transition: all 250ms ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+  &__content {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+  }
+
+  &__text {
+    max-width: 15rem;
+    text-align: right;
+  }
+}
