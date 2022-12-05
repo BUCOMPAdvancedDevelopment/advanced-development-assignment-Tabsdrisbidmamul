@@ -59,6 +59,25 @@
     height: 100%;
     width: 100%;
   }
+
+  &__categories {
+    background-color: $separator-bg;
+    padding: 2rem;
+    border-radius: $content-borer-radius;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  &__tags {
+    border-radius: $content-borer-radius;
+    background-color: $dark-blue-gray;
+    padding: 1rem 2rem;
+    text-align: center;
+
+    flex: 1;
+  }
 }
 
 iframe {

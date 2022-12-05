@@ -7,7 +7,7 @@ export interface GameDTO {
     isBoxArt: boolean;
   }>;
   description: string;
-  category: string;
+  category: string[];
   price: number;
   stock: number;
   createdAt: string;
@@ -23,7 +23,7 @@ export interface IGame {
     isBoxArt: boolean;
   }>;
   description: string;
-  category: string;
+  category: string[];
   price: number;
   stock: number;
   createdAt: Date;

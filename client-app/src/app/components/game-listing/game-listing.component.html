@@ -15,6 +15,12 @@
         <div class="game-listing__container-desc">
           <p class="game-listing__desc">{{ game.description }}</p>
 
+          <div class="game-listing__categories">
+            <span class="game-listing__tags" *ngFor="let type of game.category">
+              {{ type }}
+            </span>
+          </div>
+
           <div class="game-listing__iframe">
             <iframe
               [src]="youtubeLink | safe"
