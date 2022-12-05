@@ -35,7 +35,7 @@ namespace Application.Tests
           Title = "Game 1",
           CoverArt = new List<CoverArt>{new CoverArt {PublicId = "", Url = "" }},
           Description = "lorem ipsum",
-          Category = CategoryTypes.MMO.GetStringValue(),
+          Category = new List<string> {CategoryTypes.MMO.GetStringValue()},
           Price = 10.00,
           Stock = 10,
           CreatedAt = DateTime.Now.AddMonths(-2)
@@ -47,7 +47,7 @@ namespace Application.Tests
           Title = "Game 2",
           CoverArt = new List<CoverArt>{new CoverArt {PublicId = "", Url = "" }},
           Description = "lorem ipsum",
-          Category = CategoryTypes.Rpg.GetStringValue(),
+          Category = new List<string> {CategoryTypes.Rpg.GetStringValue()},
           Price = 20.00,
           Stock = 20,
           CreatedAt = DateTime.Now.AddMonths(-4)
@@ -59,7 +59,7 @@ namespace Application.Tests
           Title = "Game 3",
           CoverArt = new List<CoverArt>{new CoverArt {PublicId = "", Url = "" }},
           Description = "lorem ipsum",
-          Category = CategoryTypes.Jrpg.GetStringValue(),
+          Category = new List<string> {CategoryTypes.Jrpg.GetStringValue()},
           Price = 30.00,
           Stock = 30,
           CreatedAt = DateTime.Now.AddMonths(-2)
@@ -91,7 +91,7 @@ namespace Application.Tests
           Title = "Game 4",
           CoverArt = new List<CoverArt>{new CoverArt {PublicId = "", Url = "" }},
           Description = "lorem ipsum",
-          Category = CategoryTypes.OpenWorld.GetStringValue(),
+          Category = new List<string> {CategoryTypes.OpenWorld.GetStringValue()},
           Price = 40.00,
           Stock = 40,
           CreatedAt = DateTime.Now.AddMonths(-1)
@@ -178,7 +178,7 @@ namespace Application.Tests
             Title = "Game 1",
             CoverArt = new List<CoverArt>{new CoverArt {PublicId = "", Url = "" }},
             Description = "lorem ipsum",
-            Category = CategoryTypes.MMO.GetStringValue(),
+            Category = new List<string> {CategoryTypes.MMO.GetStringValue()},
             Price = 10.00,
             Stock = 10,
             CreatedAt = DateTime.Now.AddMonths(-2),
@@ -201,7 +201,7 @@ namespace Application.Tests
             Title = "Game 1",
             CoverArt = new List<CoverArt>{new CoverArt {PublicId = "", Url = "" }},
             Description = "lorem ipsum",
-            Category = CategoryTypes.MMO.GetStringValue(),
+            Category = new List<string> {CategoryTypes.MMO.GetStringValue()},
             Price = 10.00,
             Stock = 10,
             CreatedAt = DateTime.Now.AddMonths(-2),
@@ -246,7 +246,7 @@ namespace Application.Tests
             Title = "Game 3 Updated",
             CoverArt = new List<CoverArt>{new CoverArt {PublicId = "", Url = "" }},
             Description = "lorem ipsum",
-            Category = CategoryTypes.Jrpg.GetStringValue(),
+            Category = new List<string> {CategoryTypes.Jrpg.GetStringValue()},
             Price = 30.00,
             Stock = 30,
             CreatedAt = DateTime.Now.AddMonths(-2)

@@ -2,6 +2,7 @@ using Domain;
 using Domain.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Persistence
 {
@@ -28,6 +29,13 @@ namespace Persistence
         )
         .HasIndex(p => p.SearchVector)
         .HasMethod("GIN");
+
+      builder.Entity<Game>()
+        .Property(e => e.Category)
+        .HasConversion(
+          v => JsonConvert.SerializeObject(v),
+          v => JsonConvert.DeserializeObject<List<string>>(v)
+        );
     }
 
   }

@@ -79,7 +79,15 @@ namespace Persistence
 
               },
               Description = "Explore and reshape distant worlds! Astroneer is set during the 25th century Intergalactic Age of Discovery, where Astroneers explore the frontiers of outer space, risking their lives in harsh environments to unearth rare discoveries and unlock the mysteries of the universe.",
-              Category = CategoryTypes.OpenWorld.GetStringValue(),
+              Category = new List<string>
+              {
+                CategoryTypes.OpenWorld.GetStringValue(),
+                CategoryTypes.Action.GetStringValue(),
+                CategoryTypes.Multiplayer.GetStringValue(),
+                CategoryTypes.Coop.GetStringValue(),
+                CategoryTypes.FirstPerson.GetStringValue(),
+                CategoryTypes.SciFi.GetStringValue(),
+              },
               Price = 10.00,
               Stock = 10,
               CreatedAt = DateTime.Now.AddMonths(-2),
@@ -104,7 +112,14 @@ namespace Persistence
                 }
               },
               Description = "After a 100-year slumber, Link wakes up alone in a world he no longer remembers. Now the legendary hero must explore a vast and dangerous land and regain his memories before Hyrule is lost forever. Armed only with what he can scavenge, Link sets out to find answers and the resources needed to survive.",
-              Category = CategoryTypes.Rpg.GetStringValue(),
+              Category = new List<string>
+              {
+                CategoryTypes.Rpg.GetStringValue(),
+                CategoryTypes.Action.GetStringValue(),
+                CategoryTypes.Adventure.GetStringValue(),
+                CategoryTypes.SinglePlayer.GetStringValue(),
+                CategoryTypes.OpenWorld.GetStringValue(),
+              },
               Price = 20.00,
               Stock = 20,
               CreatedAt = DateTime.Now.AddMonths(-4),
@@ -129,7 +144,15 @@ namespace Persistence
                 }
               },
               Description = "His vengeance against the Gods of Olympus years behind him, Kratos now lives as a man in the realm of Norse Gods and monsters. It is in this harsh, unforgiving world that he must fight to survive… and teach his son to do the same.",
-              Category = CategoryTypes.Jrpg.GetStringValue(),
+              Category = new List<string>
+              {
+                CategoryTypes.Rpg.GetStringValue(),
+                CategoryTypes.SinglePlayer.GetStringValue(),
+                CategoryTypes.Action.GetStringValue(),
+                CategoryTypes.Adventure.GetStringValue(),
+                CategoryTypes.OpenWorld.GetStringValue(),
+
+              },
               Price = 30.00,
               Stock = 30,
               CreatedAt = DateTime.Now.AddMonths(-2),
@@ -152,8 +175,14 @@ namespace Persistence
                   IsBoxArt = true
                 },
               },
-              Description = "lorem ipsum",
-              Category = CategoryTypes.OpenWorld.GetStringValue(),
+              Description = "Developed by Insomniac Games in collaboration with Marvel, and optimized for PC by Nixxes Software, Marvel's Spider-Man Remastered on PC introduces an experienced Peter Parker who’s fighting big crime and iconic villains in Marvel’s New York. At the same time, he’s struggling to balance his chaotic personal life and career while the fate of Marvel’s New York rests upon his shoulders.",
+              Category = new List<string>
+              {
+                CategoryTypes.OpenWorld.GetStringValue(),
+                CategoryTypes.Action.GetStringValue(),
+                CategoryTypes.Adventure.GetStringValue(),
+                CategoryTypes.Rpg.GetStringValue(),
+              },
               Price = 40.00,
               Stock = 40,
               CreatedAt = DateTime.Now.AddMonths(-1),
@@ -178,7 +207,13 @@ namespace Persistence
                 }
               },
               Description = "Arthur Morgan and the Van der Linde gang are outlaws on the run. With federal agents and the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their way across the rugged heartland of America in order to survive. As deepening internal divisions threaten to tear the gang apart, Arthur must make a choice between his own ideals and loyalty to the gang who raised him.",
-              Category = CategoryTypes.Rpg.GetStringValue(),
+              Category = new List<string>
+              {
+                CategoryTypes.Rpg.GetStringValue(),
+                CategoryTypes.Action.GetStringValue(),
+                CategoryTypes.Adventure.GetStringValue(),
+                CategoryTypes.SinglePlayer.GetStringValue(),
+              },
               Price = 5.00,
               Stock = 100,
               CreatedAt = DateTime.Now.AddMonths(3),
