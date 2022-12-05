@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetReviews(ReviewDTO reviewDTO, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddReview(ReviewDTO reviewDTO, CancellationToken cancellationToken)
         {
           Dictionary<string, object> tempMap = new Dictionary<string, object>
           {
@@ -40,6 +40,13 @@ namespace API.Controllers
           return Ok();
         }
 
-        
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetReviews(CancellationToken cancellationToken)
+        {
+          var allReviews = await _firestoreProvider.GetAll<Review>(cancellationToken);
+
+          return Ok(allReviews);
+        }
     }
 }
