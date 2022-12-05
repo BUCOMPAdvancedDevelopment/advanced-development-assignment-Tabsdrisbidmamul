@@ -2,14 +2,22 @@
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
       <li class="glide__slide" *ngFor="let slide of images; index as i">
-        <div class="slide-img-container">
+        <div
+          routerLink="/catalogue/game/{{ games[i].id }}"
+          class="slide-img-container"
+        >
           <img class="slide-img" src="{{ slide }}" (load)="initGlide()" />
 
           <div class="slide-img-content d-flex flex-column align-items-end">
             <p class="slide-img-content__desc">
               {{ games[i].title }}
             </p>
-            <button class="button button-primary">View</button>
+            <button
+              routerLink="/catalogue/game/{{ games[i].id }}"
+              class="button button-primary"
+            >
+              {{ games[i].price | currency }}
+            </button>
           </div>
         </div>
       </li>

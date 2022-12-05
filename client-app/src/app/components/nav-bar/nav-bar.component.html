@@ -10,7 +10,7 @@
 
     <div class="nav__main-links" [class.nav__menu-icon-toggle]="menuToggle">
       <ul class="nav__links">
-        <li routerLink="/catalogue" class="nav__li w-lg-100">
+        <li (click)="navigateToCatalogue()" class="nav__li w-lg-100">
           <a class="nav__a w-lg-100">
             <span class="mobile-text">Catalogue</span>
             <i class="fa-solid fa-list"></i>

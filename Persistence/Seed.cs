@@ -82,7 +82,8 @@ namespace Persistence
               Category = CategoryTypes.OpenWorld.GetStringValue(),
               Price = 10.00,
               Stock = 10,
-              CreatedAt = DateTime.Now.AddMonths(-2)
+              CreatedAt = DateTime.Now.AddMonths(-2),
+              YoutubeLink = "0KXQZG7riEs"
             },
             new Game
             {
@@ -106,7 +107,8 @@ namespace Persistence
               Category = CategoryTypes.Rpg.GetStringValue(),
               Price = 20.00,
               Stock = 20,
-              CreatedAt = DateTime.Now.AddMonths(-4)
+              CreatedAt = DateTime.Now.AddMonths(-4),
+              YoutubeLink = "zw47_q9wbBE"
             },
             new Game
             {
@@ -130,7 +132,8 @@ namespace Persistence
               Category = CategoryTypes.Jrpg.GetStringValue(),
               Price = 30.00,
               Stock = 30,
-              CreatedAt = DateTime.Now.AddMonths(-2)
+              CreatedAt = DateTime.Now.AddMonths(-2),
+              YoutubeLink = "EE-4GvjKcfs"
             },
             new Game
             {
@@ -153,7 +156,8 @@ namespace Persistence
               Category = CategoryTypes.OpenWorld.GetStringValue(),
               Price = 40.00,
               Stock = 40,
-              CreatedAt = DateTime.Now.AddMonths(-1)
+              CreatedAt = DateTime.Now.AddMonths(-1),
+              YoutubeLink = "Tsf5Wjb1uAM"
             },
             new Game
             {
@@ -177,7 +181,8 @@ namespace Persistence
               Category = CategoryTypes.Rpg.GetStringValue(),
               Price = 5.00,
               Stock = 100,
-              CreatedAt = DateTime.Now.AddMonths(3)
+              CreatedAt = DateTime.Now.AddMonths(3),
+              YoutubeLink = "eaW0tYpxyp0"
             }
           };
 

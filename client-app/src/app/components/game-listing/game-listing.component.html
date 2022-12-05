@@ -1,1 +1,43 @@
-<p>game-listing works!</p>
+<div *ngIf="game" class="container-fluid game-listing">
+  <div class="row">
+    <div class="col-12">
+      <div class="game-listing__container-img">
+        <img [src]="image" class="game-listing__cover" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container game-listing__container-content">
+    <div class="row">
+      <div
+        class="order-1 order-lg-0 col-12 col-lg-7 col-xl-9 game-listing__container-left"
+      >
+        <div class="game-listing__container-desc">
+          <p class="game-listing__desc">{{ game.description }}</p>
+
+          <div class="game-listing__iframe">
+            <iframe
+              [src]="youtubeLink | safe"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="order-0 order-lg-1 col-12 col-lg-5 col-xl-3 game-listing__container-right"
+      >
+        <div class="sticky-card">
+          <h2 class="sticky-card__header">{{ game.title }}</h2>
+
+          <button class="sticky-card__button button button-primary">
+            {{ game.price | currency }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

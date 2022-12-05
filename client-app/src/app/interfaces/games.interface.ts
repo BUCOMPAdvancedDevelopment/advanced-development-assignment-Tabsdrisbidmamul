@@ -11,6 +11,7 @@ export interface GameDTO {
   price: number;
   stock: number;
   createdAt: string;
+  youtubeLink: string;
 }
 
 export interface IGame {
@@ -26,4 +27,5 @@ export interface IGame {
   price: number;
   stock: number;
   createdAt: Date;
+  youtubeLink: string;
 }

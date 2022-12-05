@@ -18,6 +18,7 @@ namespace Domain
         public int Stock { get; set; }
         public DateTime CreatedAt {get;set;}
         public ICollection<CoverArt> CoverArt { get; set; }
+        public string YoutubeLink { get; set; }
         public NpgsqlTsVector SearchVector { get; set; }
 
     }

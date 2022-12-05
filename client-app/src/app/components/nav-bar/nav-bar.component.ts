@@ -56,6 +56,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this._router.navigate(['']);
   }
 
+  navigateToCatalogue() {
+    this.clearMenus();
+    this._router.navigate(['catalogue']);
+  }
+
   private clearMenus() {
     this.menuToggle = false;
     this.userSubmenuToggle = false;

@@ -21,4 +21,8 @@ export class GameService extends AgentService {
   getAllGames() {
     return this.get<GameDTO[]>('games');
   }
+
+  getGame(id: string) {
+    return this.get<GameDTO>(`games/${id}`);
+  }
 }

@@ -6,7 +6,7 @@
       *ngFor="let card of images; index as i"
       class="col-12 col-md-6 col-lg-4 col-xxl-3"
     >
-      <div class="card">
+      <div class="card" routerLink="catalogue/game/{{ games[i].id }}">
         <img class="card__img" [src]="card" />
         <div class="card__content d-flex flex-column align-items-end">
           <p class="card__text">{{ games[i].title }}</p>
@@ -14,7 +14,7 @@
             routerLink="catalogue/game/{{ games[i].id }}"
             class="button button-primary"
           >
-            View
+            {{ games[i].price | currency }}
           </button>
         </div>
       </div>

@@ -1,0 +1,116 @@
+@import "../../../styles/themes.scss";
+@import "../../../styles/variables.scss";
+
+.game-listing {
+  margin-top: -5rem;
+
+  &__container {
+    &-img {
+      overflow: hidden;
+      height: 100%;
+      width: auto;
+
+      display: inline-block;
+      background-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.2) 100%
+      );
+    }
+
+    &-content {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    &-left {
+      padding-right: 4rem;
+
+      @media (max-width: 62em) {
+        padding-right: 0;
+      }
+    }
+
+    &-right {
+      margin-bottom: 2rem;
+    }
+
+    &-desc {
+      display: flex;
+      flex-flow: column;
+
+      gap: 4rem;
+      height: 100%;
+      min-height: 100rem;
+    }
+  }
+
+  &__cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+    z-index: -1;
+    position: relative;
+  }
+
+  &__iframe {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+iframe {
+  width: inherit;
+  height: 50rem;
+
+  @media (max-width: 75em) {
+    height: 40rem;
+  }
+
+  @media (max-width: 48em) {
+    height: 35rem;
+  }
+
+  @media (max-width: 48em) {
+    height: 30rem;
+  }
+}
+
+.sticky-card {
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+
+  gap: 4rem;
+
+  background-color: $separator-bg;
+  border-radius: $content-borer-radius;
+  padding: 4rem;
+
+  &__header {
+    font-size: 3rem;
+    text-align: right;
+
+    @media (max-width: 75em) {
+      font-size: 2.5rem;
+    }
+
+    @media (max-width: 62em) {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 62em) {
+    align-items: flex-start;
+    gap: 2rem;
+    position: relative;
+  }
+
+  &__button {
+  }
+}
