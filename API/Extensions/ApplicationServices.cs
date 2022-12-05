@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Services.Authorisation;
 using Services.CloudinaryAccessor;
 using Services.Interfaces;
+using Google.Cloud.Firestore;
+using Google.Cloud.Firestore.V1;
+using Services.Firestore;
+using API.Models;
+using System.Text.Json;
 
 namespace API.Extensions
 {
@@ -45,6 +50,18 @@ namespace API.Extensions
       services.AddMediatR(typeof(List.Handler).Assembly);
       
       services.AddAutoMapper(typeof(Application.Core.MappingProfiles).Assembly);
+
+      var firebaseSettings = new FirebaseSettings();
+      var firebaseJson = JsonSerializer.Serialize(firebaseSettings);
+
+
+      services.AddSingleton(_ => new FirestoreProvider(
+        new FirestoreDbBuilder
+        {
+          ProjectId = firebaseSettings.ProjectId,
+          JsonCredentials = firebaseJson
+        }.Build()
+      ));
 
 
       services.AddScoped<ICloudinaryPhoto, CloudinaryPhotoService>();
