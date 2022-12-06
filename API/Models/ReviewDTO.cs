@@ -8,7 +8,6 @@ namespace API.Models
     public class ReviewDTO
     {
       public string GameId { get; set; }
-      public string Username { get; set; }
       public string Review { get; set; }
       public string Rating { get; set; }
     }

@@ -61,6 +61,7 @@ namespace Persistence
           {
             new Game
             {
+              Id = "A".AsGuid(),
               Title = "Astroner",
               CoverArt = new List<CoverArt> 
               {
@@ -95,6 +96,7 @@ namespace Persistence
             },
             new Game
             {
+              Id = "B".AsGuid(),
               Title = "The Legend of Zelda Breath of the Wild",
               CoverArt = new List<CoverArt>
               {
@@ -127,6 +129,7 @@ namespace Persistence
             },
             new Game
             {
+              Id = "C".AsGuid(),
               Title = "God of War Ragnarok",
               CoverArt = new List<CoverArt>
               {
@@ -160,6 +163,7 @@ namespace Persistence
             },
             new Game
             {
+              Id = "D".AsGuid(),
               Title = "Spider-man remastered",
               CoverArt = new List<CoverArt>
               {
@@ -190,6 +194,7 @@ namespace Persistence
             },
             new Game
             {
+              Id = "E".AsGuid(),
               Title = "Red Dead Redemption 2",
               CoverArt = new List<CoverArt>
               {

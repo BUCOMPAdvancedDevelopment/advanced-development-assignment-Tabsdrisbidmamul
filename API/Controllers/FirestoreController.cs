@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Firestore;
 using API.Models;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -31,9 +32,11 @@ namespace API.Controllers
           var guid = new Guid(reviewDTO.GameId).ToString("N");
           var document = await _firestoreProvider.Get<Review>(guid, cancellationToken);
 
+          var username = User.FindFirstValue(ClaimTypes.Name);
+
           Dictionary<string, string> tempMap = new Dictionary<string, string>
           {
-            {"username", reviewDTO.Username},
+            {"username", username},
             {"rating", reviewDTO.Rating},
             {"review", reviewDTO.Review}
           };
@@ -47,10 +50,10 @@ namespace API.Controllers
           {
             foreach(Dictionary<string, string> entry in document.Reviews)
             {
-              string username;
-              if(entry.TryGetValue("username", out username)) 
+              string _username;
+              if(entry.TryGetValue("username", out _username)) 
               {
-                if(username.Equals(reviewDTO.Username)) 
+                if(_username.Equals(username)) 
                 {
                   return BadRequest("You have already made a review");
                 }
@@ -74,17 +77,17 @@ namespace API.Controllers
           var guid = new Guid(reviewDTO.GameId).ToString("N");
           var document = await _firestoreProvider.Get<Review>(guid, cancellationToken);
 
+          var username = User.FindFirstValue(ClaimTypes.Name);
+
           if(document == null) return BadRequest("Review could not be updated");
 
           bool willUpdate = false;
           foreach(Dictionary<string, string> entry in document.Reviews)
           {
-            string username;
-            string review;
-            string rating;
-            if(entry.TryGetValue("username", out username) && entry.TryGetValue("review", out review) && entry.TryGetValue("rating", out rating)) 
+            string _username;
+            if(entry.TryGetValue("username", out _username) && entry.TryGetValue("review", out _) && entry.TryGetValue("rating", out _)) 
             {
-              if(username.Equals(reviewDTO.Username)) 
+              if(_username.Equals(username)) 
               {
                 entry["review"] = reviewDTO.Review;
                 entry["rating"] = reviewDTO.Rating;
