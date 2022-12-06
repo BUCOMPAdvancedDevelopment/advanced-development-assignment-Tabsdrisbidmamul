@@ -120,5 +120,17 @@ namespace API.Controllers
 
           return Ok(allReviews);
         }
+
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetReview(string id, CancellationToken cancellationToken)
+        {
+          var guid = new Guid(id).ToString("N");
+          var document = await _firestoreProvider.Get<Review>(guid, cancellationToken);
+
+          if(document == null) return BadRequest("No reviews");
+
+          return Ok(document);
+        }
     }
 }

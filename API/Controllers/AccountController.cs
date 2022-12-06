@@ -109,6 +109,25 @@ namespace API.Controllers
       return await GenerateUserDTO(user);
     }
 
+    [AllowAnonymous]
+    [HttpGet("{username}")]
+    public async Task<IActionResult> GetUser(string username)
+    {
+      var user = await _userManager.Users
+        .Include(u => u.Image)
+        .FirstOrDefaultAsync(u => u.UserName == username);
+      
+      if(user == null) return BadRequest("Bad username");
+
+      return Ok(
+        new
+        {
+          Image = user.Image,
+          DisplayName = user.DisplayName
+        }
+      );
+    }
+
     private async Task<UserDTO> GenerateUserDTO(User user)
     {
       var _user =
