@@ -27,17 +27,86 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddReview(ReviewDTO reviewDTO, CancellationToken cancellationToken)
         {
-          Dictionary<string, object> tempMap = new Dictionary<string, object>
+          // Check if an array already exists, if so we can append to the already existing list and push that array up to firestore
+          var guid = new Guid(reviewDTO.GameId).ToString("N");
+          var document = await _firestoreProvider.Get<Review>(guid, cancellationToken);
+
+          Dictionary<string, string> tempMap = new Dictionary<string, string>
           {
-            {"username", reviewDTO.Review.Username},
-            {"review", reviewDTO.Review.Review}
+            {"username", reviewDTO.Username},
+            {"rating", reviewDTO.Rating},
+            {"review", reviewDTO.Review}
           };
 
-          var review = new Review(reviewDTO.GameId, tempMap);
+          var tempList = new List<Dictionary<string, string>>
+          {
+            tempMap
+          };
+
+          if(document != null)
+          {
+            foreach(Dictionary<string, string> entry in document.Reviews)
+            {
+              string username;
+              if(entry.TryGetValue("username", out username)) 
+              {
+                if(username.Equals(reviewDTO.Username)) 
+                {
+                  return BadRequest("You have already made a review");
+                }
+              }
+            }
+
+            document.Reviews.Add(tempMap);
+            tempList = new List<Dictionary<string, string>>(document.Reviews);
+          } 
+
+          var review = new Review(reviewDTO.GameId, tempList);
 
           await _firestoreProvider.AddOrUpdate(review, cancellationToken);
 
           return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateReview(ReviewDTO reviewDTO, CancellationToken cancellationToken)
+        {
+          var guid = new Guid(reviewDTO.GameId).ToString("N");
+          var document = await _firestoreProvider.Get<Review>(guid, cancellationToken);
+
+          if(document == null) return BadRequest("Review could not be updated");
+
+          bool willUpdate = false;
+          foreach(Dictionary<string, string> entry in document.Reviews)
+          {
+            string username;
+            string review;
+            string rating;
+            if(entry.TryGetValue("username", out username) && entry.TryGetValue("review", out review) && entry.TryGetValue("rating", out rating)) 
+            {
+              if(username.Equals(reviewDTO.Username)) 
+              {
+                entry["review"] = reviewDTO.Review;
+                entry["rating"] = reviewDTO.Rating;
+                willUpdate = true;
+              }
+            }
+          }
+
+          if(!willUpdate)
+          {
+            return BadRequest("Cannot update review");
+          }
+
+          await _firestoreProvider.AddOrUpdate<Review>(document, cancellationToken);
+          return Ok();
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteReviews(string username)
+        {
+          throw new NotImplementedException();
         }
 
         [AllowAnonymous]

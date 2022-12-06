@@ -14,17 +14,17 @@ namespace API.Models
         public string Id { get; set; }
 
         [FirestoreProperty]     
-        public Dictionary<string, object> ReviewMap { get; set; }
+        public List<Dictionary<string, string>> Reviews { get; set; }
 
         public Review()
         {
 
         }
 
-        public Review(string gameId, Dictionary<string, object> reviews)
+        public Review(string gameId, List<Dictionary<string, string>> reviews)
         {
           Id = new Guid(gameId).ToString("N");
-          ReviewMap = reviews;
+          Reviews = reviews;
         }
     }
 }
