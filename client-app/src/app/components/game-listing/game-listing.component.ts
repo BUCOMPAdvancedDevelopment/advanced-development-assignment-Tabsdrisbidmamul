@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { IGame } from 'src/app/interfaces/games.interface';
+import { IReviews } from 'src/app/interfaces/review.interface';
 import { GameService } from 'src/app/services/http/games/game.service';
+import { ReviewService } from 'src/app/services/http/reviews/review.service';
 
 @Component({
   selector: 'app-game-listing',
@@ -14,10 +16,12 @@ export class GameListingComponent implements OnInit, OnDestroy {
   game!: IGame;
   image: string = '';
   youtubeLink = '';
+  reviews!: IReviews;
 
   constructor(
     private _route: ActivatedRoute,
-    private _gameService: GameService
+    private _gameService: GameService,
+    private _reviewService: ReviewService
   ) {}
 
   ngOnInit(): void {
@@ -25,17 +29,25 @@ export class GameListingComponent implements OnInit, OnDestroy {
 
     this._gameService
       .getGame(id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((game) => {
-        this.game = { ...game, createdAt: new Date(game.createdAt) };
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((game) => {
+          this.game = { ...game, createdAt: new Date(game.createdAt) };
 
-        game.coverArt.forEach((image) => {
-          if (!image.isBoxArt) {
-            this.image = image.url;
-          }
-        });
+          game.coverArt.forEach((image) => {
+            if (!image.isBoxArt) {
+              this.image = image.url;
+            }
+          });
 
-        this.youtubeLink = `https://www.youtube.com/embed/${game.youtubeLink}`;
+          this.youtubeLink = `https://www.youtube.com/embed/${game.youtubeLink}`;
+
+          return this._reviewService.getReviews(game.id);
+        })
+      )
+      .subscribe((reviews) => {
+        console.log('reviews ', reviews);
+        this.reviews = reviews;
       });
   }
 

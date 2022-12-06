@@ -17,6 +17,11 @@ export interface IPasswordChange {
   newPassword: string;
 }
 
+export interface IUserDisplayNameAndImage {
+  image: IImage;
+  displayName: string;
+}
+
 export class PasswordChange implements IPasswordChange {
   oldPassword: string;
   newPassword: string;

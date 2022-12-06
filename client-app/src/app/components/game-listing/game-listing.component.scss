@@ -103,17 +103,18 @@ iframe {
 
   display: flex;
   flex-flow: column;
-  align-items: flex-end;
+  align-items: flex-start;
 
   gap: 4rem;
 
-  background-color: $separator-bg;
-  border-radius: $content-borer-radius;
+  // background-color: $separator-bg;
+  border: 1px solid $dark-blue-gray;
+  // border-radius: $content-borer-radius;
   padding: 4rem;
 
   &__header {
-    font-size: 3rem;
-    text-align: right;
+    font-size: 3.5rem;
+    // text-align: right;
 
     @media (max-width: 75em) {
       font-size: 2.5rem;

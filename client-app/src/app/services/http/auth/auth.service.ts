@@ -14,6 +14,7 @@ import {
   ISignupDTO,
   IUserDTO,
   IPasswordChange,
+  IUserDisplayNameAndImage,
 } from 'src/app/interfaces/user.interface';
 import { AgentService } from '../agent/agent.service';
 
@@ -71,6 +72,10 @@ export class AuthService extends AgentService {
       this.PASSWORD_CHANGE_URL,
       passwordChange
     ).pipe(catchError(this.handleAuthError), tap(this.handleAuth));
+  }
+
+  getUserFromUsername(username: string) {
+    return this.get<IUserDisplayNameAndImage>(`account/${username}`);
   }
 
   private handleAuth = (res: string | IUserDTO) => {
