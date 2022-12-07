@@ -2,7 +2,7 @@
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
       <li class="glide__slide" *ngFor="let slide of images; index as i">
-        <div (click)="navigateToGame(i)" class="slide-img-container">
+        <div class="slide-img-container">
           <img class="slide-img" src="{{ slide }}" (load)="initGlide()" />
 
           <div class="slide-img-content d-flex flex-column align-items-end">
@@ -13,7 +13,7 @@
               routerLink="/catalogue/game/{{ games[i].id }}"
               class="button button-primary"
             >
-              {{ games[i].price | currency }}
+              View
             </button>
           </div>
         </div>
