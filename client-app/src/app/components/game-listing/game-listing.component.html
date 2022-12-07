@@ -115,7 +115,10 @@
               {{ game.price | currency }}
             </button>
 
-            <button class="sticky-card__button button button-add-to-cart">
+            <button
+              class="sticky-card__button button button-add-to-cart"
+              (click)="addToCart()"
+            >
               Add to cart
             </button>
           </div>

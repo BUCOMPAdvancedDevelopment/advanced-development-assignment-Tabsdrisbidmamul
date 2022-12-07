@@ -31,6 +31,7 @@ import {
   IUserDisplayNameAndImageAndReviewsRating,
   IUserDTO,
 } from 'src/app/interfaces/user.interface';
+import { BasketService } from 'src/app/services/common/basket.service';
 import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 import { GameService } from 'src/app/services/http/games/game.service';
@@ -59,7 +60,8 @@ export class GameListingComponent implements OnInit, OnDestroy, AfterViewInit {
     private _gameService: GameService,
     private _reviewService: ReviewService,
     private _authService: AuthService,
-    private _commonService: CommonService
+    private _commonService: CommonService,
+    private _basketService: BasketService
   ) {}
 
   ngOnInit(): void {
@@ -207,5 +209,7 @@ export class GameListingComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
-  addToCart() {}
+  addToCart() {
+    this._basketService.addItem(this.game);
+  }
 }

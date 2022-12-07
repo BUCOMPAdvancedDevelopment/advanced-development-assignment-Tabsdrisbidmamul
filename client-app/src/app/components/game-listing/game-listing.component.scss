@@ -248,7 +248,7 @@ iframe {
   @media (max-width: 62em) {
     align-items: flex-start;
     gap: 2rem;
-    position: relative;
+    position: unset;
   }
 
   &__button {

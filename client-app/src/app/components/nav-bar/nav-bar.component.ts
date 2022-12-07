@@ -2,6 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { IImage, IUserDTO } from 'src/app/interfaces/user.interface';
+import { BasketService } from 'src/app/services/common/basket.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 
 @Component({
@@ -16,14 +17,27 @@ export class NavBarComponent implements OnInit, OnDestroy {
   user: IUserDTO | null = null;
   loggedIn = false;
   userImage!: IImage | null | undefined;
+  itemsInCart = 0;
 
-  constructor(private _authService: AuthService, private _router: Router) {}
+  constructor(
+    private _authService: AuthService,
+    private _router: Router,
+    private _basketService: BasketService
+  ) {}
 
   ngOnInit(): void {
     this._authService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       this.user = user;
       this.loggedIn = user !== null;
       this.userImage = user?.image;
+    });
+
+    this._basketService.list.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (items) => {
+        if (items === null) return;
+
+        this.itemsInCart = items.length;
+      },
     });
   }
 

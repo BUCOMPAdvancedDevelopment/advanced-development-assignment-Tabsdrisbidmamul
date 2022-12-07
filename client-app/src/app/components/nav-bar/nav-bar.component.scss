@@ -359,3 +359,23 @@ $navbar-padding: 1.5rem 0;
     display: block;
   }
 }
+
+.cart-items {
+  position: relative;
+
+  &__value {
+    position: absolute;
+    top: -1rem;
+    left: 1rem;
+    z-index: 10;
+    width: 2rem;
+    height: 2rem;
+    background-color: $dark-blue-gray;
+    border-radius: 50rem;
+    font-size: 1.4rem;
+
+    @media (max-width: 62em) {
+      left: 9.5rem;
+    }
+  }
+}

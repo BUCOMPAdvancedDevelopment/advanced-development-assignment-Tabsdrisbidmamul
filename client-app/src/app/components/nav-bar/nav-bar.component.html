@@ -18,8 +18,13 @@
         </li>
 
         <li (click)="navigateToBasket()" class="nav__li nav__li-cart w-lg-100">
-          <a class="nav__a w-lg-100">
-            <span class="mobile-text">Basket</span>
+          <a class="nav__a w-lg-100 d-flex justify-content-center">
+            <div class="cart-items">
+              <span *ngIf="itemsInCart !== 0" class="cart-items__value">{{
+                itemsInCart
+              }}</span>
+              <span class="mobile-text">Basket</span>
+            </div>
             <i class="fa-solid fa-cart-shopping nav__icon"></i>
           </a>
         </li>
