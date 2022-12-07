@@ -206,4 +206,6 @@ export class GameListingComponent implements OnInit, OnDestroy, AfterViewInit {
         },
       });
   }
+
+  addToCart() {}
 }
