@@ -110,9 +110,15 @@
         <div class="sticky-card">
           <h2 class="sticky-card__header">{{ game.title }}</h2>
 
-          <button class="sticky-card__button button button-primary">
-            {{ game.price | currency }}
-          </button>
+          <div class="d-flex h-100 align-items-center">
+            <button class="button button-ghost button-disabled button-no-hover">
+              {{ game.price | currency }}
+            </button>
+
+            <button class="sticky-card__button button button-add-to-cart">
+              Add to cart
+            </button>
+          </div>
         </div>
       </div>
     </div>

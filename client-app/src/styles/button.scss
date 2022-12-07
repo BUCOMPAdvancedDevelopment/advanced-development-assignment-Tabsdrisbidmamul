@@ -48,6 +48,19 @@
     }
   }
 
+  &-add-to-cart {
+    background-color: $success;
+    color: $secondary-color;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 500;
+
+    &:hover,
+    &:active {
+      background-color: $polished-pine;
+    }
+  }
+
   &-disabled {
     cursor: not-allowed !important;
 
@@ -56,5 +69,9 @@
       background-color: transparent;
       border: 1px solid $dark-blue-gray;
     }
+  }
+
+  &-no-hover {
+    cursor: unset !important;
   }
 }

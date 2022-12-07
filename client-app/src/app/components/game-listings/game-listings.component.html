@@ -10,12 +10,17 @@
         <img class="card__img" [src]="card" />
         <div class="card__content d-flex flex-column align-items-end">
           <p class="card__text">{{ games[i].title }}</p>
-          <button
-            routerLink="catalogue/game/{{ games[i].id }}"
-            class="button button-primary"
-          >
-            {{ games[i].price | currency }}
-          </button>
+          <div class="d-flex">
+            <button
+              routerLink="catalogue/game/{{ games[i].id }}"
+              class="button button-primary"
+            >
+              View | {{ games[i].price | currency }}
+            </button>
+            <!-- <button class="">
+              {{ games[i].price | currency }}
+            </button> -->
+          </div>
         </div>
       </div>
     </div>

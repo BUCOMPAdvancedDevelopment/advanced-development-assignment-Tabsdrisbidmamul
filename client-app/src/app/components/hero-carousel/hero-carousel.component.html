@@ -13,7 +13,7 @@
               routerLink="/catalogue/game/{{ games[i].id }}"
               class="button button-primary"
             >
-              View
+              View | {{ games[i].price | currency }}
             </button>
           </div>
         </div>
