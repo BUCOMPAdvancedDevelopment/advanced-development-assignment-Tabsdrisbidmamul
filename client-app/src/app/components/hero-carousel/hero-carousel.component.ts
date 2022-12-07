@@ -16,6 +16,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Subject, takeUntil } from 'rxjs';
 import { DeviceType } from 'src/app/types/deviceType';
 import { debounce } from 'src/app/helpers/extensions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hero-carousel',
@@ -32,7 +33,7 @@ export class HeroCarouselComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private _cloudinary: CloudinaryService,
     private _gameService: GameService,
-    private _breakpointObserver: BreakpointObserver
+    private _router: Router
   ) {
     // this.onResize = debounce(this.onResize, 150, false);
   }
@@ -57,6 +58,10 @@ export class HeroCarouselComponent implements OnInit {
 
       this.images = temp;
     });
+  }
+
+  navigateToGame(index: number) {
+    this._router.navigate(['catalogue', 'game', this.games[index].id]);
   }
 
   initGlide() {

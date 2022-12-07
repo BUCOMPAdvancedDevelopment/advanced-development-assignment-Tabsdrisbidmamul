@@ -17,6 +17,10 @@ $navbar-padding: 1.5rem 0;
     }
 
     margin-bottom: 5rem;
+
+    @media (max-width: 48em) {
+      margin-bottom: 1rem;
+    }
   }
 
   &__container {

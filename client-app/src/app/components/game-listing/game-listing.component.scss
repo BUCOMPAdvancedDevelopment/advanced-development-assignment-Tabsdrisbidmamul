@@ -4,6 +4,10 @@
 .game-listing {
   margin-top: -5rem;
 
+  @media (max-width: 48em) {
+    margin-top: -1rem;
+  }
+
   &__container {
     &-img {
       overflow: hidden;

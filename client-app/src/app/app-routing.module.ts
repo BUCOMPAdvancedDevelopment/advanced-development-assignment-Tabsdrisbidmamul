@@ -40,6 +40,11 @@ const routes: Routes = [
         (m) => m.CatalogueModule
       ),
   },
+  {
+    path: 'basket',
+    loadChildren: () =>
+      import('./views/basket/basket.module').then((m) => m.BasketModule),
+  },
 ];
 
 @NgModule({

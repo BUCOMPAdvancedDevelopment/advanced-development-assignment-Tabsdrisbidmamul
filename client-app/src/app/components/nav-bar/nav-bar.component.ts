@@ -61,6 +61,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this._router.navigate(['catalogue']);
   }
 
+  navigateToBasket() {
+    this.clearMenus();
+    this._router.navigate(['basket']);
+  }
+
   private clearMenus() {
     this.menuToggle = false;
     this.userSubmenuToggle = false;

@@ -2,10 +2,7 @@
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
       <li class="glide__slide" *ngFor="let slide of images; index as i">
-        <div
-          routerLink="/catalogue/game/{{ games[i].id }}"
-          class="slide-img-container"
-        >
+        <div (click)="navigateToGame(i)" class="slide-img-container">
           <img class="slide-img" src="{{ slide }}" (load)="initGlide()" />
 
           <div class="slide-img-content d-flex flex-column align-items-end">
