@@ -22,6 +22,13 @@ export interface IUserDisplayNameAndImage {
   displayName: string;
 }
 
+export interface IUserDisplayNameAndImageAndReviewsRating {
+  displayName: string;
+  image: IImage;
+  review: string;
+  rating: number;
+}
+
 export class PasswordChange implements IPasswordChange {
   oldPassword: string;
   newPassword: string;

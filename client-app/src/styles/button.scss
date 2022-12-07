@@ -7,6 +7,7 @@
 
   transition: all 250ms ease;
   text-align: center;
+  cursor: pointer;
 
   &-primary,
   &-auth,
@@ -34,6 +35,7 @@
 
   &-ghost {
     border: 1px solid $dark-blue-gray;
+    background-color: transparent;
     color: $secondary-color;
     text-transform: uppercase;
     font-size: 1.4rem;
@@ -43,6 +45,16 @@
     &:active {
       border: 1px solid transparent;
       background-color: $old-mauve;
+    }
+  }
+
+  &-disabled {
+    cursor: not-allowed !important;
+
+    &:hover,
+    &:active {
+      background-color: transparent;
+      border: 1px solid $dark-blue-gray;
     }
   }
 }

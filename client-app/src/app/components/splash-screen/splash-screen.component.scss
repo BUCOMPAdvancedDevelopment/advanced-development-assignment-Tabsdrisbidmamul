@@ -3,8 +3,10 @@
 .backdrop {
   width: 100vw;
   height: 100vh;
-  z-index: 99;
+  z-index: 8000;
   position: absolute;
+  top: 0;
+  left: 0;
   background-color: rgba(0, 0, 0, 0.75);
 }
 
@@ -13,7 +15,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 100;
+  z-index: 8001;
   margin-top: 7rem;
   margin-left: 0.05rem;
 }
@@ -23,7 +25,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 100;
+  z-index: 8001;
   font-size: 8rem;
 
   &--success {
