@@ -19,4 +19,12 @@ export class BasketService {
     this._list.push(game);
     this._observableList.next(this._list);
   }
+
+  removeItem(index: number) {
+    this._list.splice(index, 1);
+
+    console.log('this._list ', this._list);
+
+    this._observableList.next(this._list);
+  }
 }

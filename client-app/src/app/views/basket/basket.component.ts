@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { Basket, IBasket } from 'src/app/interfaces/basket.interface';
 import { IGame } from 'src/app/interfaces/games.interface';
 import { BasketService } from 'src/app/services/common/basket.service';
 
@@ -10,7 +11,8 @@ import { BasketService } from 'src/app/services/common/basket.service';
 })
 export class BasketComponent implements OnInit {
   private destroy$ = new Subject<void>();
-  list: IGame[] = [];
+  basketList: IBasket[] = [];
+  total = 0;
 
   constructor(private _basketService: BasketService) {}
 
@@ -19,9 +21,28 @@ export class BasketComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((list) => {
         if (list !== null) {
-          this.list = list;
-          console.log('list ', list);
+          console.log('basket module list ', list);
+          this.basketList = [];
+          this.total = 0;
+
+          list.forEach((item) => {
+            let url = '';
+            item.coverArt.forEach((image) => {
+              if (image.isBoxArt) {
+                url = image.url;
+              }
+            });
+
+            this.total += item.price;
+
+            const basketItem = new Basket(item.title, url, item.price);
+            this.basketList.push(basketItem);
+          });
         }
       });
+  }
+
+  removeItemFromBasket(index: number) {
+    this._basketService.removeItem(index);
   }
 }
