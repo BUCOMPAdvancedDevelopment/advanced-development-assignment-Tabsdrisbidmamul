@@ -21,7 +21,6 @@ export class BasketComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((list) => {
         if (list !== null) {
-          console.log('basket module list ', list);
           this.basketList = [];
           this.total = 0;
 
