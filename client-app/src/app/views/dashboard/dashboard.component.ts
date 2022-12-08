@@ -4,7 +4,9 @@ import {
   ViewContainerRef,
   AfterViewInit,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { IUserDTO } from 'src/app/interfaces/user.interface';
+import { AuthService } from 'src/app/services/http/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,12 +14,21 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  constructor(private _router: Router, private _route: ActivatedRoute) {}
+  private destroy$ = new Subject<void>();
+  user: IUserDTO | null = null;
 
-  ngOnInit(): void {}
+  constructor(private _authService: AuthService) {}
+
+  ngOnInit(): void {
+    this._authService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      if (user !== null) {
+        this.user = user;
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
-    this._router.navigate(['edit'], { relativeTo: this._route });
+    // this._router.navigate(['edit'], { relativeTo: this._route });
   }
 
   handleProfileClick() {}
