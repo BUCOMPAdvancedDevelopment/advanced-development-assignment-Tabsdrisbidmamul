@@ -22,6 +22,14 @@ namespace API.Controllers
     }
 
     [Authorize(Policy = "IsAdmin")]
+    [HttpGet]
+    [Route("categories")]
+    public async Task<IActionResult> GetAllCategories(CancellationToken cancellationToken)
+    {
+      return HandleResult(await Mediator.Send(new Application.Games.ListTypes.Query(), cancellationToken));
+    }
+
+    [Authorize(Policy = "IsAdmin")]
     [HttpPost]
     public async Task<IActionResult> CreateGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
