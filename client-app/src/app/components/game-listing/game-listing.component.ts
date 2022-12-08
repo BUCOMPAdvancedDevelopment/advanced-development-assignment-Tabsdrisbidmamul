@@ -159,8 +159,6 @@ export class GameListingComponent implements OnInit, OnDestroy, AfterViewInit {
       ratings.length.toString()
     );
 
-    console.log('reviewDTO ', reviewDTO);
-
     this._commonService.loader$.next(true);
     this._commonService.showSpinner$.next(true);
 

@@ -64,17 +64,19 @@ export class SplashScreenComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    fromEvent(this.input.nativeElement, 'keyup')
-      .pipe(
-        takeUntil(this.destroy$),
-        filter(Boolean),
-        debounceTime(500),
-        distinctUntilChanged(),
-        tap(() => {
-          this.searchValue = this.input.nativeElement.value;
-        })
-      )
-      .subscribe((value) => {});
+    if (this.showInput) {
+      fromEvent(this.input.nativeElement, 'keyup')
+        .pipe(
+          takeUntil(this.destroy$),
+          filter(Boolean),
+          debounceTime(500),
+          distinctUntilChanged(),
+          tap(() => {
+            this.searchValue = this.input.nativeElement.value;
+          })
+        )
+        .subscribe((value) => {});
+    }
   }
 
   navigateToSearch() {
