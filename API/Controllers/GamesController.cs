@@ -46,9 +46,9 @@ namespace API.Controllers
 
     [Authorize(Policy = "IsAdmin")]
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteGame(CancellationToken cancellationToken, Guid id)
+    public async Task<IActionResult> DeleteGame(CancellationToken cancellationToken, string id)
     {
-      return HandleResult(await Mediator.Send(new Application.Games.Delete.Command { Id = id }, cancellationToken));
+      return HandleResult(await Mediator.Send(new Application.Games.Delete.Command { Id = new Guid(id) }, cancellationToken));
     }
     
   }

@@ -17,6 +17,8 @@ namespace Persistence
 
     public DbSet<ProfileImage> ProfileImages { get; set; }
 
+    public DbSet<CoverArt> CoverArt { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);
@@ -36,6 +38,11 @@ namespace Persistence
           v => JsonConvert.SerializeObject(v),
           v => JsonConvert.DeserializeObject<List<string>>(v)
         );
+
+      builder.Entity<Game>()
+        .HasMany(c => c.CoverArt)
+        .WithOne()
+        .OnDelete(DeleteBehavior.Cascade);
     }
 
   }
