@@ -5,8 +5,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid $dark-blue-gray;
+  border-right: 1px solid $dark-blue-gray;
   padding-right: 4rem;
+  padding-bottom: 2rem;
 
   &__container {
     margin: 2rem auto;

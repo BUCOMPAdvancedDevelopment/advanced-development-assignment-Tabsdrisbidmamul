@@ -9,6 +9,7 @@ import { ProfileImageEditComponent } from '../../components/profile-image-edit/p
 import { ProfileEditFormComponent } from '../../components/profile-edit-form/profile-edit-form.component';
 import { SharedModule } from 'src/app/common/shared-module/shared.module';
 import { ProfileChangePasswordComponent } from '../../components/profile-change-password/profile-change-password.component';
+import { GameEditorComponent } from '../../components/game-editor/game-editor.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ProfileChangePasswordComponent } from '../../components/profile-change-
     ProfileImageEditComponent,
     ProfileEditFormComponent,
     ProfileChangePasswordComponent,
+    GameEditorComponent,
   ],
   imports: [SharedModule, DashboardRoutingModule, ImageCropperModule],
 })
