@@ -3,7 +3,11 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
-import { IGame, IGameEditDTO } from 'src/app/interfaces/games.interface';
+import {
+  GameDTO,
+  IGame,
+  IGameEditDTO,
+} from 'src/app/interfaces/games.interface';
 import { CommonService } from 'src/app/services/common/common.service';
 import { GameService } from 'src/app/services/http/games/game.service';
 
@@ -134,7 +138,7 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
         .editGame(this.selectedGame.id, gameDTO)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: (games) => {
+          next: (games: GameDTO[]) => {
             console.log('games ', games);
 
             this._commonService.showSpinner$.next(false);
@@ -144,18 +148,7 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
             );
             this._commonService.message$.next('Game updated');
 
-            const _selectedGame = this.selectedGame as IGame;
-
-            _selectedGame.category = category;
-            _selectedGame.description = description;
-            _selectedGame.title = title;
-            _selectedGame.price = price;
-            _selectedGame.youtubeLink = link;
-
-            this.games.splice(this.index, 1);
-            this.games.push(_selectedGame);
-
-            this._gameService.gamesList$.next(this.games);
+            this.setGame(games);
           },
           error: () => {
             this._commonService.showSpinner$.next(false);
@@ -177,6 +170,19 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
           },
         });
     }
+  }
+
+  setGame(games: GameDTO[]) {
+    const _games = games.map<IGame>((game) => {
+      return {
+        ...game,
+        createdAt: new Date(game.createdAt),
+      };
+    });
+
+    this._gameService.gamesList$.next(_games);
+
+    this.games = _games;
   }
 
   ngOnDestroy(): void {
