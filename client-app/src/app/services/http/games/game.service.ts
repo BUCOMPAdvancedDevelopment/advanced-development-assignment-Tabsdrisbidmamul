@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject, Subject } from 'rxjs';
-import { GameDTO, IGame } from 'src/app/interfaces/games.interface';
+import {
+  GameDTO,
+  IGame,
+  IGameEditDTO,
+} from 'src/app/interfaces/games.interface';
 import { AgentService } from '../agent/agent.service';
 
 @Injectable({
@@ -9,6 +13,7 @@ import { AgentService } from '../agent/agent.service';
 })
 export class GameService extends AgentService {
   gamesList$ = new ReplaySubject<IGame[]>(1);
+  selectedGame$ = new ReplaySubject<IGame>(1);
 
   constructor(protected override _http: HttpClient) {
     super(_http);
@@ -24,5 +29,17 @@ export class GameService extends AgentService {
 
   getGame(id: string) {
     return this.get<GameDTO>(`games/${id}`);
+  }
+
+  getAllCategoryTypes() {
+    return this.get<string[]>('games/categories');
+  }
+
+  removeGame(id: string) {
+    return this.delete<GameDTO[]>(`games/${id}`);
+  }
+
+  editGame(id: string, gameDTO: IGameEditDTO) {
+    return this.put<IGameEditDTO>(`games/${id}`, gameDTO);
   }
 }

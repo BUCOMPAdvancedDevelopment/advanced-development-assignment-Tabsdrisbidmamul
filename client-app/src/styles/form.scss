@@ -18,6 +18,11 @@
     margin-bottom: 4rem;
   }
 
+  // &__file {
+  //   padding: 1rem 2rem;
+  //   background-color: $dark-blue-gray;
+  // }
+
   &__label {
     position: absolute;
     font-size: 1.8rem;
@@ -34,6 +39,25 @@
       z-index: 4;
       background-color: $primary-color;
     }
+
+    &--no-abs {
+      position: unset;
+    }
+
+    &--upload {
+      width: 8rem;
+    }
+
+    &--checkbox,
+    &--upload {
+      color: $secondary-color;
+    }
+  }
+
+  &__checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   &__input {

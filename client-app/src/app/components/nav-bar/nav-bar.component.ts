@@ -72,7 +72,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   navigateToDashboard() {
     this.clearMenus();
-    this._router.navigate(['dashboard', 'edit']);
+    this._router.navigate(['dashboard', 'profile', 'edit']);
   }
 
   navigateToHome() {

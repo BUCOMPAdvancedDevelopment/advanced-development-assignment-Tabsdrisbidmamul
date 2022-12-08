@@ -22,7 +22,7 @@ export class AgentService {
     putData: Type,
     useEndpoint = Endpoints.API
   ) {
-    return this._http.put<Type>(endpoint, putData, {
+    return this._http.put<any>(endpoint, putData, {
       headers: {
         useEndpoint,
       },
@@ -54,8 +54,12 @@ export class AgentService {
     return httpCall;
   }
 
-  protected delete(endpoint: string, id?: string, useEndpoint = Endpoints.API) {
-    let httpCall: Observable<Object>;
+  protected delete<Type>(
+    endpoint: string,
+    id?: string,
+    useEndpoint = Endpoints.API
+  ) {
+    let httpCall: Observable<any>;
 
     if (id !== undefined) {
       httpCall = this._http.delete(`${endpoint}/${id}`, {
@@ -64,7 +68,7 @@ export class AgentService {
         },
       });
     } else {
-      httpCall = this._http.delete(`${endpoint}`, {
+      httpCall = this._http.delete<Type>(`${endpoint}`, {
         headers: {
           useEndpoint,
         },

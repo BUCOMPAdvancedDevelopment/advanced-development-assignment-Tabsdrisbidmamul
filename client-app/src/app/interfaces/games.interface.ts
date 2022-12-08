@@ -29,3 +29,18 @@ export interface IGame {
   createdAt: Date;
   youtubeLink: string;
 }
+
+export interface IGameEditDTO {
+  id: string;
+  title: string;
+  coverArt: Array<{
+    url: string;
+    publicId: string;
+    isBoxArt: boolean;
+  }>;
+  description: string;
+  category: string[];
+  price: number;
+  stock: number;
+  youtubeLink: string;
+}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GameEditFormComponent } from 'src/app/components/game-edit-form/game-edit-form.component';
 import { GameEditorComponent } from 'src/app/components/game-editor/game-editor.component';
 import { OrdersComponent } from 'src/app/components/orders/orders.component';
 import { ProfileEditComponent } from 'src/app/components/profile-edit/profile-edit.component';
@@ -12,12 +13,16 @@ const routes: Routes = [
 
     children: [
       {
-        path: 'edit',
+        path: 'profile/edit',
         component: ProfileEditComponent,
       },
       {
         path: 'games',
         component: GameEditorComponent,
+      },
+      {
+        path: 'games/edit/:index/:id',
+        component: GameEditFormComponent,
       },
       {
         path: 'orders',

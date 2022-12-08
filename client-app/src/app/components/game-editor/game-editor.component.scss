@@ -1,0 +1,61 @@
+@import "../../../styles/themes.scss";
+
+.container {
+  padding: 3rem 5rem;
+}
+
+.results {
+  margin-top: 2rem;
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+
+    &:not(:last-child) {
+      // margin-bottom: 2rem;
+      border-bottom: 1px solid $inactive-alpha;
+    }
+  }
+
+  &__title {
+    align-self: center;
+    margin-bottom: 0;
+  }
+
+  &__options {
+    display: flex;
+    gap: 2rem;
+
+    &--edit {
+      color: $inactive;
+    }
+
+    &--remove {
+      color: $error;
+    }
+  }
+}
+
+.search {
+  border: 1px solid $dark-blue-gray;
+  color: $secondary-color;
+  font-size: 1.6rem;
+  background-color: transparent;
+  padding: 1rem 2rem;
+  width: 70%;
+
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $inactive;
+    font-size: 1.6rem;
+  }
+
+  &-container {
+  }
+}
