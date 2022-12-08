@@ -107,7 +107,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteReviews(string username)
+        public Task<IActionResult> DeleteReviews(string username)
         {
           throw new NotImplementedException();
         }
