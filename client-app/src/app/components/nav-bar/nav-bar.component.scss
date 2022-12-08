@@ -84,7 +84,8 @@ $navbar-padding: 1.5rem 0;
       display: none;
     }
 
-    &-cart {
+    &-cart,
+    &-search {
       a .mobile-text {
         display: none;
       }

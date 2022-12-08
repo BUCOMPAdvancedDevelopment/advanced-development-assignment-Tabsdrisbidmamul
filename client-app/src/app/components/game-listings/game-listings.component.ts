@@ -11,6 +11,7 @@ import { GameService } from 'src/app/services/http/games/game.service';
 })
 export class GameListingsComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
+  @Input() gamesProp: IGame[] = [];
   games: IGame[] = [];
   images: string[] = [];
 
@@ -20,23 +21,31 @@ export class GameListingsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this._gameService.gamesList$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((games) => {
-        this.games = games;
-
-        const temp: string[] = [];
-
-        games.forEach((game) => {
-          game.coverArt.forEach((image) => {
-            if (image.isBoxArt) {
-              temp.push(image.url);
-            }
-          });
+    if (this.gamesProp.length === 0) {
+      this._gameService.gamesList$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((games) => {
+          this.setGames(games);
         });
+    } else {
+      this.setGames(this.gamesProp);
+    }
+  }
 
-        this.images = temp;
+  setGames(games: IGame[]) {
+    this.games = games;
+
+    const temp: string[] = [];
+
+    games.forEach((game) => {
+      game.coverArt.forEach((image) => {
+        if (image.isBoxArt) {
+          temp.push(image.url);
+        }
       });
+    });
+
+    this.images = temp;
   }
 
   ngOnDestroy() {

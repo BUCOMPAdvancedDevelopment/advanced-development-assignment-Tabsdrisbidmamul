@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonService {
-  loader$ = new Subject<boolean>();
-  message$ = new Subject<string>();
-  icon$ = new Subject<string>();
-  showSpinner$ = new Subject<boolean>();
+  loader$ = new ReplaySubject<boolean>(1);
+  message$ = new ReplaySubject<string>(1);
+  icon$ = new ReplaySubject<string>(1);
+  showSpinner$ = new ReplaySubject<boolean>(1);
+  showInput$ = new ReplaySubject<boolean>(1);
+
+  closeMenus$ = new Subject<boolean>();
 
   constructor() {}
 }

@@ -10,6 +10,7 @@ import { ProfileEditFormComponent } from '../../components/profile-edit-form/pro
 import { SharedModule } from 'src/app/common/shared-module/shared.module';
 import { ProfileChangePasswordComponent } from '../../components/profile-change-password/profile-change-password.component';
 import { GameEditorComponent } from '../../components/game-editor/game-editor.component';
+import { OrdersComponent } from '../../components/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { GameEditorComponent } from '../../components/game-editor/game-editor.co
     ProfileEditFormComponent,
     ProfileChangePasswordComponent,
     GameEditorComponent,
+    OrdersComponent,
   ],
   imports: [SharedModule, DashboardRoutingModule, ImageCropperModule],
 })

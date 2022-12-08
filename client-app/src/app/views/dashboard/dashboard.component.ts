@@ -3,6 +3,7 @@ import {
   OnInit,
   ViewContainerRef,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { IUserDTO } from 'src/app/interfaces/user.interface';
@@ -13,7 +14,7 @@ import { AuthService } from 'src/app/services/http/auth/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   user: IUserDTO | null = null;
 
@@ -27,11 +28,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    // this._router.navigate(['edit'], { relativeTo: this._route });
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.unsubscribe();
   }
-
-  handleProfileClick() {}
-
-  handleGamesClick() {}
 }

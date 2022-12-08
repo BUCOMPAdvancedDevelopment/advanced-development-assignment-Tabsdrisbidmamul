@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { IImage, IUserDTO } from 'src/app/interfaces/user.interface';
 import { BasketService } from 'src/app/services/common/basket.service';
+import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
   constructor(
     private _authService: AuthService,
     private _router: Router,
-    private _basketService: BasketService
+    private _basketService: BasketService,
+    private _commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
         this.itemsInCart = items.length;
       },
     });
+
+    this._commonService.closeMenus$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((flag) => {
+        if (flag) {
+          this.clearMenus();
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -78,6 +88,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
   navigateToBasket() {
     this.clearMenus();
     this._router.navigate(['basket']);
+  }
+
+  openSearchContainer() {
+    this._commonService.showSpinner$.next(false);
+    this._commonService.message$.next('');
+    this._commonService.loader$.next(true);
+    this._commonService.icon$.next('');
+    this._commonService.showInput$.next(true);
   }
 
   private clearMenus() {
