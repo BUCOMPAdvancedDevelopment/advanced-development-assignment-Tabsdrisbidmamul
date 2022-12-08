@@ -32,6 +32,10 @@
       display: flex;
     }
 
+    @media (max-width: 36em) {
+      flex-wrap: wrap;
+    }
+
     &__li {
       color: $secondary-color;
       padding: 2rem;
@@ -82,6 +86,14 @@
           border-bottom-left-radius: unset;
           border-top-right-radius: $content-borer-radius;
         }
+
+        @media (max-width: 36em) {
+          border-radius: unset;
+        }
+      }
+
+      @media (max-width: 36em) {
+        border-bottom: 1px solid $dark-blue-gray !important;
       }
     }
 

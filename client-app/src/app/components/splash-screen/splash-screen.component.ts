@@ -69,7 +69,7 @@ export class SplashScreenComponent implements OnInit, OnDestroy, AfterViewInit {
         .pipe(
           takeUntil(this.destroy$),
           filter(Boolean),
-          debounceTime(500),
+          debounceTime(150),
           distinctUntilChanged(),
           tap(() => {
             this.searchValue = this.input.nativeElement.value;
