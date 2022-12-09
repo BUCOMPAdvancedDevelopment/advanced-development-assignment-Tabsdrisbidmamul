@@ -23,8 +23,6 @@ export class BasketService {
   removeItem(index: number) {
     this._list.splice(index, 1);
 
-    console.log('this._list ', this._list);
-
     this._observableList.next(this._list);
   }
 }
