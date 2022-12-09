@@ -13,22 +13,22 @@ namespace Application.Games
 {
   public class Delete
   {
-    public class Command: IRequest<Result<List<Game>>>
+    public class Command: IRequest<Result<Unit>>
     {
       public Guid Id { get; set; }
     }
 
-    public class Handler : IRequestHandler<Command, Result<List<Game>>>
+    public class Handler : IRequestHandler<Command, Result<Unit>>
     {
       private readonly DataContext _context;
-      private readonly ILogger<Result<List<Game>>> _logger;
-      public Handler(DataContext context, ILogger<Result<List<Game>>> logger)
+      private readonly ILogger<Result<Unit>> _logger;
+      public Handler(DataContext context, ILogger<Result<Unit>> logger)
       {
         _logger = logger;
         _context = context;
       }
 
-      public async Task<Result<List<Game>>> Handle(Command request, CancellationToken cancellationToken)
+      public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
       {
         try 
         {
@@ -40,17 +40,15 @@ namespace Application.Games
 
           var result = await _context.SaveChangesAsync(cancellationToken) > 0;
 
-          if(!result) return Result<List<Game>>.Failure("Failed to delete game");
+          if(!result) return Result<Unit>.Failure("Failed to delete game");
 
-          var allGames = await _context.Games.Include(g => g.CoverArt).ToListAsync();
-
-          return Result<List<Game>>.Success(allGames);
+          return Result<Unit>.Success(Unit.Value);
 
         } 
         catch (Exception ex) when (ex is TaskCanceledException)
         {
           _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back\nStack Tract {ex.StackTrace?.ToString()}");
-          return Result<List<Game>>.Failure("Something went wrong");
+          return Result<Unit>.Failure("Something went wrong");
         }
         
       }

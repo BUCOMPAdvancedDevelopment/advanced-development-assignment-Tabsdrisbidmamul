@@ -10,7 +10,7 @@ namespace Application.Games
 {
     public sealed class Create
     {
-      public class Command: IRequest<Result<Unit>>
+      public class Command: IRequest<Result<Game>>
       {
         public Game Game {get; set;}
       }
@@ -23,17 +23,17 @@ namespace Application.Games
         }
       }
 
-      public sealed class Handler : IRequestHandler<Command, Result<Unit>>
+      public sealed class Handler : IRequestHandler<Command, Result<Game>>
       {
-        private readonly ILogger<Result<Unit>> _logger;
+        private readonly ILogger<Result<Game>> _logger;
         private readonly DataContext _context;
-        public Handler(DataContext context, ILogger<Result<Unit>> logger)
+        public Handler(DataContext context, ILogger<Result<Game>> logger)
         {
           _logger = logger;
           _context = context;
         }
 
-        public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<Game>> Handle(Command request, CancellationToken cancellationToken)
         {
           try
           {
@@ -41,15 +41,17 @@ namespace Application.Games
 
             var result = await _context.SaveChangesAsync(cancellationToken)  > 0;
 
-            if(!result) return Result<Unit>.Failure("Failed to create game");
+            if(!result) return Result<Game>.Failure("Failed to create game");
 
-            return Result<Unit>.Success(Unit.Value);
+            var game = await _context.Games.FindAsync(request.Game.Id);
+
+            return Result<Game>.Success(game);
 
           }
           catch(Exception ex) when (ex is TaskCanceledException)
           {
             _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back\nStack Trace {ex.StackTrace?.ToString()}");
-            return Result<Unit>.Failure("Something went wrong");
+            return Result<Game>.Failure("Something went wrong");
           }
           
         }

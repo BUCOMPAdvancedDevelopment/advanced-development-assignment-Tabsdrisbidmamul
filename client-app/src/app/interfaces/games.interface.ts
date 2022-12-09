@@ -31,6 +31,15 @@ export interface IGameEditDTO {
   youtubeLink: string;
 }
 
+export interface IGameCreateDTO {
+  title: string;
+  description: string;
+  category: string[];
+  price: number;
+  stock: number;
+  youtubeLink: string;
+}
+
 export interface ICoverArt {
   id: string;
   publicId: string;

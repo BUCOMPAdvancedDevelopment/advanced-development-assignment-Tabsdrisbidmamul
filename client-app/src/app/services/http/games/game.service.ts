@@ -5,6 +5,7 @@ import {
   GameDTO,
   ICoverArt,
   IGame,
+  IGameCreateDTO,
   IGameEditDTO,
 } from 'src/app/interfaces/games.interface';
 import { AgentService } from '../agent/agent.service';
@@ -42,6 +43,10 @@ export class GameService extends AgentService {
 
   editGame(id: string, gameDTO: IGameEditDTO) {
     return this.patch<IGameEditDTO>(`games/${id}`, gameDTO);
+  }
+
+  createGame(gameDTO: IGameCreateDTO) {
+    return this.post<IGameCreateDTO, GameDTO>('games', gameDTO);
   }
 
   addImage(formData: FormData) {

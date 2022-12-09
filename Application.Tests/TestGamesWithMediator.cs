@@ -168,7 +168,7 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
-        var logger = new Mock<ILogger<Result<Unit>>>();
+        var logger = new Mock<ILogger<Result<Game>>>();
 
         Create.Command command = new Create.Command
         {
@@ -282,7 +282,7 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
-        var logger = new Mock<ILogger<Result<List<Game>>>>();
+        var logger = new Mock<ILogger<Result<Unit>>>();
 
         Delete.Command command = new Delete.Command
         {

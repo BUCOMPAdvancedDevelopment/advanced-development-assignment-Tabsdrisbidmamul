@@ -65,10 +65,12 @@ namespace Application.Games
           } else {
             var image = game.CoverArt.FirstOrDefault(x => x.IsBoxArt == bool.Parse(request.IsBoxArt));
 
-            // remove images from db - they are still referenced even if you change the images for said game - the GET will still return the stale images
-            _context.CoverArt.Remove(image);
+            if(image != null) {
+              // remove images from db - they are still referenced even if you change the images for said game - the GET will still return the stale images
+              _context.CoverArt.Remove(image);
 
-            game.CoverArt.Remove(image);
+              game.CoverArt.Remove(image);        
+            }
 
             game.CoverArt.Add(coverImage);
           }
