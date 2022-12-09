@@ -29,6 +29,18 @@ export class AgentService {
     });
   }
 
+  protected patch<Type>(
+    endpoint: string,
+    patchData: Type,
+    useEndpoint = Endpoints.API
+  ) {
+    return this._http.patch<any>(endpoint, patchData, {
+      headers: {
+        useEndpoint,
+      },
+    });
+  }
+
   protected post<TypeA, TypeB>(
     endpoint: string,
     postData: TypeA,

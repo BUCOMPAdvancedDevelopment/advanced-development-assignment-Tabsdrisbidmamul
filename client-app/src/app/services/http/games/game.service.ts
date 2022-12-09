@@ -40,6 +40,6 @@ export class GameService extends AgentService {
   }
 
   editGame(id: string, gameDTO: IGameEditDTO) {
-    return this.put<IGameEditDTO>(`games/${id}`, gameDTO);
+    return this.patch<IGameEditDTO>(`games/${id}`, gameDTO);
   }
 }

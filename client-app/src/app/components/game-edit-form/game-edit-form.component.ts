@@ -100,9 +100,6 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
   }
 
   handleFormSubmit() {
-    console.log(this.selectedGame);
-    console.log(this.gamesEditForm.value);
-
     const { title, description, category, price, link } =
       this.gamesEditForm.value;
 
@@ -125,7 +122,6 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
         description,
         category,
         price,
-        stock: 10,
         coverArt: this.selectedGame.coverArt,
         youtubeLink: link,
       };
@@ -138,7 +134,7 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
         .editGame(this.selectedGame.id, gameDTO)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: (games: GameDTO[]) => {
+          next: (games: GameDTO) => {
             console.log('games ', games);
 
             this._commonService.showSpinner$.next(false);
@@ -147,10 +143,8 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
               'fa-check splash-screen-icon--success'
             );
             this._commonService.message$.next('Game updated');
-
-            this.setGame(games);
           },
-          error: () => {
+          error: (err) => {
             this._commonService.showSpinner$.next(false);
             this._commonService.icon$.next(
               'fa-xmark splash-screen-icon--error'

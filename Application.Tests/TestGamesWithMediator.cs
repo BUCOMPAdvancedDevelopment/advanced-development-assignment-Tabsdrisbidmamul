@@ -235,8 +235,7 @@ namespace Application.Tests
       using(var context = new DataContext(_options)) 
       {
         var mediator = new Mock<IMediator>();
-        var mapper = new Mock<IMapper>();
-        var logger = new Mock<ILogger<Result<List<Game>>>>();
+        var logger = new Mock<ILogger<Result<Game>>>();
 
         Edit.Command command = new Edit.Command
         {
@@ -253,7 +252,7 @@ namespace Application.Tests
           }
         };
 
-        Edit.Handler handler = new Edit.Handler(context, mapper.Object, logger.Object);
+        Edit.Handler handler = new Edit.Handler(context, logger.Object);
 
         // Act
         await handler.Handle(command, new System.Threading.CancellationToken());

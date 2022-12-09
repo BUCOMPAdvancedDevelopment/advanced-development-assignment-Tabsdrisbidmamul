@@ -16,7 +16,6 @@ namespace Application.Games.Validator
       RuleFor(x => x.Description).NotEmpty();
       RuleFor(x => x.Category).NotEmpty();
       RuleFor(x => x.Price).NotEmpty().GreaterThan(0);
-      RuleFor(x => x.Stock).NotEmpty().GreaterThanOrEqualTo(0);
     }
   }
 }

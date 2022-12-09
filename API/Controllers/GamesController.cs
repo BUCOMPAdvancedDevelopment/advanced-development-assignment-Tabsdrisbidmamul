@@ -38,7 +38,7 @@ namespace API.Controllers
     }
 
     [Authorize(Policy = "IsAdmin")]
-    [HttpPut("{id}")]
+    [HttpPatch("{id}")]
     public async Task<IActionResult> EditGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
       return HandleResult(await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));

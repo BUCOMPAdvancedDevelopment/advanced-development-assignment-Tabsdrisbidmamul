@@ -41,6 +41,5 @@ export interface IGameEditDTO {
   description: string;
   category: string[];
   price: number;
-  stock: number;
   youtubeLink: string;
 }

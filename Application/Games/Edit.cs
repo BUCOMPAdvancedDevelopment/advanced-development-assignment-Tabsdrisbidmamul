@@ -16,7 +16,7 @@ namespace Application.Games
 {
     public class Edit
     {
-      public class Command: IRequest<Result<List<Game>>>
+      public class Command: IRequest<Result<Game>>
       {
         public Game Game { get; set; }
       }
@@ -29,41 +29,42 @@ namespace Application.Games
         }
       }
 
-      public class Handler : IRequestHandler<Command, Result<List<Game>>>
+      public class Handler : IRequestHandler<Command, Result<Game>>
       {
         private readonly DataContext _context;
-        private readonly IMapper _mapper;
-         private readonly ILogger<Result<List<Game>>> _logger;
-        public Handler(DataContext context, IMapper mapper, ILogger<Result<List<Game>>> logger)
+        private readonly ILogger<Result<Game>> _logger;
+        public Handler(DataContext context, ILogger<Result<Game>> logger)
         {
-          _mapper = mapper;
           _context = context;
           _logger = logger;
         }
 
-        public async Task<Result<List<Game>>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<Game>> Handle(Command request, CancellationToken cancellationToken)
         {
           try 
           {
             var game = await _context.Games.FindAsync(request.Game.Id);
 
-            if(game == null) return Result<List<Game>>.Failure("Failed to edit, game not found");
+            if(game == null) return Result<Game>.Failure("Failed to edit, game not found");
 
-            _mapper.Map(request.Game, game);
+            game.Title = request.Game.Title;
+            game.Description = request.Game.Description;
+            game.Category  = request.Game.Category as List<string>;
+            game.Price = request.Game.Price;
+            game.CoverArt = request.Game.CoverArt as List<CoverArt>;
+            game.YoutubeLink = request.Game.YoutubeLink;
 
             var result = await _context.SaveChangesAsync(cancellationToken) > 0;
 
-            if(!result) return Result<List<Game>>.Failure("Failed to edit game");
+            if(!result) return Result<Game>.Failure("Failed to edit game");
 
-            var allGames = await _context.Games.Include(p => p.CoverArt).ToListAsync();
-
-            return Result<List<Game>>.Success(allGames);
+            return Result<Game>.Success(game);
 
           }
           catch (Exception ex) when (ex is TaskCanceledException)
           {
             _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back\nStack Tract {ex.StackTrace?.ToString()}");
-            return Result<List<Game>>.Failure("Something went wrong");
+            return Result<Game>.Failure("Something went wrong");
           }
           
 
