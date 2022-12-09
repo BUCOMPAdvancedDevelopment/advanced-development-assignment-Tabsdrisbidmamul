@@ -1,0 +1,40 @@
+<div *ngIf="images" class="glide hero-carousel">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      <li class="glide__slide" *ngFor="let slide of images; index as i">
+        <div class="slide-img-container">
+          <img class="slide-img" src="{{ slide }}" (load)="initGlide()" />
+
+          <div class="slide-img-content d-flex flex-column align-items-end">
+            <p class="slide-img-content__desc">
+              {{ games[i].title }}
+            </p>
+            <button
+              routerLink="/catalogue/game/{{ games[i].id }}"
+              class="button button-primary"
+            >
+              View | {{ games[i].price | currency }}
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="glide__bullets" data-glide-el="controls[nav]">
+    <button
+      *ngFor="let slide of images; index as i"
+      class="glide__bullet"
+      attr.data-glide-dir="={{ i }}"
+    ></button>
+  </div>
+
+  <div class="glide__arrows" data-glide-el="controls">
+    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+</div>

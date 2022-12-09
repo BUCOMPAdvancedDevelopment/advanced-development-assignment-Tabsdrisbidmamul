@@ -1,0 +1,20 @@
+<div (click)="handleBackdrop()" class="backdrop"></div>
+
+<app-spinner *ngIf="showSpinner"></app-spinner>
+<i class="fa-solid {{ splashScreenIcon }} splash-screen-icon"></i>
+<p class="splash-screen-text">{{ message }}</p>
+<div class="splash-screen-search-container" *ngIf="showInput">
+  <div class="d-flex justify-content-center position-relative w-100">
+    <input
+      placeholder="Search..."
+      class="splash-screen-search__input"
+      type="text"
+      #input
+      (keydown.enter)="navigateToSearch()"
+    />
+    <i
+      (click)="navigateToSearch()"
+      class="fa-solid fa-magnifying-glass splash-screen-search__icon"
+    ></i>
+  </div>
+</div>

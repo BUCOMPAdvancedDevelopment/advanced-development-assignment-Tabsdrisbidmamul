@@ -1,0 +1,276 @@
+@import "../../../styles/themes.scss";
+@import "../../../styles/variables.scss";
+
+.game-listing {
+  margin-top: -5rem;
+
+  @media (max-width: 48em) {
+    margin-top: -1rem;
+  }
+
+  &__container {
+    &-img {
+      overflow: hidden;
+      height: 100%;
+      width: auto;
+
+      display: inline-block;
+      background-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.2) 100%
+      );
+    }
+
+    &-content {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    &-left {
+      padding-right: 4rem;
+
+      @media (max-width: 62em) {
+        padding-right: 0;
+      }
+    }
+
+    &-right {
+      margin-bottom: 2rem;
+    }
+
+    &-desc {
+      display: flex;
+      flex-flow: column;
+
+      gap: 4rem;
+      height: 100%;
+      min-height: 100rem;
+    }
+
+    &-review-and-submit {
+    }
+
+    &-reviews {
+      margin-top: 4rem;
+    }
+
+    &-review-submit {
+      display: flex;
+      // justify-content: center;
+      align-items: center;
+      gap: 2rem;
+
+      @media (max-width: 75em) {
+        flex-flow: column;
+      }
+    }
+
+    &-review-and-user {
+      flex: 1;
+      display: flex;
+      gap: 2rem;
+
+      @media (max-width: 75em) {
+        width: 100%;
+      }
+    }
+
+    &-submit-and-rating {
+      align-self: flex-start;
+
+      display: flex;
+      flex-flow: column;
+      gap: 2rem;
+
+      @media (max-width: 75em) {
+        width: 100%;
+      }
+    }
+
+    &-ratings {
+      display: flex;
+      gap: 0.5rem;
+
+      @media (max-width: 75em) {
+        margin-top: 1rem;
+        gap: 0;
+        justify-content: space-evenly;
+      }
+    }
+  }
+
+  &__cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+    z-index: -1;
+    position: relative;
+  }
+
+  &__iframe {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__categories {
+    background-color: $separator-bg;
+    padding: 2rem;
+    border-radius: $content-borer-radius;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  &__tags {
+    border-radius: $content-borer-radius;
+    background-color: $dark-blue-gray;
+    padding: 1rem 2rem;
+    text-align: center;
+
+    flex: 1;
+  }
+
+  &__textarea {
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid $dark-blue-gray;
+    height: 10rem;
+    color: $secondary-color;
+    font-size: 1.6rem;
+    padding: 1rem;
+    outline: none;
+
+    &::placeholder {
+      color: $inactive;
+      font-size: 1.6rem;
+      font-style: italic;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__review {
+    display: flex;
+    margin-bottom: 3rem;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  &__img {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50rem;
+    border: 2px solid $secondary-color;
+  }
+
+  &__stars {
+    color: $secondary-color;
+    font-size: 2rem;
+    margin-right: 0.5rem;
+  }
+
+  &__review-contents {
+    margin-top: 1.5rem;
+    font-size: 1.8rem;
+  }
+
+  &__no-reviews {
+    font-size: 1.8rem;
+    color: $inactive;
+    font-style: italic;
+    text-align: center;
+  }
+
+  &__price {
+    background-color: $inactive-alpha;
+    padding: 1rem 3rem;
+    text-align: center;
+    color: $secondary-color;
+    font-size: 1.4rem;
+    margin-bottom: 0 !important;
+    height: 100%;
+  }
+}
+
+iframe {
+  width: inherit;
+  height: 50rem;
+
+  @media (max-width: 75em) {
+    height: 40rem;
+  }
+
+  @media (max-width: 48em) {
+    height: 35rem;
+  }
+
+  @media (max-width: 48em) {
+    height: 30rem;
+  }
+}
+
+.sticky-card {
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  z-index: 100;
+
+  gap: 4rem;
+
+  // background-color: $separator-bg;
+  border: 1px solid $dark-blue-gray;
+  // border-radius: $content-borer-radius;
+  padding: 4rem;
+
+  &__header {
+    font-size: 3.5rem;
+    // text-align: right;
+
+    @media (max-width: 75em) {
+      font-size: 2.5rem;
+    }
+
+    @media (max-width: 62em) {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 62em) {
+    align-items: flex-start;
+    gap: 2rem;
+    position: unset;
+  }
+
+  &__button {
+  }
+}
+
+.button {
+  align-self: flex-start;
+  width: 100%;
+  align-self: stretch;
+  padding: 1rem 3rem !important;
+  font-size: 1.4rem;
+
+  @media (max-width: 75em) {
+    width: 100%;
+  }
+}
+
+.rating-star {
+  cursor: pointer;
+}
+
+.rating-star.active {
+  color: $polished-pine;
+}

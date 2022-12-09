@@ -1,29 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { HttpClientService } from './services/http/http-client.service';
+import { CommonService } from './services/common/common.service';
+import { AuthService } from './services/http/auth/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, OnDestroy {
-  title = 'client-app';
+export class AppComponent implements OnInit {
   private destroy$ = new Subject<void>();
+  showSpinner = false;
 
-  constructor(private _httpService: HttpClientService) {}
+  constructor(
+    private _authService: AuthService,
+    private _commonService: CommonService
+  ) {}
 
   ngOnInit(): void {
-    this._httpService
-      .getAllGames()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((games) => {
-        console.log(games);
-      });
-  }
+    this._authService.autoLogin();
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.unsubscribe();
+    this._commonService.loader$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((flag) => {
+        this.showSpinner = flag;
+      });
   }
 }

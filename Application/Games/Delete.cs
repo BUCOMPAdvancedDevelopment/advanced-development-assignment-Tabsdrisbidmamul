@@ -2,47 +2,56 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Core;
+using Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Games
 {
-    public class Delete
+  public class Delete
+  {
+    public class Command: IRequest<Result<Unit>>
     {
-      public class Command: IRequest
-      {
-        public Guid Id { get; set; }
+      public Guid Id { get; set; }
     }
 
-      public class Handler : IRequestHandler<Command>
+    public class Handler : IRequestHandler<Command, Result<Unit>>
+    {
+      private readonly DataContext _context;
+      private readonly ILogger<Result<Unit>> _logger;
+      public Handler(DataContext context, ILogger<Result<Unit>> logger)
       {
-        private readonly DataContext _context;
-        private readonly ILogger<Unit> _logger;
-        public Handler(DataContext context, ILogger<Unit> logger)
+        _logger = logger;
+        _context = context;
+      }
+
+      public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
+      {
+        try 
         {
-          _logger = logger;
-          _context = context;
-        }
+          var gameToRemove = await _context.Games.FindAsync(request.Id);
 
-        public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+          if(gameToRemove == null) return null;
+
+          _context.Remove(gameToRemove);
+
+          var result = await _context.SaveChangesAsync(cancellationToken) > 0;
+
+          if(!result) return Result<Unit>.Failure("Failed to delete game");
+
+          return Result<Unit>.Success(Unit.Value);
+
+        } 
+        catch (Exception ex) when (ex is TaskCanceledException)
         {
-          try 
-          {
-            var gameToRemove = await _context.Games.FindAsync(request.Id);
-            _context.Remove(gameToRemove);
-
-            await _context.SaveChangesAsync();
-
-            return Unit.Value;
-          }
-          catch (Exception ex) when (ex is TaskCanceledException)
-          {
-            _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
-            return Unit.Value;
-          }
-
+          _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back\nStack Tract {ex.StackTrace?.ToString()}");
+          return Result<Unit>.Failure("Something went wrong");
         }
+        
       }
     }
+  }
 }

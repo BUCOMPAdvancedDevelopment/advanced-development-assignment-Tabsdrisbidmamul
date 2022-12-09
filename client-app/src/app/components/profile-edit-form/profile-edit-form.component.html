@@ -1,0 +1,31 @@
+<form
+  *ngIf="user !== null"
+  [formGroup]="profileForm"
+  (ngSubmit)="handleOnSubmit()"
+  class="profile-edit-form"
+>
+  <h2 class="form__header">Edit your profile details</h2>
+  <div class="form__group">
+    <input
+      class="form__input"
+      type="text"
+      formControlName="displayName"
+      placeholder="Display name"
+    />
+    <label id="label-displayname" class="form__label">Display name</label>
+  </div>
+
+  <div class="form__group" *ngIf="error">
+    <span class="form__note form__note--error">{{ errorMsg }}</span>
+  </div>
+
+  <div class="form__group d-flex justify-content-md-end">
+    <button
+      class="form__submit-button button button-auth w-lg-100"
+      type="submit"
+      [disabled]="!profileForm.valid"
+    >
+      Save changes
+    </button>
+  </div>
+</form>

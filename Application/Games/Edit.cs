@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Core;
+using Application.Games.Validator;
 using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Persistence;
 
@@ -12,40 +16,57 @@ namespace Application.Games
 {
     public class Edit
     {
-      public class Command: IRequest
+      public class Command: IRequest<Result<Game>>
       {
         public Game Game { get; set; }
       }
 
-      public class Handler : IRequestHandler<Command>
+      public class CommandValidator : AbstractValidator<Command>
       {
-        private readonly DataContext _context;
-        private readonly IMapper _mapper;
-      private readonly ILogger<Unit> _logger;
-      public Handler(DataContext context, IMapper mapper, ILogger<Unit> logger)
+        public CommandValidator()
         {
-          _mapper = mapper;
-          _context = context;
-        _logger = logger;
+          RuleFor(x => x.Game).SetValidator(new GameValidator());
+        }
       }
 
-        public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+      public class Handler : IRequestHandler<Command, Result<Game>>
+      {
+        private readonly DataContext _context;
+        private readonly ILogger<Result<Game>> _logger;
+        public Handler(DataContext context, ILogger<Result<Game>> logger)
+        {
+          _context = context;
+          _logger = logger;
+        }
+
+        public async Task<Result<Game>> Handle(Command request, CancellationToken cancellationToken)
         {
           try 
           {
             var game = await _context.Games.FindAsync(request.Game.Id);
 
-            _mapper.Map(request.Game, game);
+            if(game == null) return Result<Game>.Failure("Failed to edit, game not found");
 
-            await _context.SaveChangesAsync();
+            game.Title = request.Game.Title;
+            game.Description = request.Game.Description;
+            game.Category  = request.Game.Category as List<string>;
+            game.Price = request.Game.Price;
 
-            return Unit.Value;
+            game.YoutubeLink = request.Game.YoutubeLink;
+
+            var result = await _context.SaveChangesAsync(cancellationToken) > 0;
+
+            if(!result) return Result<Game>.Failure("Failed to edit game");
+
+            return Result<Game>.Success(game);
+
           }
           catch (Exception ex) when (ex is TaskCanceledException)
           {
-            _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back");
-            return Unit.Value;
+            _logger.LogInformation($"ERROR: {this.GetType()} Task was cancelled, rolling back\nStack Tract {ex.StackTrace?.ToString()}");
+            return Result<Game>.Failure("Something went wrong");
           }
+          
 
         }
       }

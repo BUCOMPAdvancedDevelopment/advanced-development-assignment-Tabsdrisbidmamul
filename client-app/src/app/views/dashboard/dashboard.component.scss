@@ -1,0 +1,120 @@
+@import "../../../styles/themes.scss";
+@import "../../../styles/variables.scss";
+
+.dashboard {
+  &-wrapper {
+    border: 1px solid $dark-blue-gray;
+    border-radius: $content-borer-radius;
+    margin-bottom: 5rem !important;
+
+    @media (max-width: 36em) {
+      // border-radius: unset;
+    }
+  }
+
+  &-menu {
+    list-style-type: none;
+    border-right: 1px solid $dark-blue-gray;
+    height: 100%;
+    padding-left: 0;
+    width: 100%;
+    margin-bottom: 0;
+
+    &-wrapper {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    @media (max-width: 62em) {
+      border-right: 0;
+      border-bottom: 1px solid $dark-blue-gray;
+
+      display: flex;
+    }
+
+    @media (max-width: 36em) {
+      flex-wrap: wrap;
+    }
+
+    &__li {
+      color: $secondary-color;
+      padding: 2rem;
+      width: 100%;
+      transition: all 250ms ease;
+      cursor: pointer;
+
+      max-height: 8rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+
+      @media (max-width: 62em) {
+        border-left: 1px solid $dark-blue-gray;
+        // border-bottom: 0;
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      border-bottom: 1px solid $dark-blue-gray;
+      &:not(:last-child) {
+        @media (max-width: 62em) {
+          border-bottom: 0;
+        }
+      }
+
+      &:hover {
+        background-color: $dark-blue-gray;
+      }
+
+      &--active {
+        background-color: $dark-blue-gray;
+      }
+
+      &:first-child:hover {
+        border-top-left-radius: $content-borer-radius;
+
+        @media (max-width: 62em) {
+          border-top-left-radius: unset;
+          border-top-left-radius: $content-borer-radius;
+        }
+      }
+
+      &:last-child:hover {
+        // border-bottom-left-radius: $content-borer-radius;
+
+        @media (max-width: 62em) {
+          border-bottom-left-radius: unset;
+          border-top-right-radius: $content-borer-radius;
+        }
+
+        @media (max-width: 36em) {
+          border-radius: unset;
+        }
+      }
+
+      @media (max-width: 36em) {
+        border-bottom: 1px solid $dark-blue-gray !important;
+      }
+    }
+
+    &__span {
+      display: block;
+      // text-align: center;
+    }
+
+    &__icon {
+      font-size: 1.8rem;
+    }
+  }
+
+  &-content {
+    &-wrapper {
+      height: 70vh;
+      overflow-y: scroll;
+    }
+  }
+}

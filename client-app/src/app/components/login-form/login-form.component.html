@@ -1,0 +1,59 @@
+<form class="form" [formGroup]="loginForm" (ngSubmit)="handleOnSubmit()">
+  <h2 class="form__header">Login</h2>
+  <div class="row">
+    <div class="col-12">
+      <div class="form__group">
+        <input
+          class="form__input"
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Email"
+          autocomplete="off"
+        />
+        <label class="form__label" id="label-email" for="email">Email</label>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="form__group">
+        <input
+          class="form__input"
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Password"
+          autocomplete="off"
+        />
+        <label class="form__label" id="label-password" for="password"
+          >Password</label
+        >
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="form__group w-100 d-flex justify-content-end">
+        <button
+          class="form__submit-button button button-auth w-100"
+          type="submit"
+          [disabled]="!loginForm.valid"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="col-12">
+      <div class="form__group">
+        <span class="form__note form__note--error">{{ errorMessage }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-end">
+      <a routerLink="/forgot-my-password" class="form__forgot-password"
+        >Forgot your password?</a
+      >
+    </div>
+  </div>
+</form>

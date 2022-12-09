@@ -1,0 +1,145 @@
+<div class="container">
+  <h3 class="mb-5">Create game</h3>
+
+  <div class="row">
+    <div class="col-12 col-xl-7">
+      <input
+        accept="image/*"
+        type="file"
+        id="large-image"
+        class="form__file"
+        hidden
+        #largeImage
+      />
+      <input
+        accept="image/*"
+        type="file"
+        id="small-image"
+        class="form__file"
+        hidden
+        #smallImage
+      />
+
+      <div class="d-flex flex-column gap-3">
+        <div>
+          <label
+            class="form__label form__label--upload form__label--no-abs me-3"
+            >Cover Art</label
+          >
+          <button
+            (click)="handleLargeFileUpload()"
+            class="button button-primary"
+          >
+            Upload
+          </button>
+        </div>
+
+        <div>
+          <label
+            class="form__label form__label--upload form__label--no-abs me-3"
+            >Box Art</label
+          >
+          <button
+            (click)="handleSmallFileUpload()"
+            class="button button-primary"
+          >
+            Upload
+          </button>
+        </div>
+
+        <div>
+          <img class="image__large" />
+        </div>
+
+        <div>
+          <img class="image__small" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-5">
+      <form (ngSubmit)="handleFormSubmit()" [formGroup]="gamesEditForm">
+        <div class="form__group">
+          <input
+            class="form__input"
+            type="text"
+            formControlName="title"
+            placeholder="Title"
+          />
+          <label id="label-title" class="form__label form__label-active"
+            >Title</label
+          >
+        </div>
+
+        <div class="form__group">
+          <textarea
+            class="form__input"
+            type="text"
+            formControlName="description"
+            placeholder="Description"
+            rows="10"
+          >
+          </textarea>
+
+          <label id="label-description" class="form__label form__label-active"
+            >Description</label
+          >
+        </div>
+
+        <div class="form__group">
+          <div class="form__checkbox-group">
+            <div
+              class="d-flex gap-5"
+              *ngFor="let category of categories; index as i"
+            >
+              <input
+                class="form__checkbox"
+                type="checkbox"
+                formArrayName="category"
+                (change)="onCheckboxChange($event, category)"
+                [id]="i"
+                [value]="category.type"
+                [checked]="category.value"
+              />
+              <label
+                [id]="i"
+                class="form__label form__label--checkbox form__label--no-abs"
+                >{{ category.type }}</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="form__group">
+          <input
+            class="form__input"
+            type="number"
+            formControlName="price"
+            placeholder="Price"
+            min="1"
+            max="1000"
+          />
+          <label id="label-price" class="form__label form__label-active"
+            >price</label
+          >
+        </div>
+
+        <div class="form__group">
+          <input
+            class="form__input"
+            type="string"
+            formControlName="link"
+            placeholder="Youtube Link"
+          />
+          <label id="label-link" class="form__label form__label-active"
+            >Youtube Link</label
+          >
+        </div>
+
+        <div class="form__group">
+          <button class="button button-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

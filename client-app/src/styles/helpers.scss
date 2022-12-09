@@ -1,0 +1,45 @@
+@import "../styles/variables.scss";
+@import "../styles/themes.scss";
+
+.w-md-100 {
+  @media (max-width: 48em) {
+    width: 100% !important;
+  }
+}
+
+.w-lg-100 {
+  @media (max-width: 62em) {
+    width: 100% !important;
+  }
+}
+
+.w-gtlg-50 {
+  @media (min-width: 62em) {
+    width: 50% !important;
+  }
+}
+
+.comp-mb {
+  margin-bottom: $comp-mb;
+
+  @media (max-width: 87.5em) {
+    margin-bottom: $comp-xxl-mb;
+  }
+
+  @media (max-width: 75em) {
+    margin-bottom: $comp-xl-mb;
+  }
+
+  @media (max-width: 62em) {
+    margin-bottom: $comp-lg-mb;
+  }
+
+  @media (max-width: 36em) {
+    margin-bottom: $comp-md-mb;
+  }
+}
+
+.separator {
+  background-color: $separator-bg;
+  border-radius: $content-borer-radius;
+}

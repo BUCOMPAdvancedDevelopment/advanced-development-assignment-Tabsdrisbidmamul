@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row mb-5">
+    <h2 class="mt-4 mt-md-0">Basket</h2>
+    <div class="col-12 order-1 order-md-0 col-md-8">
+      <div class="item__container">
+        <ng-container *ngIf="basketList.length === 0">
+          <p class="item__no-items">No items in your basket</p>
+        </ng-container>
+
+        <div *ngFor="let item of basketList; index as i" class="item">
+          <div class="item__container-image-and-title">
+            <img [src]="item.url" class="item__image" />
+            <p class="item__title">{{ item.title }}</p>
+          </div>
+          <div class="item__container-price-and-remove">
+            <p class="item__price">{{ item.price | currency }}</p>
+            <a (click)="removeItemFromBasket(i)" class="item__remove">Remove</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="col-12 order-0 my-5 my-md-0 order-md-1 col-md-4 d-md-flex justify-content-md-center align-items-md-start"
+    >
+      <div class="d-flex flex-column" *ngIf="basketList.length !== 0">
+        <h3 class="item__total-header">Total</h3>
+        <p class="item__total">{{ total | currency }}</p>
+        <button class="button button-primary">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>

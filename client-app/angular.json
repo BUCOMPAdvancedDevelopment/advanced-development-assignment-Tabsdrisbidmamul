@@ -26,6 +26,8 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@glidejs/glide/src/assets/sass/glide.core.scss",
+              "node_modules/@glidejs/glide/src/assets/sass/glide.theme.scss",
               "src/styles.scss"
             ],
             "scripts": [
@@ -42,8 +44,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "150kb",
+                  "maximumError": "150kb"
                 }
               ],
               "fileReplacements": [

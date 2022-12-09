@@ -1,0 +1,129 @@
+<div *ngIf="game" class="container-fluid game-listing">
+  <div class="row">
+    <div class="col-12">
+      <div class="game-listing__container-img">
+        <img [src]="image" class="game-listing__cover" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container game-listing__container-content">
+    <div class="row">
+      <div
+        class="order-1 order-lg-0 col-12 col-lg-7 col-xl-9 game-listing__container-left"
+      >
+        <div class="game-listing__container-desc">
+          <p class="game-listing__desc">{{ game.description }}</p>
+
+          <div class="game-listing__categories">
+            <span class="game-listing__tags" *ngFor="let type of game.category">
+              {{ type }}
+            </span>
+          </div>
+
+          <div class="game-listing__iframe">
+            <iframe
+              [src]="youtubeLink | safe"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="game-listing__container-review-and-submit">
+            <div class="game-listing__container-review-submit">
+              <div class="game-listing__container-review-and-user">
+                <img
+                  class="game-listing__img"
+                  [src]="
+                    user === null || user.image === null
+                      ? '../../../assets/default.jpg'
+                      : user.image.url
+                  "
+                />
+
+                <textarea
+                  placeholder="Tell us what you think"
+                  class="game-listing__textarea"
+                  #review
+                  maxlength="256"
+                ></textarea>
+              </div>
+
+              <div class="game-listing__container-submit-and-rating">
+                <button
+                  [disabled]="user === null || review.value.length === 0"
+                  [ngClass]="user === null ? 'button-disabled' : null"
+                  class="button button-ghost"
+                  (click)="handleSubmit()"
+                >
+                  Submit
+                </button>
+
+                <div class="game-listing__container-ratings">
+                  <ng-container *ngFor="let star of createIterable(5)">
+                    <i
+                      #stars
+                      class="rating-star game-listing__stars fa-solid fa-star"
+                    ></i>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-listing__container-reviews">
+              <ng-container *ngIf="errorMessage !== ''">
+                <p class="game-listing__no-reviews">{{ errorMessage }}</p>
+              </ng-container>
+              <div
+                *ngFor="let review of userDisplayNameAndImageAndReviews"
+                class="game-listing__review"
+              >
+                <img
+                  class="game-listing__img"
+                  [src]="
+                    review.image !== null
+                      ? review.image.url
+                      : '../../../assets/default.jpg'
+                  "
+                />
+                <div class="game-listing__review-contents">
+                  <ng-container
+                    *ngFor="let star of createIterable(review.rating)"
+                  >
+                    <i class="game-listing__stars fa-solid fa-star"></i>
+                  </ng-container>
+                  <p class="game-listing__review-contents">
+                    {{ review.review }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="order-0 order-lg-1 col-12 col-lg-5 col-xl-3 game-listing__container-right position-relative"
+      >
+        <div class="sticky-card">
+          <h2 class="sticky-card__header">{{ game.title }}</h2>
+
+          <div class="d-flex h-100 align-items-center">
+            <button class="button button-ghost button-disabled button-no-hover">
+              {{ game.price | currency }}
+            </button>
+
+            <button
+              class="sticky-card__button button button-add-to-cart"
+              (click)="addToCart()"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

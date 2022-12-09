@@ -1,0 +1,82 @@
+@import "../../../styles/themes.scss";
+@import "../../../styles/variables.scss";
+
+$border-radius: $content-borer-radius;
+
+.glide__bullets {
+  @media (min-width: 36em) and (max-width: 62em) {
+    bottom: 2em;
+  }
+}
+
+.slide-img-container {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+
+  display: inline-block;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  // background-size: cover;
+
+  border-radius: $border-radius;
+
+  transition: all 250ms ease;
+  overflow: hidden;
+  // transform: scale(0.99);
+  backface-visibility: hidden;
+
+  &:hover {
+    .slide-img {
+      transform: scale(1.02);
+    }
+  }
+}
+
+.slide-img {
+  width: 100%;
+  height: 70rem;
+  object-fit: cover;
+  // background-position: center;
+  // background-size: cover;
+
+  position: relative;
+  display: block;
+  border-radius: $border-radius;
+  z-index: -1;
+
+  // @media (max-width: 87.5em) {
+  //   height: 40rem;
+  // }
+
+  @media (min-width: 123.75em) {
+    height: 120rem;
+  }
+
+  @media (max-width: 62em) {
+    height: 40rem;
+  }
+
+  @media (max-width: 48em) {
+    height: 100%;
+  }
+
+  overflow: hidden;
+  transform: scale(0.99);
+  transition: transform 250ms ease;
+  backface-visibility: hidden;
+}
+
+.slide-img-content {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+
+  &__desc {
+    color: $secondary-color;
+    font-size: 2rem;
+  }
+}

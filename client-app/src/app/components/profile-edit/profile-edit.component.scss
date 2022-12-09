@@ -1,0 +1,28 @@
+@import "../../../styles/themes.scss";
+
+$inner-padding: 4rem;
+
+.profile-edit {
+  &-wrapper {
+    margin: 4rem;
+  }
+
+  &__left {
+    // border-right: 1px solid $dark-blue-gray;
+    padding-right: $inner-padding;
+
+    @media (max-width: 87.5em) {
+      margin-bottom: 6rem;
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
+  &__right {
+    padding-left: $inner-padding;
+
+    @media (max-width: 87.5em) {
+      padding-left: 0;
+    }
+  }
+}

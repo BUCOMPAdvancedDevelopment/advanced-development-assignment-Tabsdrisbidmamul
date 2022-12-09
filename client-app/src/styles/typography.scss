@@ -1,0 +1,64 @@
+@import "../styles/variables.scss";
+@import "../styles/themes.scss";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+label {
+  font-family: $main-font-family;
+  color: $secondary-color;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+h2 {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 3rem;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+h5,
+h6 {
+  font-size: 1.8rem;
+}
+
+h5 {
+  font-style: italic;
+}
+
+p,
+span,
+a,
+label {
+  font-size: 1.6rem;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 250ms ease;
+
+  &:link,
+  &:visited {
+    color: $secondary-color;
+  }
+
+  &:hover,
+  &:active {
+    color: $dark-blue-gray;
+  }
+}

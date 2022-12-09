@@ -24,20 +24,21 @@ jobs:
           npm run build
           rm -rf node_modules
         working-directory: ./client-app
-      - name: upload artefact
-        uses: actions/upload-artifact@v3
-        with:
-          name: dotnetbuild
-          path: ./
+      # - name: upload artefact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dotnetbuild
+      #     path: ./
 
   dotnet-build:
     needs: angular-build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: dotnetbuild
+      # - uses: actions/download-artifact@v3
+      #   with:
+      #     name: dotnetbuild
+      - uses: actions/checkout@v3
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:

@@ -1,21 +1,106 @@
-<nav class="container-fluid d-flex justify-content-around">
-  <div class="nav__logo-container">
-    <picture>
-      <img class="nav__logo" alt="logo" />
-    </picture>
-  </div>
+<nav class="container-fluid nav-outer-container">
+  <div class="container-fluid nav__container">
+    <div class="nav__logo-container">
+      <div (click)="navigateToHome()" class="logo-container">
+        <a>
+          <div class="logo">Logo</div>
+        </a>
+      </div>
+    </div>
 
-  <div class="nav__main-links">
-    <ul class="nav__links d-flex">
-      <li class="nav__li">
-        <a routerLink="/catalogue" class="nav__a">Catalogue</a>
-      </li>
+    <div class="nav__main-links" [class.nav__menu-icon-toggle]="menuToggle">
+      <ul class="nav__links">
+        <li (click)="navigateToCatalogue()" class="nav__li w-lg-100">
+          <a class="nav__a w-lg-100">
+            <span class="mobile-text">Catalogue</span>
+            <i class="fa-solid fa-list"></i>
+          </a>
+        </li>
 
-      <li class="nav__li">
-        <a routerLink="/about" class="nav__a">About us</a>
-      </li>
-      <li class="nav__li"><a routerLink="" class="nav__a"></a></li>
-      <li class="nav__li"><a routerLink="" class="nav__a"></a></li>
-    </ul>
+        <li
+          class="nav__li w-lg-100 nav__li-search"
+          (click)="openSearchContainer()"
+        >
+          <a class="nav__a w-lg-100">
+            <span class="mobile-text">Search</span>
+            <i class="fa-solid fa-magnifying-glass nav__icon"></i>
+          </a>
+        </li>
+
+        <li (click)="navigateToBasket()" class="nav__li nav__li-cart w-lg-100">
+          <a class="nav__a w-lg-100 d-flex justify-content-center">
+            <div class="cart-items">
+              <span *ngIf="itemsInCart !== 0" class="cart-items__value">{{
+                itemsInCart
+              }}</span>
+              <span class="mobile-text">Basket</span>
+            </div>
+            <i class="fa-solid fa-cart-shopping nav__icon"></i>
+          </a>
+        </li>
+
+        <ng-container *ngIf="!loggedIn">
+          <li class="nav__li nav__li-no-hover w-lg-100">
+            <a routerLink="/sign-up" class="button button-primary w-lg-100"
+              >sign up</a
+            >
+          </li>
+
+          <li class="nav__li nav__li-no-hover w-lg-100">
+            <a (click)="login()" class="button button-ghost w-lg-100">login</a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="loggedIn">
+          <li
+            (click)="toggleUserSubmenu()"
+            class="nav__li nav__profile-container"
+          >
+            <img
+              class="nav__profile-image"
+              [src]="
+                userImage === null
+                  ? '../../../assets/default.jpg'
+                  : userImage?.url
+              "
+              width="50"
+              height="50"
+            />
+            <div
+              class="nav__profile-sub-menu"
+              [ngClass]="
+                userSubmenuToggle ? 'nav__profile-sub-menu-active' : null
+              "
+            >
+              <ul class="nav__profile-sub-menu-ul">
+                <li class="nav__profile-sub-menu-li">
+                  <a
+                    class="nav__profile-sub-menu-a"
+                    (click)="navigateToDashboard()"
+                    ><i class="fa-solid fa-gear"></i> <span>Account</span>
+                  </a>
+                </li>
+                <li class="nav__profile-sub-menu-li">
+                  <a (click)="logout()" class="nav__profile-sub-menu-a">
+                    <i class="fa-solid fa-door-closed"></i>
+                    <span>Sign out</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+
+    <div
+      class="nav__mobile-icon"
+      [ngClass]="menuToggle ? 'nav__mobile-icon-active' : null"
+      (click)="toggleDrawer()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 </nav>

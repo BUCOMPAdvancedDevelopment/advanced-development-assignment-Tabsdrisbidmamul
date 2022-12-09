@@ -2,43 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Extensions;
 
 namespace Domain.Types
 {
-      public class StringValueAttribute: Attribute
-      {
-        # region properties
-        
-        /// <summary?>
-        /// Holds the string value in the an enum
-        /// </summary?
-        public string StringValue {get; protected set;}
-
-      #endregion
-
-      #region constructor
-      
-      /// <summary>
-      /// Initialse StringValue attribute
-      /// </summary>
-      /// <param name="value">A string value</param>
-      public StringValueAttribute(string value) => StringValue = value;
-
-      #endregion
-    }
-
     public enum CategoryTypes: int
     {
-        [StringValue("mmo")]
+        [StringValue("MMO")]
         MMO = 0,
-        [StringValue("action")]
+        [StringValue("Action")]
         Action = 1,
-        [StringValue("rpg")]
+        [StringValue("RPG")]
         Rpg = 2,
-        [StringValue("jrpg")]
+        [StringValue("JRPG")]
         Jrpg = 3,
-        [StringValue("OpenWorld")]
-        OpenWorld = 4
+        [StringValue("Open World")]
+        OpenWorld = 4,
+        [StringValue("Multiplayer")]
+        Multiplayer = 5,
+        [StringValue("First Person")]
+        FirstPerson = 6,
+        [StringValue("Sci-Fi")]
+        SciFi = 7,
+        [StringValue("Co-Op")]
+        Coop = 8,
+        [StringValue("Adventure")]
+        Adventure = 9,
+        [StringValue("Single Player")]
+        SinglePlayer = 10
 
     }
 }

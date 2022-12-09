@@ -1,41 +1,54 @@
 using Application.Games;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
   public sealed class GamesController : BaseApiController
   {
-
+    [AllowAnonymous]
     [HttpGet]
-    public async Task<ActionResult<List<Game>>> GetGames(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
     {
-      return await Mediator.Send(new Application.Games.List.Query(), cancellationToken);
+      return HandleResult(await Mediator.Send(new Application.Games.List.Query(), cancellationToken));
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
-    public async Task<ActionResult<Game>> GetGame(CancellationToken cancellationToken, Guid id)
+    public async Task<IActionResult> GetGame(CancellationToken cancellationToken, Guid id)
     {
-      return await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken);
+       return HandleResult(await Mediator.Send(new Application.Games.Single.Query { Id = id }, cancellationToken));
     }
 
+    [Authorize(Policy = "IsAdmin")]
+    [HttpGet]
+    [Route("categories")]
+    public async Task<IActionResult> GetAllCategories(CancellationToken cancellationToken)
+    {
+      return HandleResult(await Mediator.Send(new Application.Games.ListTypes.Query(), cancellationToken));
+    }
+
+    [Authorize(Policy = "IsAdmin")]
     [HttpPost]
     public async Task<IActionResult> CreateGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
-      return StatusCode(StatusCodes.Status201Created, await Mediator
-        .Send(new Application.Games.Create.Command {Game = game}, cancellationToken));
+      return HandleResult(await Mediator
+        .Send(new Application.Games.Create.Command { Game = game }, cancellationToken));
     }
 
+    [Authorize(Policy = "IsAdmin")]
     [HttpPatch("{id}")]
     public async Task<IActionResult> EditGame(CancellationToken cancellationToken, [FromBody]Game game)
     {
-      return StatusCode(StatusCodes.Status200OK, await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));
+      return HandleResult(await Mediator.Send(new Application.Games.Edit.Command { Game = game }, cancellationToken));
     }
 
+    [Authorize(Policy = "IsAdmin")]
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteGame(CancellationToken cancellationToken, Guid id)
+    public async Task<IActionResult> DeleteGame(CancellationToken cancellationToken, string id)
     {
-      return StatusCode(StatusCodes.Status204NoContent, await Mediator.Send(new Application.Games.Delete.Command { Id = id }, cancellationToken));
+      return HandleResult(await Mediator.Send(new Application.Games.Delete.Command { Id = new Guid(id) }, cancellationToken));
     }
     
   }

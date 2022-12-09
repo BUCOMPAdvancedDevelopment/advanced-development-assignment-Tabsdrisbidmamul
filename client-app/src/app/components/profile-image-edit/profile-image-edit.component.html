@@ -1,0 +1,70 @@
+<div *ngIf="user !== null" class="profile-image__container">
+  <input
+    id="profile-image-uploader"
+    type="file"
+    hidden
+    (input)="fileChangeEvent($event)"
+    accept="image/*"
+  />
+
+  <ng-container *ngIf="!imageChangedEvent">
+    <img
+      [src]="
+        user.image === null ? '../../../assets/default.jpg' : user.image.url
+      "
+      class="profile-image"
+    />
+  </ng-container>
+
+  <div *ngIf="imageChangedEvent" class="profile-image__cropping-container">
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1 / 1"
+      [resizeToWidth]="500"
+      [resizeToWidth]="500"
+      [cropperMinWidth]="128"
+      format="jpeg"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+
+    <img class="profile-image__cropping-image" [src]="croppedImage" />
+  </div>
+
+  <div class="profile-image__button-container">
+    <ng-container *ngIf="!imageChangedEvent">
+      <button
+        *ngIf="user.image !== null"
+        (click)="handleOnDelete()"
+        class="button button-delete profile-image__button"
+      >
+        Delete
+      </button>
+      <button
+        (click)="handleOnUpload()"
+        class="button button-change profile-image__button"
+      >
+        Upload
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="imageChangedEvent">
+      <button
+        (click)="handleOnCancel()"
+        class="button button-change button-delete profile-image__button"
+      >
+        Cancel
+      </button>
+
+      <button
+        (click)="handleOnSaveImage()"
+        class="button button-change profile-image__button"
+      >
+        Save Image
+      </button>
+    </ng-container>
+  </div>
+</div>
