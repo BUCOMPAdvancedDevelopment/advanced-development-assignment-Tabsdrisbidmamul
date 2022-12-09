@@ -28,11 +28,11 @@ export class CloudinaryService {
 
     let publicId = '';
 
-    if (isBoxArt) {
-      publicId = game.coverArt[1].publicId;
-    } else {
-      publicId = game.coverArt[0].publicId;
-    }
+    // if (isBoxArt) {
+    //   publicId = game.coverArt[1].publicId;
+    // } else {
+    //   publicId = game.coverArt[0].publicId;
+    // }
 
     return this.transformImage(
       this.cld.image(`${imagePath}/${publicId}`),

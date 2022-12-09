@@ -1,10 +1,19 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { forkJoin, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import {
   GameDTO,
+  ICoverArt,
   IGame,
   IGameEditDTO,
 } from 'src/app/interfaces/games.interface';
@@ -16,12 +25,14 @@ import { GameService } from 'src/app/services/http/games/game.service';
   templateUrl: './game-edit-form.component.html',
   styleUrls: ['./game-edit-form.component.scss'],
 })
-export class GameEditFormComponent implements OnInit, OnDestroy {
+export class GameEditFormComponent implements OnInit, OnDestroy, AfterViewInit {
   private destroy$ = new Subject<void>();
   selectedGame: IGame | null = null;
   categories: { type: string; value: boolean }[] = [];
   index = 0;
   games: IGame[] = [];
+  @ViewChild('largeImage') private largeImageInput!: ElementRef;
+  @ViewChild('smallImage') private smallImageInput!: ElementRef;
 
   gamesEditForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -85,6 +96,8 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
     this.onChanges();
   }
 
+  ngAfterViewInit(): void {}
+
   onChanges() {
     this.gamesEditForm.valueChanges.subscribe((val) => {
       if (val.title?.length) {
@@ -102,6 +115,59 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
   handleFormSubmit() {
     const { title, description, category, price, link } =
       this.gamesEditForm.value;
+
+    const coverArts = [];
+
+    const largeImageInput = this.document.getElementById(
+      'large-image'
+    ) as HTMLInputElement;
+
+    const smallImageInput = this.document.getElementById(
+      'small-image'
+    ) as HTMLInputElement;
+
+    let largeImage;
+    let smallImage;
+
+    if (
+      largeImageInput.files !== null &&
+      largeImageInput.files.length &&
+      largeImageInput.files
+    ) {
+      largeImage = largeImageInput.files[0];
+      coverArts.push({ file: largeImage, isBoxArt: false });
+    }
+
+    if (
+      smallImageInput.files !== null &&
+      smallImageInput.files.length &&
+      smallImageInput.files
+    ) {
+      smallImage = smallImageInput.files[0];
+      coverArts.push({ file: smallImage, isBoxArt: true });
+    }
+
+    const fileObservables: Observable<ICoverArt>[] = [];
+    let createdCoverArts: ICoverArt[] = [];
+
+    coverArts.forEach(({ file, isBoxArt }) => {
+      const formData = new FormData();
+
+      formData.append('File', file);
+      formData.append('Path', 'logo/cover-art');
+      formData.append('Id', this.selectedGame!.id);
+      formData.append('IsBoxArt', `${isBoxArt}`);
+
+      fileObservables.push(this._gameService.addImage(formData));
+    });
+
+    if (fileObservables.length) {
+      const source = forkJoin(fileObservables);
+
+      source.subscribe((coverArt) => {
+        createdCoverArts = coverArt;
+      });
+    }
 
     if (
       this.selectedGame !== null &&
@@ -122,7 +188,6 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
         description,
         category,
         price,
-        coverArt: this.selectedGame.coverArt,
         youtubeLink: link,
       };
 
@@ -135,8 +200,6 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (games: GameDTO) => {
-            console.log('games ', games);
-
             this._commonService.showSpinner$.next(false);
 
             this._commonService.icon$.next(
@@ -202,5 +265,9 @@ export class GameEditFormComponent implements OnInit, OnDestroy {
 
   handleLargeFileUpload() {
     this.document.getElementById('large-image')?.click();
+  }
+
+  handleSmallFileUpload() {
+    this.document.getElementById('small-image')?.click();
   }
 }

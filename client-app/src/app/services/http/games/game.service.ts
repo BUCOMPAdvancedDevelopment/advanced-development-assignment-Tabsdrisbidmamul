@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject, Subject } from 'rxjs';
 import {
   GameDTO,
+  ICoverArt,
   IGame,
   IGameEditDTO,
 } from 'src/app/interfaces/games.interface';
@@ -41,5 +42,13 @@ export class GameService extends AgentService {
 
   editGame(id: string, gameDTO: IGameEditDTO) {
     return this.patch<IGameEditDTO>(`games/${id}`, gameDTO);
+  }
+
+  addImage(formData: FormData) {
+    return this.post<FormData, ICoverArt>(
+      'photo/add-games-photo',
+      formData,
+      true
+    );
   }
 }

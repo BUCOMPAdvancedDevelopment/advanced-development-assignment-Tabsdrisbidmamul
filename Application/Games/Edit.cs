@@ -51,7 +51,7 @@ namespace Application.Games
             game.Description = request.Game.Description;
             game.Category  = request.Game.Category as List<string>;
             game.Price = request.Game.Price;
-            game.CoverArt = request.Game.CoverArt as List<CoverArt>;
+
             game.YoutubeLink = request.Game.YoutubeLink;
 
             var result = await _context.SaveChangesAsync(cancellationToken) > 0;

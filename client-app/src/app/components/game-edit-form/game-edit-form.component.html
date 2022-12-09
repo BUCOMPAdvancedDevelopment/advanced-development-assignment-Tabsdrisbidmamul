@@ -3,8 +3,22 @@
 
   <div class="row">
     <div class="col-12 col-xl-7">
-      <input type="file" id="large-image" class="form__file" hidden />
-      <input type="file" id="small-image" class="form__file" hidden />
+      <input
+        accept="image/*"
+        type="file"
+        id="large-image"
+        class="form__file"
+        hidden
+        #largeImage
+      />
+      <input
+        accept="image/*"
+        type="file"
+        id="small-image"
+        class="form__file"
+        hidden
+        #smallImage
+      />
 
       <div class="d-flex flex-column gap-3">
         <div>
@@ -25,7 +39,20 @@
             class="form__label form__label--upload form__label--no-abs me-3"
             >Box Art</label
           >
-          <button class="button button-primary">Upload</button>
+          <button
+            (click)="handleSmallFileUpload()"
+            class="button button-primary"
+          >
+            Upload
+          </button>
+        </div>
+
+        <div>
+          <img class="image__large" />
+        </div>
+
+        <div>
+          <img class="image__small" />
         </div>
       </div>
     </div>
