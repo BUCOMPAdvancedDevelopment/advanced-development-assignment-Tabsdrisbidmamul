@@ -34,6 +34,10 @@
     &--remove {
       color: $error;
     }
+
+    &--add {
+      color: $inactive;
+    }
   }
 }
 

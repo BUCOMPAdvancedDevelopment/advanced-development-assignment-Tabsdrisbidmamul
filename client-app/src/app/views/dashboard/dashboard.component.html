@@ -2,12 +2,20 @@
   <div class="row dashboard-wrapper mx-5 my-5">
     <div class="col-12 col-lg-3 dashboard-menu-wrapper">
       <ul class="dashboard-menu">
-        <li class="dashboard-menu__li" routerLink="profile/edit">
+        <li
+          class="dashboard-menu__li"
+          routerLink="profile/edit"
+          [routerLinkActive]="['dashboard-menu__li--active']"
+        >
           <i class="dashboard-menu__icon fa-solid fa-user"></i>
           <span class="dashboard-menu__span">Profile</span>
         </li>
 
-        <li class="dashboard-menu__li" routerLink="orders">
+        <li
+          class="dashboard-menu__li"
+          routerLink="orders"
+          [routerLinkActive]="['dashboard-menu__li--active']"
+        >
           <i class="dashboard-menu__icon fa-solid fa-money-bill"></i>
           <span class="dashboard-menu__span">Orders</span>
         </li>
@@ -16,6 +24,7 @@
           *ngIf="user?.role === 'admin'"
           class="dashboard-menu__li"
           routerLink="games"
+          [routerLinkActive]="['dashboard-menu__li--active']"
         >
           <i class="dashboard-menu__icon fa-solid fa-gamepad"></i>
           <span class="dashboard-menu__span">Games</span>

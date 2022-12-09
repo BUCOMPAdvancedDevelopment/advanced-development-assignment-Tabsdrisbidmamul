@@ -8,7 +8,12 @@
 
     <div class="col-12">
       <div class="results">
-        <h3 class="mb-5">Games</h3>
+        <div class="d-flex align-items-center justify-content-between mb-5">
+          <h3>Games</h3>
+          <a class="results__options--add" (click)="navigateToGameCreateForm()"
+            >Add</a
+          >
+        </div>
         <div class="results__item" *ngFor="let game of games; index as i">
           <p class="results__title">{{ game.title }}</p>
 

@@ -12,6 +12,7 @@ import { ProfileChangePasswordComponent } from '../../components/profile-change-
 import { GameEditorComponent } from '../../components/game-editor/game-editor.component';
 import { OrdersComponent } from '../../components/orders/orders.component';
 import { GameEditFormComponent } from '../../components/game-edit-form/game-edit-form.component';
+import { GameCreateFormComponent } from '../../components/game-create-form/game-create-form.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { GameEditFormComponent } from '../../components/game-edit-form/game-edit
     GameEditorComponent,
     OrdersComponent,
     GameEditFormComponent,
+    GameCreateFormComponent,
   ],
   imports: [SharedModule, DashboardRoutingModule, ImageCropperModule],
 })

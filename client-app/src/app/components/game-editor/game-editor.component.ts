@@ -40,6 +40,10 @@ export class GameEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  navigateToGameCreateForm() {
+    this._router.navigate(['create'], { relativeTo: this._activateRoute });
+  }
+
   setGame(games: GameDTO[]) {
     const _games = games.map<IGame>((game) => {
       return {

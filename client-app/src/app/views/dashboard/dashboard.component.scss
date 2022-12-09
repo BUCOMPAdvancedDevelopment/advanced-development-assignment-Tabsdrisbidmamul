@@ -70,6 +70,10 @@
         background-color: $dark-blue-gray;
       }
 
+      &--active {
+        background-color: $dark-blue-gray;
+      }
+
       &:first-child:hover {
         border-top-left-radius: $content-borer-radius;
 

@@ -31,8 +31,6 @@ export class GameEditFormComponent implements OnInit, OnDestroy, AfterViewInit {
   categories: { type: string; value: boolean }[] = [];
   index = 0;
   games: IGame[] = [];
-  @ViewChild('largeImage') private largeImageInput!: ElementRef;
-  @ViewChild('smallImage') private smallImageInput!: ElementRef;
 
   gamesEditForm = new FormGroup({
     title: new FormControl('', [Validators.required]),

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GameCreateFormComponent } from 'src/app/components/game-create-form/game-create-form.component';
 import { GameEditFormComponent } from 'src/app/components/game-edit-form/game-edit-form.component';
 import { GameEditorComponent } from 'src/app/components/game-editor/game-editor.component';
 import { OrdersComponent } from 'src/app/components/orders/orders.component';
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'games/edit/:index/:id',
         component: GameEditFormComponent,
+      },
+      {
+        path: 'games/create',
+        component: GameCreateFormComponent,
       },
       {
         path: 'orders',
