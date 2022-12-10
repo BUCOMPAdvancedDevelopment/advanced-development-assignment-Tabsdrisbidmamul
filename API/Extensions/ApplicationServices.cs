@@ -42,7 +42,8 @@ namespace API.Extensions
           policy
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyOrigin();
+            .AllowAnyOrigin()
+            .WithExposedHeaders("WWW-Authenticate");
         });
       });
 

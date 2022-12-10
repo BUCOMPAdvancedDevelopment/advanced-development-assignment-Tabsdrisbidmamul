@@ -25,6 +25,7 @@ export class AuthService extends AgentService {
   private readonly AUTH_URL = 'account/login';
   private readonly SIGNUP_URL = 'account/signup';
   private readonly PASSWORD_CHANGE_URL = 'account/change-password';
+  private readonly REFRESH_TOKEN_URL = 'account/refresh-token';
   private tokenTimerInterval: any;
 
   user$ = new BehaviorSubject<IUserDTO | null>(null);
@@ -41,6 +42,27 @@ export class AuthService extends AgentService {
     }
   }
 
+  refreshToken = () => {
+    this.post<{}, IUserDTO>(this.REFRESH_TOKEN_URL, {})
+      .pipe(catchError(this.handleAuthError), tap(this.handleAuth))
+      .subscribe();
+  };
+
+  private startRefreshTokenTimer(user: IUserDTO) {
+    const jwtToken = JSON.parse(atob(user.token.split('.')[1]));
+
+    const expires = new Date(jwtToken.exp * 1000);
+
+    // 30 second before token expires
+    const timeout = expires.getTime() - Date.now() - 30 * 1000;
+
+    this.tokenTimerInterval = setTimeout(this.refreshToken, timeout);
+  }
+
+  private stopRefreshTokenTimer() {
+    clearTimeout(this.tokenTimerInterval);
+  }
+
   login(loginDto: ILoginDTO) {
     return this.post<ILoginDTO, IUserDTO>(this.AUTH_URL, loginDto).pipe(
       catchError(this.handleAuthError),
@@ -54,7 +76,7 @@ export class AuthService extends AgentService {
     this._router.navigate(['']);
 
     if (this.tokenTimerInterval) {
-      clearInterval(this.tokenTimerInterval);
+      this.stopRefreshTokenTimer();
     }
 
     this.tokenTimerInterval = null;
@@ -79,11 +101,19 @@ export class AuthService extends AgentService {
   }
 
   private handleAuth = (res: string | IUserDTO) => {
-    if (res instanceof String) return;
+    if (res instanceof String || res === null) {
+      console.error('ERROR: user is not authorised ', res);
+      return;
+    }
+
+    if (this.tokenTimerInterval) {
+      this.stopRefreshTokenTimer();
+    }
 
     const _res = res as IUserDTO;
 
     this.storeUser(_res);
+    this.startRefreshTokenTimer(_res);
   };
 
   private storeUser(user: IUserDTO) {
@@ -110,6 +140,19 @@ export class AuthService extends AgentService {
 
   private handleAuthError(err: HttpErrorResponse): Observable<string> {
     let errorMsg = err.error;
+
+    console.log('err.headers ', err.headers);
+
+    if (
+      err.status == 401 &&
+      err.headers.has('www-Authenticate') &&
+      err.headers
+        .get('www-Authenticate')
+        ?.startsWith('Bearer error="invalid_token"')
+    ) {
+      console.log("Token has expired, we're logging the user out");
+      this.logout();
+    }
 
     return throwError(() => errorMsg);
   }
