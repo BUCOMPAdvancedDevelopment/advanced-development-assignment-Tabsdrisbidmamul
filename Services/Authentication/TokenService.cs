@@ -14,6 +14,9 @@ using Services.Interfaces;
 
 namespace Services.Authentication
 {
+  /// <summary>
+  /// Authentication service, JWT tokens are created to authenticate that the user is who they say they are to the application
+  /// </summary>
   public class TokenService : ITokenService
   {
     private readonly IConfiguration _config;
