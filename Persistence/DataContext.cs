@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 
 namespace Persistence
 {
+  /// <summary>
+  /// Table information stored within this class, add any tables that are required within code above OnModelCreating
+  /// </summary>
   public class DataContext : IdentityDbContext<User>
   {
     
@@ -23,6 +26,7 @@ namespace Persistence
     {
       base.OnModelCreating(builder);
 
+      // Set Postgres search indexes
       builder.Entity<Game>()
         .HasGeneratedTsVectorColumn(
           p => p.SearchVector,
@@ -32,6 +36,7 @@ namespace Persistence
         .HasIndex(p => p.SearchVector)
         .HasMethod("GIN");
 
+      // Convert categories from ICollection to List<string>
       builder.Entity<Game>()
         .Property(e => e.Category)
         .HasConversion(
@@ -39,6 +44,7 @@ namespace Persistence
           v => JsonConvert.DeserializeObject<List<string>>(v)
         );
 
+      // cascade deletion for Cover Art records
       builder.Entity<Game>()
         .HasMany(c => c.CoverArt)
         .WithOne()
