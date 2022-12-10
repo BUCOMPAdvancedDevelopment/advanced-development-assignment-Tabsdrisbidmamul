@@ -10,8 +10,11 @@ using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Games
-{
-    public class Single
+{   
+    /// <summary>
+    /// Helper class to return back a single game from the db
+    /// </summary>
+    public sealed class Single
     {
         public class Query: IRequest<Result<Game>>
         {

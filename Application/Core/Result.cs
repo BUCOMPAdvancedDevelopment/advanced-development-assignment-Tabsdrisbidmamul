@@ -4,7 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Core
-{
+{   
+    /// <summary>
+    /// Helper class to wrap all results into an object to determine error or success status of a request
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Result<T>
     {
       public bool IsSuccess { get; set; }

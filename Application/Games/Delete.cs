@@ -10,7 +10,10 @@ using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Games
-{
+{ 
+  /// <summary>
+  /// Helper class to delete a game from the db
+  /// </summary>
   public class Delete
   {
     public class Command: IRequest<Result<Unit>>

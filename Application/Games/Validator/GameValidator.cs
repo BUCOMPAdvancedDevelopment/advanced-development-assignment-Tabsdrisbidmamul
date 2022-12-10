@@ -8,6 +8,9 @@ using FluentValidation;
 
 namespace Application.Games.Validator
 {
+  /// <summary>
+  /// Base class to validate Game properties before adding the game to the db
+  /// </summary>
   public class GameValidator : AbstractValidator<Game>
   {
     public GameValidator()

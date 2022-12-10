@@ -11,6 +11,9 @@ using Persistence;
 
 namespace Application.Games
 {
+  /// <summary>
+  /// Helper class to aggregate all category types and return them as a string array
+  /// </summary>
   public sealed class ListTypes
   {
     public sealed class Query: IRequest<Result<List<string>>>

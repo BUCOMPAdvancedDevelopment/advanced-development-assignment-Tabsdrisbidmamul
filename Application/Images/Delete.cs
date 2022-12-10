@@ -11,6 +11,11 @@ using Services.Interfaces;
 
 namespace Application.Images
 {
+  /// <summary>
+  /// Helper class to remove media from Cloudinry no-sql table
+  /// 
+  /// We get the public id from the token claims that is sent up with every request
+  /// </summary>
   public class Delete
   {
     public class Command: IRequest<Result<Unit>>
@@ -24,6 +29,7 @@ namespace Application.Images
       private readonly ILogger<Result<Unit>> _logger;
       private readonly IUserNameAccessor _userNameAccessor;
       private readonly ICloudinaryPhoto _cloudinaryPhotoService;
+
       public Handler(DataContext context, ILogger<Result<Unit>> logger, IUserNameAccessor userNameAccessor, ICloudinaryPhoto cloudinaryPhoto)
       {
         _logger = logger;

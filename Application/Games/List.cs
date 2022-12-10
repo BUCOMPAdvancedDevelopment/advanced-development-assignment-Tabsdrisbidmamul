@@ -10,7 +10,10 @@ using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Games
-{
+{ 
+  /// <summary>
+  /// Helper class to list all games within the db
+  /// </summary>
   public sealed class List
   {
     public sealed class Query: IRequest<Result<List<Game>>>

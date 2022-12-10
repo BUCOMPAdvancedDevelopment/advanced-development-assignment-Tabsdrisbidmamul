@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Core
-{
+{   
+    /// <summary>
+    /// Helper class to wrap exceptions into usable message
+    /// </summary>
     public sealed class AppException
     {
       public AppException(int statusCode, string message, string details = null)

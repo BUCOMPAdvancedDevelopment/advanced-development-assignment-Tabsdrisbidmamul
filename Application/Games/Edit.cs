@@ -13,7 +13,10 @@ using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Games
-{
+{   
+    /// <summary>
+    /// Helper class to edit a game within the db
+    /// </summary>
     public class Edit
     {
       public class Command: IRequest<Result<Game>>
