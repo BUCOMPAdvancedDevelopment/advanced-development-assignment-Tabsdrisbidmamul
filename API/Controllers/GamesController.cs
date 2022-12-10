@@ -7,6 +7,7 @@ namespace API.Controllers
 {
   public sealed class GamesController : BaseApiController
   {
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
     {
