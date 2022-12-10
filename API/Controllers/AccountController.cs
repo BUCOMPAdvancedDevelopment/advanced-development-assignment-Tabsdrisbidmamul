@@ -128,11 +128,31 @@ namespace API.Controllers
       );
     }
 
+    [Authorize]
+    [HttpPost("refresh-token")]
+    public async Task<ActionResult<UserDTO>> RefreshToken()
+    {
+      var refreshToken = Request.Cookies["refreshToken"];
+
+      var user = await _userManager.Users.Include(r => r.RefreshTokens)
+        .FirstOrDefaultAsync(u => u.UserName == User.FindFirstValue(ClaimTypes.Name));
+      
+      if(user == null) return Unauthorized();
+
+      var oldToken = user.RefreshTokens.SingleOrDefault(u => u.Token == refreshToken);
+
+      if(oldToken != null && !oldToken.IsActive) return Unauthorized();
+
+      return await GenerateUserDTO(user);
+    }
+
     private async Task<UserDTO> GenerateUserDTO(User user)
     {
       var _user =
         await _userManager.Users.Include(u => u.Image)
           .FirstOrDefaultAsync(x => x.Email == user.Email);
+
+      await SetRefreshToken(user);
 
       return new UserDTO
       {
@@ -142,6 +162,22 @@ namespace API.Controllers
         Username = _user.UserName,
         Role = _user.Role
       };
+    }
+
+    private async Task SetRefreshToken(User user)
+    {
+      var refreshToken = _tokenService.CreateRefreshToken();
+
+      user.RefreshTokens.Add(refreshToken);
+      await _userManager.UpdateAsync(user);
+
+      var cookieOpts = new CookieOptions
+      {
+        HttpOnly = true,
+        Expires = DateTime.UtcNow.AddDays(7)
+      };
+
+      Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOpts);
     }
   }
 }
