@@ -12,6 +12,9 @@ using Persistence;
 
 namespace Services.Authorisation
 {
+    /// <summary>
+    /// Claim based authorisation - we place a role into the JWT token, and we check if the user has the role in their db record, if so we will grant them access to role authorisation
+    /// </summary>
     public class IsAdminRequirement: IAuthorizationRequirement
     {
     }
@@ -25,8 +28,14 @@ namespace Services.Authorisation
       {
         _dbContext = dbContext;
       _httpContextAccessor = httpContextAccessor;
-    }
+      }
 
+      /// <summary>
+      /// Grant user access if the user is an admin
+      /// </summary>
+      /// <param name="context"></param>
+      /// <param name="requirement"></param>
+      /// <returns></returns>
       protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsAdminRequirement requirement)
       {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);

@@ -128,7 +128,7 @@ namespace API.Controllers
           var guid = new Guid(id).ToString("N");
           var document = await _firestoreProvider.Get<Review>(guid, cancellationToken);
 
-          if(document == null) return BadRequest("No reviews");
+          if(document == null) return NoContent();
 
           return Ok(document);
         }

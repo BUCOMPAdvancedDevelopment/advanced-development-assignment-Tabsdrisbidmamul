@@ -13,5 +13,6 @@ namespace Domain
         public string DisplayName { get; set; }
         public string Role { get; set; }
         public ProfileImage Image { get; set; }
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

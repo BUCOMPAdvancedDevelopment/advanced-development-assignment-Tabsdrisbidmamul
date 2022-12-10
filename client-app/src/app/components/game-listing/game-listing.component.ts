@@ -85,9 +85,10 @@ export class GameListingComponent implements OnInit, OnDestroy, AfterViewInit {
           return this._reviewService.getReviews(game.id);
         }),
         catchError((error: HttpErrorResponse) => {
-          if (error.status === 400) {
+          if (error.status === 204) {
             this.userDisplayNameAndImageAndReviews = [];
             this.errorMessage = 'No reviews';
+            return of(null);
           }
 
           return throwError(() => 'No reviews');
@@ -118,7 +119,9 @@ export class GameListingComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  storeReviews = (reviews: IReviews) => {
+  storeReviews = (reviews: IReviews | null) => {
+    if (reviews === null) return;
+
     const usernameObservable = reviews.reviews.map((reviews) =>
       this._authService.getUserFromUsername(reviews.username)
     );
