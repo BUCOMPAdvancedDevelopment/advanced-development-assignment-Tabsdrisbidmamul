@@ -7,9 +7,18 @@ using Npgsql;
 using Persistence;
 
 namespace API.Extensions
-{
+{ 
+    /// <summary>
+    /// Postgres SQL connection extension
+    /// </summary>
     public static class Postgres
     {
+        /// <summary>
+        /// Add postgres connection, for GCP - we check if we are in production and add the connection through UNIX socket
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public static IServiceCollection AddPostgress(this IServiceCollection services, IConfiguration config) 
         {
           services.AddDbContext<DataContext>(opt => 

@@ -12,7 +12,10 @@ using API.Models;
 using System.Security.Claims;
 
 namespace API.Controllers
-{
+{   
+    /// <summary>
+    /// Firestore endpoints
+    /// </summary>
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
@@ -25,6 +28,12 @@ namespace API.Controllers
           _firestoreProvider = firestoreProvider;
         }
 
+        /// <summary>
+        /// Adds a review, for a given user from their JWT token claims
+        /// </summary>
+        /// <param name="reviewDTO">Review</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>HTTP status code</returns>
         [HttpPost]
         public async Task<IActionResult> AddReview(ReviewDTO reviewDTO, CancellationToken cancellationToken)
         {
@@ -71,6 +80,12 @@ namespace API.Controllers
           return Ok();
         }
 
+        /// <summary>
+        /// Update a review for a given user from their JWT token claims
+        /// </summary>
+        /// <param name="reviewDTO"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>HTTP status code</returns>
         [HttpPut]
         public async Task<IActionResult> UpdateReview(ReviewDTO reviewDTO, CancellationToken cancellationToken)
         {
@@ -105,7 +120,7 @@ namespace API.Controllers
           return Ok();
 
         }
-
+        
         [HttpDelete]
         public Task<IActionResult> DeleteReviews(string username)
         {
@@ -128,7 +143,7 @@ namespace API.Controllers
           var guid = new Guid(id).ToString("N");
           var document = await _firestoreProvider.Get<Review>(guid, cancellationToken);
 
-          if(document == null) return BadRequest("No reviews");
+          if(document == null) return NoContent();
 
           return Ok(document);
         }

@@ -7,7 +7,10 @@ using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Games
-{
+{   
+    /// <summary>
+    /// Helper class to add a game to the db
+    /// </summary>
     public sealed class Create
     {
       public class Command: IRequest<Result<Game>>

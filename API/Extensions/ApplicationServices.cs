@@ -13,7 +13,10 @@ using API.Models;
 using System.Text.Json;
 
 namespace API.Extensions
-{
+{ 
+  /// <summary>
+  /// Service Extensions for the application - Controllers, CORS, DI services
+  /// </summary>
   public static class ApplicationServices
   {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
@@ -32,6 +35,7 @@ namespace API.Extensions
         config.RegisterValidatorsFromAssemblyContaining<Create>();
       });
 
+      // Add SQL connection
       services.AddPostgress(config);
 
 
@@ -42,11 +46,12 @@ namespace API.Extensions
           policy
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyOrigin();
+            .AllowAnyOrigin()
+            .WithExposedHeaders("WWW-Authenticate");
         });
       });
 
-
+      // Business Services
       services.AddMediatR(typeof(List.Handler).Assembly);
       
       services.AddAutoMapper(typeof(Application.Core.MappingProfiles).Assembly);

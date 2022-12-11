@@ -15,6 +15,11 @@ using Services.Interfaces;
 
 namespace Application.UserProfile
 {
+  /// <summary>
+  /// Helper class to edit User profiles
+  /// 
+  /// Transform request object to be added to user profile record
+  /// </summary>
   public class Edit
   {
     public class Command: IRequest<Result<ProfileEdit>>

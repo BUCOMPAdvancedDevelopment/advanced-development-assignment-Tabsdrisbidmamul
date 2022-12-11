@@ -2,15 +2,16 @@
 
 - Using .NET 6 Web API backend and Angular Frontend
 - Using EF framework - being SQL DB for backend
-- NoSQL DB for blobs
+- Cloudinary Amazon S3 NoSQL DB for media
+- Firestore no sql db for reviews
 
 ## Project Setup
 
 ### prerequisite
 
-- .NET6 6.0.9 runtime
-- Node 16.17.1
-- Docker
+- [.NET6 6.0.9 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- [Node 16.17.1](https://nodejs.org/en/blog/release/v16.17.1/)
+- [Docker](https://docs.docker.com/get-docker/)
 
 ### setting up
 
@@ -65,3 +66,11 @@ The current CI pipeline will build and test dotnet, then follows to upload the a
 Github Actions will run tests to ensure that the build is all okay
 
 The CD pipeline is hooked up to Google Build and builds must be approved before being deployed to Cloud run on a public URL
+
+## Acknowledgements
+
+Backend API was built using this Udemy course (Cummings, N. 2022. Complete guide to building an app with .Net Core and React [online]. Available from: https://www.udemy.com/course/complete-guide-to-building-an-app-with-net-core-and-react/)
+
+Github: https://github.com/TryCatchLearn/Reactivities-v6
+
+Code that used directly has been commented at the top pointing to the repo.

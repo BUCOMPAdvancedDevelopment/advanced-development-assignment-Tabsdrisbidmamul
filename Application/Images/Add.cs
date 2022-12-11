@@ -14,6 +14,11 @@ using Services.Interfaces;
 
 namespace Application.Images
 {
+  /// <summary>
+  /// Helper class to add a new image to a user
+  /// 
+  /// Will take the form and path, and push this onto cloudinary service to create an entry for the new image
+  /// </summary>
   public class Add
   {
     public class Command: IRequest<Result<ProfileImage>> 

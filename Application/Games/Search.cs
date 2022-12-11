@@ -10,8 +10,12 @@ using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Games
-{
-  public class Search
+{ 
+
+  /// <summary>
+  /// Helper class to search terms against game search indices
+  /// </summary>
+  public sealed class Search
   {
     public class Query: IRequest<Result<List<Game>>>
     {

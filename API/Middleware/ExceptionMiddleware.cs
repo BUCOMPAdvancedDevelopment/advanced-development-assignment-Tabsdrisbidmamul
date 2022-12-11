@@ -6,8 +6,13 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Application.Core;
 
+// Taken from: https://github.com/TryCatchLearn/Reactivities-v6/blob/main/API/Middleware/ExceptionMiddleware.cs
+
 namespace API.Middleware
 {
+  /// <summary>
+  /// Error middleware return back the error message in JSON format
+  /// </summary>
   public class ExceptionMiddleware
   {
     private readonly RequestDelegate _next;

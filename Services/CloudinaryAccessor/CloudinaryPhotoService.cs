@@ -12,6 +12,9 @@ using Domain.Models;
 
 namespace Services.CloudinaryAccessor
 {
+  /// <summary>
+  /// Cloudinary service to store all media in no-sql db
+  /// </summary>
   public class CloudinaryPhotoService : ICloudinaryPhoto
   {
     private readonly Cloudinary _cloudinary;
@@ -29,6 +32,13 @@ namespace Services.CloudinaryAccessor
       _cloudinary = new Cloudinary(account);
     }
 
+    /// <summary>
+    /// Helper method to add a photo to the no-sql db
+    /// </summary>
+    /// <param name="file">Image file</param>
+    /// <param name="imageParams">Transformations and folder paths params</param>
+    /// <returns>The image with the public id and url</returns>
+    /// <exception cref="Exception">Upload error</exception>
     private async Task<Image> AddPhoto(IFormFile file, ImageUploadParams imageParams)
     {
       if(file.Length == 0) return null;
@@ -53,6 +63,12 @@ namespace Services.CloudinaryAccessor
 
     }
 
+    /// <summary>
+    /// Add media to Cloudinary
+    /// </summary>
+    /// <param name="file">Media file</param>
+    /// <param name="path">Where to store the media - default location is logo</param>
+    /// <returns></returns>
     public async Task<Image> AddPhoto(IFormFile file, string path = "logo")
     {
       var uploadParams = new ImageUploadParams
@@ -64,6 +80,11 @@ namespace Services.CloudinaryAccessor
       return await AddPhoto(file, uploadParams);
     }
 
+    /// <summary>
+    /// Remove media from Cloudinary db
+    /// </summary>
+    /// <param name="publicId">Public id that is available in all game objects</param>
+    /// <returns>Deletion results</returns>
     public async Task<string> DeletePhoto(string publicId)
     {
       var deleteParams = new DeletionParams(publicId);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
@@ -13,6 +14,9 @@ using Services.Interfaces;
 
 namespace Services.Authentication
 {
+  /// <summary>
+  /// Authentication service, JWT tokens are created to authenticate that the user is who they say they are to the application
+  /// </summary>
   public class TokenService : ITokenService
   {
     private readonly IConfiguration _config;
@@ -20,6 +24,17 @@ namespace Services.Authentication
     public TokenService(IConfiguration config)
     {
       _config = config;
+    }
+
+    public RefreshToken CreateRefreshToken()
+    {
+      var randomNumber = new byte[32];
+      using var rng = RandomNumberGenerator.Create();
+      rng.GetBytes(randomNumber);
+      return new RefreshToken
+      {
+        Token = Convert.ToBase64String(randomNumber)
+      };
     }
 
     public string CreateToken(User user)
@@ -49,7 +64,7 @@ namespace Services.Authentication
       var tokenDescriptor = new SecurityTokenDescriptor
       {
         Subject = new ClaimsIdentity(claims),
-        Expires = DateTime.Now.AddDays(7),
+        Expires = DateTime.UtcNow.AddMinutes(1),
         SigningCredentials = credentials
       };
 
@@ -60,4 +75,6 @@ namespace Services.Authentication
       return tokenHandler.WriteToken(token);
     }
   }
+
+  
 }

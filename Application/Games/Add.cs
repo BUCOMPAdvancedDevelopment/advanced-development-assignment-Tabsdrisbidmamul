@@ -13,6 +13,11 @@ using Services.Interfaces;
 
 namespace Application.Games
 {
+  /// <summary>
+  /// Helper class to add media to a game - requires for the game to exist in the db first
+  /// 
+  /// 
+  /// </summary>
   public class Add
   {
     public class Command: IRequest<Result<CoverArt>> 

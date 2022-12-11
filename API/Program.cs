@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
+// Postgres Datetime hack - use the legacy date time format - which is UTC
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 
+// Add compression to all static files to GZIP encoding
 builder.Services.AddResponseCompression(options =>
 {
   options.Providers.Add<GzipCompressionProvider>();
@@ -33,6 +35,7 @@ var app = builder.Build();
 
 // app.UseHttpsRedirection();
 
+// Middleware 
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseResponseCompression();
@@ -54,6 +57,7 @@ var services = scope.ServiceProvider;
 
 try 
 {
+  // Seed Database 
   var context = services.GetRequiredService<DataContext>();
   var userManager = services.GetRequiredService<UserManager<User>>();
 
@@ -66,6 +70,7 @@ catch (Exception e)
   logger.LogError(e, "An error occured during migration!");
 }
 
+// If app is on GCP expose port 8080
 if(app.Environment.IsProduction()) 
 {
   var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
