@@ -14,11 +14,15 @@ using Services.Authorisation;
 using Services.Interfaces;
 
 namespace API.Extensions
-{
+{ 
+    /// <summary>
+    /// Authroisation and Authentication services
+    /// </summary>
     public static class IdentityServices
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config) 
         {
+          // Add Identity to application
           services.AddIdentityCore<User>(opt =>
           {
             opt.Password.RequireNonAlphanumeric = true;
@@ -33,6 +37,8 @@ namespace API.Extensions
 
           var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
+          // Authentication
+          // JWT additions
           string jwtKey;
 
           if(env == "Development") {
@@ -57,6 +63,7 @@ namespace API.Extensions
               };
             });
 
+          // Authorisation
           services.AddAuthorization(opt => 
           {
             opt.AddPolicy("IsAdmin", policy =>

@@ -17,6 +17,9 @@ using Services.Interfaces;
 
 namespace API.Controllers
 {
+  /// <summary>
+  /// Authenticate and Authorisation endpoints
+  /// </summary>
   [AllowAnonymous]
   [ApiController]
   [Route("api/[controller]")]
@@ -32,6 +35,10 @@ namespace API.Controllers
       _tokenService = tokenService;
     }
 
+    /// <summary>
+    /// Get the current user from their JWT token Claims 
+    /// </summary>
+    /// <returns>User DTO with new JWT token</returns>
     [Authorize]
     [HttpGet]
     public async Task<ActionResult<UserDTO>> GetCurrentUser()
@@ -43,6 +50,11 @@ namespace API.Controllers
       return await GenerateUserDTO(user);
     }
 
+    /// <summary>
+    /// Log the user in, check if the user is in the Identity Table
+    /// </summary>
+    /// <param name="loginDto">email and password</param>
+    /// <returns>User DTO with new JWT token</returns>
     [HttpPost("login")]
     public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDto)
     {
@@ -57,6 +69,11 @@ namespace API.Controllers
       return await GenerateUserDTO(user);
     }
 
+    /// <summary>
+    /// Signup a user to the application
+    /// </summary>
+    /// <param name="signupDTO">email, password, username and display name</param>
+    /// <returns>User DTO with new JWT token</returns>
     [HttpPost("signup")]
     public async Task<ActionResult<UserDTO>> Signup(SignupDTO signupDTO)
     {
@@ -86,6 +103,11 @@ namespace API.Controllers
 
     }
 
+    /// <summary>
+    /// Change the password for the user in the identity table
+    /// </summary>
+    /// <param name="changePasswordDTO">old and new password</param>
+    /// <returns>User DTO with new JWT token</returns>
     [HttpPost("change-password")]
     public async Task<ActionResult<UserDTO>> ChangePassword(ChangePasswordDTO changePasswordDTO)
     {
@@ -109,6 +131,11 @@ namespace API.Controllers
       return await GenerateUserDTO(user);
     }
 
+    /// <summary>
+    /// Get username endpoint - used in reviews
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns>User image and display name</returns>
     [AllowAnonymous]
     [HttpGet("{username}")]
     public async Task<IActionResult> GetUser(string username)
@@ -128,6 +155,10 @@ namespace API.Controllers
       );
     }
 
+    /// <summary>
+    /// Generate a new refresh token just before their current JWT token expires - the refresh token is a randomly generated string hash, and is checked against the stored refresh token in the user record before granting the user a new JWT token
+    /// </summary>
+    /// <returns>User DTO with new JWt token</returns>
     [Authorize]
     [HttpPost("refresh-token")]
     public async Task<ActionResult<UserDTO>> RefreshToken()
@@ -146,6 +177,11 @@ namespace API.Controllers
       return await GenerateUserDTO(user);
     }
 
+    /// <summary>
+    /// Create a new User DTO for the frontend, which contains the JWT token
+    /// </summary>
+    /// <param name="user">The found user in the Identity table</param>
+    /// <returns>User DTO with new JWT token</returns>
     private async Task<UserDTO> GenerateUserDTO(User user)
     {
       var _user =
@@ -164,6 +200,11 @@ namespace API.Controllers
       };
     }
 
+    /// <summary>
+    /// Create and set a new refresh token to the user in the identity table record, and append the token to the HTTP only cookies - so frontend JS cannot tamper with it
+    /// </summary>
+    /// <param name="user">Found user in the Identity table</param>
+    /// <returns></returns>
     private async Task SetRefreshToken(User user)
     {
       var refreshToken = _tokenService.CreateRefreshToken();
