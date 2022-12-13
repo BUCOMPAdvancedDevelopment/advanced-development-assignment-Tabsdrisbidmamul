@@ -7,6 +7,9 @@ import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 import { IUserDTO } from '../../interfaces/user.interface';
 
+/**
+ * Handle profile change
+ */
 @Component({
   selector: 'app-profile-change-password',
   templateUrl: './profile-change-password.component.html',

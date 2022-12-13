@@ -64,6 +64,9 @@ export class GameListingComponent implements OnInit, OnDestroy, AfterViewInit {
     private _basketService: BasketService
   ) {}
 
+  /**
+   * Get the game id from query params, fetch the game from the observable and transform the object
+   */
   ngOnInit(): void {
     const id = this._route.snapshot.params['id'];
 
@@ -150,6 +153,9 @@ export class GameListingComponent implements OnInit, OnDestroy, AfterViewInit {
     return new Array(counter);
   }
 
+  /**
+   * Send review
+   */
   handleSubmit() {
     const review = (this.reviewDescription.nativeElement as HTMLTextAreaElement)
       .value;

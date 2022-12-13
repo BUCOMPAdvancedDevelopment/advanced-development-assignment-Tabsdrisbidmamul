@@ -12,6 +12,9 @@ import { SignupDTO } from 'src/app/interfaces/user.interface';
 import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 
+/**
+ * Sign user up
+ */
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',

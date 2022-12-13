@@ -64,6 +64,9 @@ export class ProfileEditFormComponent
     this.destroy$.complete();
   }
 
+  /**
+   * Send over the edited profile to the api
+   */
   handleOnSubmit() {
     const { displayName } = this.profileForm.value;
 

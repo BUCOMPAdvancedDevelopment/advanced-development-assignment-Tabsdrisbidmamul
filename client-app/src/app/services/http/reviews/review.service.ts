@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { IReviewDTO, IReviews } from 'src/app/interfaces/review.interface';
 import { AgentService } from '../agent/agent.service';
 
+/**
+ * Helper service to get reviews from API
+ */
 @Injectable({
   providedIn: 'root',
 })

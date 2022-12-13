@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IGame } from 'src/app/interfaces/games.interface';
 
+/**
+ * Store and remove basket items to observable
+ */
 @Injectable({
   providedIn: 'root',
 })

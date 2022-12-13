@@ -38,6 +38,9 @@ export class HeroCarouselComponent implements OnInit {
     // this.onResize = debounce(this.onResize, 150, false);
   }
 
+  /**
+   * Get all games and set ip GlideJS
+   */
   ngOnInit(): void {
     this._gameService.gamesList$.subscribe((games) => {
       let deviceType: DeviceType = 'desktop';

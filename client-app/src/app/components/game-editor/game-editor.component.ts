@@ -57,6 +57,10 @@ export class GameEditorComponent implements OnInit, OnDestroy {
     this.games = _games;
   }
 
+  /**
+   * Delete the game, remove the game from the observable, but also send a request to the API
+   * @param index
+   */
   removeGame(index: number) {
     this._commonService.loader$.next(true);
     this._commonService.showSpinner$.next(true);

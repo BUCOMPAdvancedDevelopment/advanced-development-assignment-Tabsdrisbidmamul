@@ -20,6 +20,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private _authService: AuthService) {}
 
+  /**
+   * Subscribe to the user
+   */
   ngOnInit(): void {
     this._authService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       if (user !== null) {

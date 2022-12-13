@@ -10,6 +10,9 @@ import { exhaustMap, Observable, take } from 'rxjs';
 import { Endpoints, _Endpoints } from 'src/app/types/endpoints';
 import { AuthService } from '../auth/auth.service';
 
+/**
+ * Intercept all HTTP calls, and bearer token to each request
+ */
 @Injectable({
   providedIn: 'root',
 })
