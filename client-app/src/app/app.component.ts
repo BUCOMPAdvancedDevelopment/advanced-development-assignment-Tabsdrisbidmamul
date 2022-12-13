@@ -17,6 +17,9 @@ export class AppComponent implements OnInit {
     private _commonService: CommonService
   ) {}
 
+  /**
+   * subscribe to splash screen flag
+   */
   ngOnInit(): void {
     this._authService.autoLogin();
 

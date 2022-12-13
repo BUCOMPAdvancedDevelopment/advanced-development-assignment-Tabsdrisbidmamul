@@ -3,12 +3,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Endpoints } from 'src/app/types/endpoints';
 
+/**
+ * base class for http calls
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class AgentService {
   constructor(protected _http: HttpClient) {}
 
+  /**
+   * Get data from endpoint
+   * @param endpoint
+   * @param useEndpoint
+   * @returns
+   */
   protected get<Type>(endpoint: string, useEndpoint = Endpoints.API) {
     return this._http.get<Type>(endpoint, {
       headers: {
@@ -17,6 +26,13 @@ export class AgentService {
     });
   }
 
+  /**
+   * Put data at endpoint
+   * @param endpoint
+   * @param putData
+   * @param useEndpoint
+   * @returns
+   */
   protected put<Type>(
     endpoint: string,
     putData: Type,
@@ -29,6 +45,13 @@ export class AgentService {
     });
   }
 
+  /**
+   * Patch data at endpoint
+   * @param endpoint
+   * @param patchData
+   * @param useEndpoint
+   * @returns
+   */
   protected patch<Type>(
     endpoint: string,
     patchData: Type,
@@ -41,6 +64,14 @@ export class AgentService {
     });
   }
 
+  /**
+   * Post data at endpoint
+   * @param endpoint
+   * @param postData
+   * @param submitAsForm
+   * @param useEndpoint
+   * @returns
+   */
   protected post<TypeA, TypeB>(
     endpoint: string,
     postData: TypeA,
@@ -66,6 +97,13 @@ export class AgentService {
     return httpCall;
   }
 
+  /**
+   * Delete data at endpoint
+   * @param endpoint
+   * @param id
+   * @param useEndpoint
+   * @returns
+   */
   protected delete<Type>(
     endpoint: string,
     id?: string,

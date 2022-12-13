@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { GameDTO } from 'src/app/interfaces/games.interface';
 import { AgentService } from '../agent/agent.service';
 
+/**
+ * Search for service
+ */
 @Injectable({
   providedIn: 'root',
 })

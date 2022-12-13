@@ -26,6 +26,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     private _searchService: SearchService
   ) {}
 
+  /**
+   * Debounce search, and get back results
+   */
   ngOnInit(): void {
     const query = this._activateRoute.snapshot.params['query'];
 

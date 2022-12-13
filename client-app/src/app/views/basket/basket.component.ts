@@ -16,6 +16,9 @@ export class BasketComponent implements OnInit {
 
   constructor(private _basketService: BasketService) {}
 
+  /**
+   * Subscribe and get all items from the basket and transform them into items that are ready to be viewed to the frontend
+   */
   ngOnInit(): void {
     this._basketService.list
       .pipe(takeUntil(this.destroy$))

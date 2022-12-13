@@ -47,6 +47,9 @@ export class GameEditFormComponent implements OnInit, OnDestroy, AfterViewInit {
     private _activatedRoute: ActivatedRoute
   ) {}
 
+  /**
+   * Get all games, category types and set the types checkbox for said game
+   */
   ngOnInit(): void {
     this._activatedRoute.params.subscribe((params) => {
       this.index = params['index'];
@@ -110,6 +113,9 @@ export class GameEditFormComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  /**
+   * Submit the form as is
+   */
   handleFormSubmit() {
     const { title, description, category, price, link } =
       this.gamesEditForm.value;

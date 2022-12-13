@@ -19,6 +19,9 @@ export class CatalogueComponent implements OnInit, OnDestroy {
     private _gameService: GameService
   ) {}
 
+  /**
+   * Get all games from the resolver pipeline, and transform them
+   */
   ngOnInit(): void {
     this._route.data.subscribe((games) => {
       const gamesDTO = games[0] as GameDTO[];

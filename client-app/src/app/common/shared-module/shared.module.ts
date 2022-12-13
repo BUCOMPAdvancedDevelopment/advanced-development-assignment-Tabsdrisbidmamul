@@ -6,6 +6,9 @@ import { SplashScreenComponent } from 'src/app/components/splash-screen/splash-s
 import { ReactiveFormsModule } from '@angular/forms';
 import { SafePipe } from 'src/app/pipes/URL/safe.pipe';
 
+/**
+ * Shared module for all common declarations for other modules
+ */
 @NgModule({
   declarations: [ImagesPipe, SafePipe, SpinnerComponent, SplashScreenComponent],
   imports: [CommonModule, ReactiveFormsModule],

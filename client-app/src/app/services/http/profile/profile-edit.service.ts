@@ -4,6 +4,9 @@ import { IProfileEdit } from 'src/app/interfaces/profile.interface';
 import { IImage } from 'src/app/interfaces/user.interface';
 import { AgentService } from '../agent/agent.service';
 
+/**
+ * Profile service for user dashboard edits
+ */
 @Injectable({
   providedIn: 'root',
 })

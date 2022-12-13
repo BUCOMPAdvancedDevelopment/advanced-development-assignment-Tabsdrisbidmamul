@@ -34,6 +34,7 @@ export class GameCreateFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // get all category values
     this._gameService
       .getAllCategoryTypes()
       .pipe(takeUntil(this.destroy$))
@@ -47,6 +48,9 @@ export class GameCreateFormComponent implements OnInit {
       });
   }
 
+  /**
+   * Submit the games first as we need the game ids before adding images to them
+   */
   handleFormSubmit() {
     const { title, description, category, price, link } =
       this.gamesEditForm.value;
@@ -162,6 +166,11 @@ export class GameCreateFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Change the values for the checkboxes that are looked at
+   * @param event
+   * @param category
+   */
   onCheckboxChange(event: any, category: any) {
     //@ts-ignore
     const selectedCategory = this.gamesEditForm.controls.category as FormArray;

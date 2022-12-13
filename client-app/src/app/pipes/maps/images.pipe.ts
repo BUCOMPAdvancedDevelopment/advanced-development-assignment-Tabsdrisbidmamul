@@ -1,6 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { IGame } from 'src/app/interfaces/games.interface';
 
+/**
+ * Return back image public id
+ */
 @Pipe({
   name: 'images',
 })

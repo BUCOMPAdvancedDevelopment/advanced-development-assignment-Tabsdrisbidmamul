@@ -5,6 +5,9 @@ import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { IGame } from 'src/app/interfaces/games.interface';
 import { DeviceType } from 'src/app/types/deviceType';
 
+/**
+ * JS SDK to transform images
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -52,6 +55,12 @@ export class CloudinaryService {
       .toURL();
   }
 
+  /**
+   * Image paths are in the original url, however they are further to the end of the string, and to get back a valid URL we need the image path for that to work
+   * @param game
+   * @param isBoxArt
+   * @returns
+   */
   private extractImagePath(game: IGame, isBoxArt = false) {
     let split: string[] = [];
 

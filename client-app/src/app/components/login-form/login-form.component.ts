@@ -6,6 +6,9 @@ import { ILoginDTO, LoginDTO } from 'src/app/interfaces/user.interface';
 import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/http/auth/auth.service';
 
+/**
+ * Log user the in
+ */
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',

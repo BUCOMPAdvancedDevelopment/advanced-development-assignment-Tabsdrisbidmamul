@@ -20,6 +20,9 @@ export class GameListingsComponent implements OnInit, OnDestroy {
     private _cloudinaryService: CloudinaryService
   ) {}
 
+  /**
+   * Get all games
+   */
   ngOnInit(): void {
     if (this.gamesProp.length === 0) {
       this._gameService.gamesList$

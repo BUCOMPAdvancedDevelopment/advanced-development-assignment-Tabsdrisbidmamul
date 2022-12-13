@@ -18,6 +18,9 @@ import {
 } from 'src/app/interfaces/user.interface';
 import { AgentService } from '../agent/agent.service';
 
+/**
+ * Auth class for authentication
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -42,12 +45,19 @@ export class AuthService extends AgentService {
     }
   }
 
+  /**
+   * Get a new JWT token
+   */
   refreshToken = () => {
     this.post<{}, IUserDTO>(this.REFRESH_TOKEN_URL, {})
       .pipe(catchError(this.handleAuthError), tap(this.handleAuth))
       .subscribe();
   };
 
+  /**
+   * Start auto refresh timer
+   * @param user
+   */
   private startRefreshTokenTimer(user: IUserDTO) {
     const jwtToken = JSON.parse(atob(user.token.split('.')[1]));
 
@@ -100,6 +110,11 @@ export class AuthService extends AgentService {
     return this.get<IUserDisplayNameAndImage>(`account/${username}`);
   }
 
+  /**
+   * Get the user from the caller, and store the user in the observable
+   * @param res
+   * @returns
+   */
   private handleAuth = (res: string | IUserDTO) => {
     if (res instanceof String || res === null) {
       console.error('ERROR: user is not authorised ', res);
@@ -138,6 +153,11 @@ export class AuthService extends AgentService {
     }
   }
 
+  /**
+   * Get error from caller, and pass the error message down the pipeline
+   * @param err
+   * @returns
+   */
   private handleAuthError(err: HttpErrorResponse): Observable<string> {
     let errorMsg = err.error;
 

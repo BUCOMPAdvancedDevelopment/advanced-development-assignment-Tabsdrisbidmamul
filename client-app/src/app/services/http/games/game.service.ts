@@ -10,6 +10,9 @@ import {
 } from 'src/app/interfaces/games.interface';
 import { AgentService } from '../agent/agent.service';
 
+/**
+ * Game service to add, edit, delete, put games
+ */
 @Injectable({
   providedIn: 'root',
 })
